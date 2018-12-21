@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/earlyaccess/notosanssc.css');
-@import 'variables.scss';
+@import 'variables';
 
 // layouts
-@import 'layouts/sidebar.scss';
+@import 'layouts/sidebar';
+
+//pages
+@import 'pages/rent';

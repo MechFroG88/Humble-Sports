@@ -2,8 +2,9 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import './assets/scss/layouts/sidebar.scss';
-import '../node_modules/spectre.css/src/spectre.scss'
+import './assets/scss/style.scss';
+import '../node_modules/spectre.css/src/spectre.scss';
+import '../dist/icons/style.css';
 
 Vue.config.productionTip = false;
 
