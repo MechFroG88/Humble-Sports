@@ -1,16 +1,21 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from "vue";
+import Router from "vue-router";
 
 Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/rent',
-      name: 'rent',
-      component: () => import('./pages/rent.vue')
+      path: "/login",
+      name: "login",
+      component: () => import("./pages/login.vue")
+    },
+    {
+      path: "/rent",
+      name: "rent",
+      component: () => import("./pages/rent.vue")
     }
-  ],
+  ]
 });

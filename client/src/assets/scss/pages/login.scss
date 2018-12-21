@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+#_login {
+  display: grid;
+  grid-template-columns: 36% 64%;
+}
+._container {
+  margin-top: 7.2rem;
+  margin-left: 6.25rem;
+}
+
+._block {
+  color: #ea5455;
+  font-weight: 1000;
+  font-size: 32px;
+  text-align: left;
+}
+._block1 {
+  font-size: 36px;
+  margin-top: 5rem;
+  font-weight: 1000;
+  text-align: left;
+}
+._block2 {
+  font-size: 36px;
+  margin-top: 0.5rem;
+  font-weight: 1000;
+  text-align: left;
+}
+._block3 {
+  height: 5.5rem;
+  width: 26.25rem;
+  border: 0.06rem solid #ecedf9;
+  border-radius: 0.1rem;
+}
+.pic {
+  background-color: aqua;
+}
