@@ -1,21 +1,41 @@
-import Vue from "vue";
-import Router from "vue-router";
+import Vue from 'vue';
+import Router from 'vue-router';
 
 Vue.use(Router);
 
 export default new Router({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/login",
-      name: "login",
-      component: () => import("./pages/login.vue")
+      path: '/',
+      redirect: {'name': 'login'}
     },
     {
-      path: "/rent",
-      name: "rent",
-      component: () => import("./pages/rent.vue")
+      path: '/login',
+      name: 'login',
+      component: () => import('./pages/login.vue')
+    },
+    {
+      path: '/rent/',
+      name: 'rent',
+      component: () => import('./pages/homepage.vue'),
+      children: [
+        {
+          path: '',
+          redirect: {'name': 'personal'}
+        },
+        {
+          path: 'personal',
+          name: 'personal',
+          component: () => import('./pages/rent/personal.vue')
+        },
+        {
+          path: 'group',
+          name: 'group',
+          component: () => import('./pages/rent/group.vue')
+        }
+      ]
     }
   ]
 });

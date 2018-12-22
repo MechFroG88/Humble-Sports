@@ -14,13 +14,14 @@
         </div>
       </div>
       <div class="footer">
-        <div>
+        <div class="user c-hand">
           <i class="icon icon-user mr-2"></i>
           董顺忠老师
         </div>
         <div>
-          <i class="icon icon-settings mr-2"></i>
-          <i class="icon icon-log-out ml-2"></i>
+          <i class="icon icon-settings mr-2 c-hand"></i>
+          <i class="icon icon-log-out ml-2 c-hand" 
+          @click="$router.push('/login')"></i>
         </div>
       </div>
     </div>

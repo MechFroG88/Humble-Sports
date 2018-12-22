@@ -1,7 +1,7 @@
 <template>
   <div id="_rent columns">
     <sidebar :data="sidebar">
-      Main page goes here
+      <!-- <router-view/> -->
     </sidebar>
   </div>
 </template>
@@ -17,8 +17,8 @@ export default {
       {
         title: '器材',
         list: [
-          { title: '租借器材 ( 个人 )', target: '/rent' },
-          { title: '租借器材 ( 团队 )', target: '/rent' },
+          { title: '租借器材 ( 个人 )', target: {'name': 'personal'} },
+          { title: '租借器材 ( 团队 )', target: {'name': 'group'}    },
           { title: '管理器材'        , target: '/rent' },
         ]
       },
