@@ -1,7 +1,7 @@
 #_login {
   display: flex;
   .container {
-    margin-top: 4.5rem;
+    margin-top: 4rem;
     margin-left: 3.5rem;
     .block {
       color: $primary-color;
@@ -112,7 +112,9 @@
   }
 
   .pic {
-    background-color: aqua;
+    background-image: url(../Pictures/background-login.jpg);
+    background-size: 111%;
     height: 100vh;
+    opacity: 0.5;
   }
 }
