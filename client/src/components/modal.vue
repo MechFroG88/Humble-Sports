@@ -1,0 +1,38 @@
+<template>
+  <div id="_modal" class="modal" :class="{'active': active}">
+    <a class="modal-overlay" aria-label="Close"
+    @click="active = false"/>
+    <div class="modal-container">
+      <div class="modal-header">
+        <i class="icon icon-x-circle float-right close-button" @click="active = false"
+        v-if="closable"/>
+        <div class="modal-title h3">{{title}}</div>
+      </div>
+      <div class="modal-body">
+        <slot name="body" class="content"/>
+      </div>
+      <div class="modal-footer">
+        <dlot name="footer"/>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    closable: {
+      type: Boolean,
+      default: true
+    },
+    title: String
+  },
+  data: () => ({
+    active: false
+  })
+}
+</script>
+
+<style>
+
+</style>

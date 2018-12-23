@@ -13,9 +13,15 @@
 
 <script>
 import cpTable from '@/components/tables'
+import cmodal from '@/components/confirm-modal'
 export default {
+  mounted() {
+    console.log(this);
+    
+  },
   components: {
-    cpTable
+    cpTable,
+    cmodal
   },
   data: () => ({
     columns: [

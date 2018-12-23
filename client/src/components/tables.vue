@@ -5,7 +5,9 @@
       'hoverable': hoverable
     }">
       <tr class="title" v-if="title">
-        <slot name="title"/>
+        <td>
+          <slot name="title"/>
+        </td>
       </tr>
 
       <tr class="table_columnns">
@@ -15,10 +17,10 @@
 
       <tr v-for="(row, row_num) in data" :key="row_num">
         <td v-for="index in columns.length" :key="index"
-        :class="`col_${field(index)}`">
-          {{row[field(index)]}}
-          <slot :name="field(index)" 
-          v-if="!row[field(index)] && row[field(index)] != ''"/>
+        :class="`col_${columns[index-1].field}`">
+          {{row[columns[index-1].field]}}
+          <slot :name="columns[index-1].field" 
+          v-if="!row[columns[index-1].field] && row[columns[index-1].field] != ''"/>
         </td>
       </tr>
     </table>
@@ -35,11 +37,6 @@ export default {
     striped: Boolean,
     hoverable: Boolean,
     title: Boolean
-  },
-  computed: {
-    field(index) {
-      return this.columns[index-1].field;
-    }
   }
 }
 </script>
