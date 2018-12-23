@@ -1,7 +1,7 @@
 <template>
-  <div id="_rent columns">
-    <sidebar :data="sidebar">
-      <!-- <router-view/> -->
+  <div id="_homepage columns">
+    <sidebar :data="sidebar" username="董顺忠老师">
+      <router-view/>
     </sidebar>
   </div>
 </template>
