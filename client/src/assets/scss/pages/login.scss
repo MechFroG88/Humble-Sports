@@ -112,8 +112,8 @@
   }
 
   .pic {
-    background-image: url(../Pictures/background-login.jpg);
-    background-size: 111%;
+    background-size: cover;
+    background-image: url(../pictures/background-login.jpg);
     height: 100vh;
     opacity: 0.5;
   }
