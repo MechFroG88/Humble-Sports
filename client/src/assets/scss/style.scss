@@ -1,9 +1,14 @@
+// font and variables
 @import url('https://fonts.googleapis.com/earlyaccess/notosanssc.css');
 @import 'variables';
 
 // layouts
 @import 'layouts/sidebar';
 
-//pages
+// components
+@import 'components/tables';
+
+// pages
 @import "pages/login";
 @import 'pages/homepage';
+@import 'pages/rent/personal';
