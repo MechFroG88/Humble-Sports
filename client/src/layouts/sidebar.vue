@@ -16,7 +16,7 @@
       <div class="footer">
         <div class="user c-hand">
           <i class="icon icon-user mr-2"></i>
-          董顺忠老师
+          {{username}}
         </div>
         <div>
           <i class="icon icon-settings mr-2 c-hand"></i>
@@ -34,7 +34,8 @@
 <script>
 export default {
   props: {
-    data: Array
+    data: Array,
+    username: String
   },
   data: () => ({
     active: ''
