@@ -1,6 +1,9 @@
 <template>
   <div id="_personal">
-    <cp-table width="100%" :columns="columns" :data="data">
+    <cp-table width="100%" :columns="columns" :data="data" title>
+      <template slot="title">
+        aslkdjhasld
+      </template>
       <div slot="info">
         asdhasdhasdhasd
       </div>
@@ -26,14 +29,13 @@ export default {
     data: [
       {
         item: 'b',
-        // info: 'a',
+        info: '',
         rent_time: 'c',
         return_time: 'd',
         teacher: 'e',
         status: 'f'
       },
       {
-        info: '1',
         item: '2',
         rent_time: '3',
         return_time: '4',
