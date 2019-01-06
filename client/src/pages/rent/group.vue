@@ -5,7 +5,7 @@
         label
       </div>
       <div slot="title">
-        租借记录 ( 团体 )
+        租借记录:(团体)
       </div>
       </gpTable>
   </div>
