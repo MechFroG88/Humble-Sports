@@ -20,21 +20,21 @@
       margin-top: 2rem;
       display: flex;
       flex-direction: column;
-      border: .05rem solid #ecedf9;
-      border-left: solid .25rem $primary-color;
-      border-radius: .1rem;
+      border: 0.05rem solid #ecedf9;
+      border-left: solid 0.25rem $primary-color;
+      border-radius: 0.1rem;
       .input-label {
         font-size: $font-size-sm;
         font-weight: 400;
         text-align: left;
-        padding-top: .4rem;
-        padding-left: .4rem;
+        padding-top: 0.4rem;
+        padding-left: 0.4rem;
       }
       .username {
         border: none;
-        padding-bottom: .4rem;
-        padding-left: .4rem;
-        border-bottom: .05rem solid #ecedf9;
+        padding-bottom: 0.4rem;
+        padding-left: 0.4rem;
+        border-bottom: 0.05rem solid #ecedf9;
         color: $primary-color;
         &:focus {
           outline: none;
@@ -44,14 +44,14 @@
           align-items: center;
         }
         &::placeholder {
-          font-size: .6rem;
-          color: rgba(0, 0, 0, .25);
+          font-size: 0.6rem;
+          color: rgba(0, 0, 0, 0.25);
         }
       }
       .password {
         border: none;
-        padding-bottom: .4rem;
-        padding-left: .4rem;
+        padding-bottom: 0.4rem;
+        padding-left: 0.4rem;
         color: $primary-color;
         &:focus {
           outline: none;
@@ -61,8 +61,8 @@
           align-items: center;
         }
         &::placeholder {
-          font-size: .6rem;
-          color: rgba(0, 0, 0, .25);
+          font-size: 0.6rem;
+          color: rgba(0, 0, 0, 0.25);
         }
       }
     }
@@ -73,13 +73,13 @@
         display: flex;
         font-size: $font-size-sm;
         font-weight: 500;
-        color: rgba(0, 0, 0, .5);
+        color: rgba(0, 0, 0, 0.5);
       }
       .forgot {
         font-size: $font-size-sm;
-        margin-top: .4rem;
+        margin-top: 0.4rem;
         font-weight: 500;
-        color: rgba(0, 0, 0, .25);
+        color: rgba(0, 0, 0, 0.25);
       }
     }
     .submit {
@@ -89,16 +89,16 @@
       width: 6rem;
       height: 2.25rem;
       border: none;
-      font-size: .65rem;
-      box-shadow: 0 3px 15px rgba($primary-color, .35);
+      font-size: 0.65rem;
+      box-shadow: 0 3px 15px rgba($primary-color, 0.35);
     }
   }
 
   .pic {
     background-size: cover;
     background-position: center;
-    background-image: url('../pictures/background-login.jpg');
+    background-image: url("../pictures/background-login.jpg");
     height: 100vh;
-    opacity: .5;
+    opacity: 0.5;
   }
 }

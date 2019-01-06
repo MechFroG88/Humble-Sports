@@ -1,11 +1,14 @@
 <template>
   <div id="_personal">
     <cp-table width="100%" :columns="columns" :data="data" title>
+      <div slot="info">
+        asdhasdhasdhasd
+      </div>
       <template slot="title">
         aslkdjhasld
       </template>
-      <div slot="info">
-        asdhasdhasdhasd
+      <div slot="status">
+        label
       </div>
     </cp-table>
   </div>
@@ -14,39 +17,30 @@
 <script>
 import cpTable from '@/components/tables'
 import cmodal from '@/components/confirm-modal'
+import { personal } from '@/api/tableColumns'
 export default {
   mounted() {
     console.log(this);
-    
   },
   components: {
     cpTable,
     cmodal
   },
   data: () => ({
-    columns: [
-      { name: '学生资料', field: 'info'        },
-      { name: '借用器材', field: 'item'        },
-      { name: '借出时间', field: 'rent_time'   },
-      { name: '归还时间', field: 'return_time' },
-      { name: '负责老师', field: 'teacher'     },
-      { name: '状态'   , field: 'status'      }
-    ],
+    columns: personal,
     data: [
       {
         item: 'b',
-        info: '',
         rent_time: 'c',
         return_time: 'd',
         teacher: 'e',
-        status: 'f'
+        info: ''
       },
       {
         item: '2',
         rent_time: '3',
         return_time: '4',
-        teacher: '5',
-        status: '6'
+        teacher: '5'
       }
     ]
   })
