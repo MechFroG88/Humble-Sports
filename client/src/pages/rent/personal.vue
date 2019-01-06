@@ -1,6 +1,8 @@
 <template>
   <div id="_personal">
-    <cp-table width="100%" :columns="columns" :data="data" title navbar="搜寻学号或名字">
+    <div class="btn btn-lg btn-primary mb-2" @click="$router.push('/personal/add')">新增</div>
+    <cp-table width="100%" class="mt-2"
+    :columns="columns" :data="data" title navbar="搜寻学号或名字">
       <template slot="title">
         aslkdjhasld
       </template>

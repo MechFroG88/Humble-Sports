@@ -30,6 +30,11 @@ export default new Router({
           component: () => import('./pages/rent/personal.vue')
         },
         {
+          path: ':state/add',
+          name: 'addNew',
+          component: () => import('./pages/rent/addNew.vue')
+        },
+        {
           path: 'group',
           name: 'group',
           component: () => import('./pages/rent/group.vue')
