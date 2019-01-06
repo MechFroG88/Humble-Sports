@@ -1,6 +1,7 @@
 <template>
   <div id="_personal">
-    <cp-table width="100%" :columns="columns" :data="data" title>
+    <cp-table width="100%" :columns="columns" :data="data" 
+    title navbar="搜寻学号或名字">
       <template slot="title">
         aslkdjhasld
       </template>
@@ -17,7 +18,6 @@ import cmodal from '@/components/confirm-modal'
 export default {
   mounted() {
     console.log(this);
-    
   },
   components: {
     cpTable,
