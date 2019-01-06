@@ -25,8 +25,13 @@ export default {
       {
         title: '统计',
         list: [
-          { title: '年月度报表', target: '/rent' },
-          { title: '器材丢失和赔偿', target: '/rent' }  
+          { title: '年月度报表', target: '/rent' }
+        ]
+      },
+      {
+        title: '系统管理',
+        list: [
+          { title: '用户管理', target: '/rent' }
         ]
       }
     ]
