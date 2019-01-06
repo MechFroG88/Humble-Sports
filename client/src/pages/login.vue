@@ -1,30 +1,43 @@
 <template>
   <div id="_login">
     <div class="container col-4">
-      <div class="block">体育处系统</div>
-      <div class="block1">用科技贯穿校园</div>
-      <div class="block2">创造一个数据驱动化的系统</div>
+      <div class="title">体育处系统</div>
+      <div class="slogan">用科技贯穿校园</div>
+      <div class="slogan">创造一个数据驱动化的系统</div>
       <div class="input-group">
-        <label class="block3" for="input-example-1">用户名</label>
-        <input class="block4" type="text" id="input-example-1" placeholder="请输入用户名">
-        <label class="block5" for="input-example-2">密码</label>
-        <input class="block6" type="password" id="input-example-2" placeholder="请输入密码">
+        <label class="input-label" for="username">用户名</label>
+        <input class="username" type="text" id="username" 
+        placeholder="请输入用户名" v-model="username">
+        <label class="input-label" for="password">密码</label>
+        <input class="password" type="password" id="password" 
+        placeholder="请输入密码" v-model="password">
       </div>
       <div class="form-group">
         <label class="form-checkbox">
-          <input type="checkbox">
+          <input type="checkbox" v-model="remember">
           <i class="form-icon"></i> 记住我
         </label>
-        <div class="forgot">忘记密码?</div>
+        <span class="forgot c-hand" @click="forgotPassword()">忘记密码?</span>
       </div>
-      <button class="btn btn-primary" type="submit" @click="$router.push('/rent')">登入</button>
+      <button class="btn btn-primary submit" type="submit" @click="$router.push('/rent')">登入</button>
     </div>
     <div class="pic col-8"></div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data: () => ({
+    username: '',
+    password: '',
+    remember: false,
+  }),
+  methods: {
+    forgotPassword() {
+      alert('forgot password')
+    }
+  }
+};
 </script>
 
 <style>
