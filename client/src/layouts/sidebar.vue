@@ -8,7 +8,10 @@
           <ul>
             <li v-for="item in c.list" :key="item.title"
             :class="{'active': active == item.title}" @click="active = item.title">
-              <router-link :to="item.target" tag="div">{{item.title}}</router-link>
+              <router-link :to="item.target" tag="div">
+                {{item.title}}
+                <span class="link_extender"></span>
+              </router-link>
             </li>
           </ul>
         </div>
