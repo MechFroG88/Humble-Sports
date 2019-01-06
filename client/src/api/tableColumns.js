@@ -7,7 +7,7 @@ export let personal = [
     { name: '状态'   , field: 'status'      }
 ];
 
-export let group=[
+export let group = [
     { name: '团体名称' , field: 'groupname'},
     { name: '负责人'   , field: 'info'},
     { name: '借用器材' , field: 'item'},

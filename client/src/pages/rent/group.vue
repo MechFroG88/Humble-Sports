@@ -1,6 +1,6 @@
 <template>
   <div id="_group">
-    <gpTable width="100%" :columns="columns" :data="data" title >
+    <gpTable width="100%" :columns="columns" :data="data" title > 
       <div slot="status">
         label
       </div>
@@ -30,6 +30,15 @@ export default {
         number:'15',
         teacher:'董顺忠老师',
     },
+    {
+        groupname:'足球学会',
+        info:'Fat Tan',
+        item:'足球',
+        rent_time:'2018 年 7 月 19 日',
+        return_time:'2018 年 7 月 19 日',
+        number:'10',
+        teacher:'董顺忠老师',
+    }
       
     ]
 
