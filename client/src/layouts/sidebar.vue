@@ -1,7 +1,7 @@
 <template>
   <div id="_sidebar">
     <div class="side col-2">
-      <div>
+      <div style="width: 100%; display: flex; flex-direction: column;">
         <span class="title h2">体育处系统</span>
         <div v-for="c in data" :key="c.title" class="section">
           <span class="category_title">{{c.title}}</span>
