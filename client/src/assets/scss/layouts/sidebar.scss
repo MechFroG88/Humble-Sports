@@ -11,7 +11,8 @@
     box-shadow: 0 0 .5rem 0 rgba(0, 0, 0, 0.07);
     border-right: solid .1rem #fbfbfb;
     .title {
-      margin-left: 1.8rem;
+      align-self: flex-start;
+      margin-left: 1.5rem;
       font-weight: 600;
       color: $primary-color;
     }

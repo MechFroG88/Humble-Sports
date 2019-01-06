@@ -1,4 +1,5 @@
 #_table {
+  background-color: #fff;
   border: solid 1px #eaeaea;
   border-radius: .3rem;
   box-shadow: 0px 2px 12px rgba(0, 0, 0, .08);
@@ -6,17 +7,16 @@
     border-collapse: collapse;
     .title {
       td {
-        padding: .8rem 1rem;
-      }
-      .title_name {
-        display: flex;
-        justify-content: flex-start;
-        font-size: 1rem;
-      }
-      .navbar {
+        padding: .8rem 1.2rem;
+        .title_name {
+          float: left;
+          font-size: 1rem;
+        }
         .input-group {
+          float: right;
           input {
             border-color: rgba(#2D4059, .25);
+            border-radius: .15rem;
             &::placeholder {
               color: $text-gray;
               font-size: $font-size-sm;
@@ -36,7 +36,7 @@
       }
       th, td {
         padding: .4rem 0;
-        min-width: 9rem;
+        max-width: 5rem;
       }
     }
   }

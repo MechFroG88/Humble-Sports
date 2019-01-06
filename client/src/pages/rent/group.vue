@@ -1,25 +1,25 @@
 <template>
   <div id="_group">
-    <gpTable width="100%" :columns="columns" :data="data" title > 
+    <gpTable width="100%" :columns="columns" :data="data" title>
       <div slot="status">
         label
       </div>
       <div slot="title">
         租借记录:(团体)
       </div>
-      </gpTable>
+    </gpTable>
   </div>
 </template>
 
 <script>
 import gpTable from '@/components/tables'
-import {group} from '@/api/tableColumns'
+import { group } from '@/api/tableColumns'
 export default {
   components:{
     gpTable
   },
   data:()=>({
-    columns:group,
+    columns: group,
     data:[
       {
         groupname:'篮球学会',
