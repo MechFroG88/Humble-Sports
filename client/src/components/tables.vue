@@ -1,6 +1,8 @@
 <template>
   <div id="_table">
-    <table :style="`width:${width};`" :class="{
+    <table
+      :style="`width:${width};`"
+      :class="{
       'striped': striped,
       'hoverable': hoverable
     }">
@@ -20,16 +22,20 @@
       </tr>
 
       <tr class="table_columnns">
-        <th v-for="column in columns" :key="column.name"
-        :class="`col_${column.name}`">{{column.name}}</th>
+        <th
+          v-for="column in columns"
+          :key="column.name"
+          :class="`col_${column.name}`"
+        >{{column.name}}</th>
       </tr>
 
       <tr v-for="(row, row_num) in data" :key="row_num">
-        <td v-for="index in columns.length" :key="index"
-        :class="`col_${columns[index-1].field}`">
+        <td v-for="index in columns.length" :key="index" :class="`col_${columns[index-1].field}`">
           {{row[columns[index-1].field]}}
-          <slot :name="columns[index-1].field" 
-          v-if="!row[columns[index-1].field] && row[columns[index-1].field] != ''"/>
+          <slot
+            :name="columns[index-1].field"
+            v-if="!row[columns[index-1].field] && row[columns[index-1].field] != ''"
+          />
         </td>
       </tr>
     </table>
@@ -39,7 +45,6 @@
 <script>
 export default {
   props: {
-    title: String,
     columns: Array,
     data: Array,
     width: String,
@@ -48,9 +53,8 @@ export default {
     title: Boolean,
     navbar: String
   }
-}
+};
 </script>
 
 <style>
-
 </style>
