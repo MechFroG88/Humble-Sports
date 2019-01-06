@@ -6,9 +6,18 @@
       'striped': striped,
       'hoverable': hoverable
     }">
-      <tr class="title" v-if="title">
+      <tr class="title" v-if="title" :class="navbar ? 'navbar_title' : ''">
         <td>
-          <slot name="title"/>
+          <div class="title_name">
+            <slot name="title"/>
+          </div>
+        </td>
+        <td :colspan="columns.length - 2"></td>
+        <td class="navbar">
+          <div class="input-group input-inline has-icon-right" v-if="navbar">
+            <input class="form-input" type="text" :placeholder="navbar">
+            <i class="form-icon icon icon-search"></i>
+          </div>
         </td>
       </tr>
 
@@ -41,7 +50,8 @@ export default {
     width: String,
     striped: Boolean,
     hoverable: Boolean,
-    title: Boolean
+    title: Boolean,
+    navbar: String
   }
 };
 </script>

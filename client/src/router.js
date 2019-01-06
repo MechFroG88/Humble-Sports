@@ -18,7 +18,6 @@ export default new Router({
     },
     {
       path: '/rent/',
-      name: 'rent',
       component: () => import('./pages/homepage.vue'),
       children: [
         {

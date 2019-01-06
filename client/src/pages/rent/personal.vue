@@ -1,9 +1,14 @@
 <template>
   <div id="_personal">
+<<<<<<< HEAD
     <cp-table width="100%" :columns="columns" :data="data" title>
       <div slot="info">
         asdhasdhasdhasd
       </div>
+=======
+    <cp-table width="100%" :columns="columns" :data="data" 
+    title navbar="搜寻学号或名字">
+>>>>>>> d8950b18c58338e4ccc10b76315a6deb9c0df393
       <template slot="title">
         aslkdjhasld
       </template>
