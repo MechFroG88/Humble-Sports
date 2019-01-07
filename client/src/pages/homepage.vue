@@ -18,14 +18,15 @@ export default {
         title: '器材',
         list: [
           { title: '租借器材 ( 个人 )', target: {'name': 'personal'} },
-          { title: '租借器材 ( 团队 )', target: {'name': 'group'}    },
-          { title: '管理器材'        , target: '/rent' },
+          { title: '租借器材 ( 团队 )', target: {'name': 'group'} },
+          { title: '管理器材'       , target: '/management'}
         ]
       },
       {
         title: '统计',
         list: [
-          { title: '年月度报表', target: '/rent' }
+          { title: '年月度报表',     target: '/rent' },
+          { title: '器材丢失和赔偿', target:'/rent'}
         ]
       },
       {
