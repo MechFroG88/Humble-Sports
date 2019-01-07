@@ -1,6 +1,6 @@
 <template>
   <div id="_management">
-    <mg-table width="100%" :columns="columns" :data="data" title>
+    <mg-table width="40%" :columns="columns" :data="data" title>
       <div slot="record">
         icon
       </div>
@@ -13,10 +13,12 @@
 
 <script>
 import mgTable from '@/components/tables'
+import sidebar from '@/layouts/sidebar'
 import { management } from '@/api/tableColumns'
 export default {
   components:{
-    mgTable
+    mgTable,
+    sidebar
   },
   data:()=>({
     columns: management,
