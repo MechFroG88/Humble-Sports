@@ -7,18 +7,37 @@
         icon
       </div>
       <div slot="title">
-        `器材管理`
+        器材管理
       </div>
     </mg-table>
-    <cpModal ref="add" title="新增器材" closable>
+    <cpModal ref="add" title="新增器材" size="lg" closable>
       <div slot="body">
         <form class="form-horizontal">
-          <div class="form-group" v-if="$route.params.state === 'group'">
+          <div class="item h5 mt-2 mb-2">器材资料</div>
+          <div class="form-group">
             <div class="col-2 col-sm-12">
-              <label class="form-label" for="group_name">名称：</label>
+              <label class="form-label" for="type">种类：</label>
             </div>
             <div class="col-10 col-sm-12">
-              <input class="form-input" type="text" id="group_name" placeholder="名称">
+              <input class="form-input" type="text" id="type">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-2 col-sm-12">
+              <label class="form-label" for="type">编号：</label>
+            </div>
+            <div class="col-10 col-sm-12" style="display: flex; align-items: center;">
+              <input class="form-input mr-2" type="text" id="type">
+              至
+              <input class="form-input ml-2" type="text" id="type">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-2 col-sm-12">
+              <label class="form-label" for="type">种类：</label>
+            </div>
+            <div class="col-10 col-sm-12">
+              <input class="form-input" type="text" id="type" placeholder="种类">
             </div>
           </div>
         </form>
