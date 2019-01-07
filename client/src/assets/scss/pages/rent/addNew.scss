@@ -1,0 +1,22 @@
+#_addNew {
+  padding: 2rem 0;
+  margin: 0 auto;
+  width: 40%;
+  text-align: left;
+  .modal-header {
+    margin-bottom: 1.8rem;
+    .icon {
+      border: solid .08rem #cbcbcb;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      padding-right: .1rem;
+      color: #cbcbcb;
+    }
+  }
+  .modal-body .content {
+    label {
+      font-size: $font-size-sm;
+      font-weight: 700;
+    }
+  }
+}
