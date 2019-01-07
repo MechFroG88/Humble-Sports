@@ -33,8 +33,14 @@ export default new Router({
           path: 'group',
           name: 'group',
           component: () => import('./pages/rent/group.vue')
-        }
+        },
+        {
+          path: '/management',
+          name: 'management',
+          component: () => import('./pages/management.vue')
+        },
       ]
-    }
+    },
+   
   ]
 });
