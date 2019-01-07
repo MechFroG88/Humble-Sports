@@ -1,6 +1,14 @@
 <template>
   <div id="_group">
-    <gpTable width="100%" :columns="columns" :data="data" title>
+    <div class="btn btn-lg btn-primary mb-2" 
+    @click="$router.push({
+      'name': 'addNew',
+      'params': {
+        'state': 'group'
+      }
+    })">新增</div>
+    <gpTable class="mt-2" width="100%" 
+    :columns="columns" :data="data" title navbar="搜寻学号或名字">
       <div slot="status">
         label
       </div>
@@ -30,6 +38,15 @@ export default {
         number:'15',
         teacher:'董顺忠老师',
     },
+    {
+        groupname:'足球学会',
+        info:'Fat Tan',
+        item:'足球',
+        rent_time:'2018 年 7 月 19 日',
+        return_time:'2018 年 7 月 19 日',
+        number:'10',
+        teacher:'董顺忠老师',
+    }
       
     ]
 

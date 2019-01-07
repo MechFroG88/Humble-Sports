@@ -33,13 +33,18 @@ export default new Router({
           path: 'group',
           name: 'group',
           component: () => import('./pages/rent/group.vue')
-        },,
+        },
         {
           path: ':state/add',
           name: 'addNew',
           component: () => import('./pages/rent/addNew.vue')
         }
       ]
-    }
+    },
+    {
+      path: '/management',
+      name: 'management',
+      component: () => import('./pages/itemmanagement/management.vue')
+    },
   ]
 });
