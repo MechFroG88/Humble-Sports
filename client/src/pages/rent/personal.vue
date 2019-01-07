@@ -1,6 +1,12 @@
 <template>
   <div id="_personal">
-    <div class="btn btn-lg btn-primary mb-2" @click="$router.push('/personal/add')">新增</div>
+    <div class="btn btn-lg btn-primary mb-2" 
+    @click="$router.push({
+      'name': 'addNew',
+      'params': {
+        'state': 'personal'
+      }
+    })">新增</div>
     <cp-table width="100%" class="mt-2"
     :columns="columns" :data="data" title navbar="搜寻学号或名字">
       <template slot="title">
@@ -18,9 +24,6 @@ import cpTable from '@/components/tables'
 import cmodal from '@/components/confirm-modal'
 import { personal } from '@/api/tableColumns'
 export default {
-  mounted() {
-    console.log(this);
-  },
   components: {
     cpTable,
     cmodal
