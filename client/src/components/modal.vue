@@ -12,7 +12,7 @@
         <slot name="body" class="content"/>
       </div>
       <div class="modal-footer">
-        <dlot name="footer"/>
+        <slot name="footer"/>
       </div>
     </div>
   </div>
