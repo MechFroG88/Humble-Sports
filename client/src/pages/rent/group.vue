@@ -1,6 +1,14 @@
 <template>
   <div id="_group">
-    <gpTable width="100%" :columns="columns" :data="data" title>
+    <div class="btn btn-lg btn-primary mb-2" 
+    @click="$router.push({
+      'name': 'addNew',
+      'params': {
+        'state': 'group'
+      }
+    })">新增</div>
+    <gpTable class="mt-2" width="100%" 
+    :columns="columns" :data="data" title navbar="搜寻学号或名字">
       <div slot="status">
         label
       </div>
