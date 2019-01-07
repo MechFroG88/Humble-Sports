@@ -2,7 +2,9 @@
   <div id="_management">
     <mg-table width="40%" :columns="columns" :data="data" title>
       <div slot="record">
-        icon
+        <i class="icon icon-external-link" @click="$router.push({
+            'name':'management_details'
+          })" ></i> 
       </div>
       <div slot="title">
         器材管理
@@ -13,12 +15,10 @@
 
 <script>
 import mgTable from '@/components/tables'
-import sidebar from '@/layouts/sidebar'
 import { management } from '@/api/tableColumns'
 export default {
   components:{
     mgTable,
-    sidebar
   },
   data:()=>({
     columns: management,

@@ -21,7 +21,7 @@ export default {
         list: [
           { title: '租借器材 ( 个人 )', target: {'name': 'personal'} },
           { title: '租借器材 ( 团队 )', target: {'name': 'group'} },
-          { title: '管理器材'       , target: {'name': 'management'} }
+          { title: '管理器材'       , target: {'name': 'management'} },
         ]
       },
       {

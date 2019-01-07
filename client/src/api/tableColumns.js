@@ -23,3 +23,12 @@ export let management = [
     { name: '编号'   , field: 'serialnumber'},
     { name: '记录' , field: 'record'}
 ]
+
+export let details = [
+    { name: '编号' , field: 'serialnumber'},
+    { name: '学生/团体'   , field: 'name'},
+    { name: '借出时间' , field: 'rent_time'},
+    { name: '归还时间' , field: 'return_time'},
+    { name: '负责老师' , field: 'teacher'},
+    { name: '状态'     , field: 'status'}
+]
