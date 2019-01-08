@@ -1,6 +1,27 @@
 #_management {
-  .btn {
-    margin-bottom: 3.8rem;
-    @extend .addBtn
+  #_modal .modal-container {
+    width: 100%;
+    .modal-body {
+      width: 50%;
+      .form-horizontal {
+        .type, .serial, .price {
+          .col-9 {
+            display: flex; 
+            align-items: center;
+          }
+        }
+      }
+    }
+
+    .modal-footer {
+      display: flex;
+      flex-direction: row-reverse;
+      padding: 0 1.2rem 1.5rem;
+      .btn {
+        width: 5rem !important;
+        font-size: $font-size-sm;
+        @extend .addBtn 
+      }
+    }
   }
 }

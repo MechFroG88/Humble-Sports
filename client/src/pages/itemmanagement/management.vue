@@ -1,6 +1,7 @@
 <template>
   <div id="_management">
-    <div class="btn btn-lg btn-primary" 
+    <div class="btn btn-lg btn-primary addBtn" 
+    style="margin-bottom: 3.8rem;"
     @click="$refs.add.active = true">新增</div>
     <mg-table width="40%" :columns="columns" :data="data" title>
       <div slot="record">
@@ -12,38 +13,41 @@
         器材管理
       </div>
     </mg-table>
-    <cpModal ref="add" title="新增器材" size="lg" closable>
+    <cpModal ref="add" title="新增器材" closable>
       <div slot="body">
         <form class="form-horizontal">
-          <div class="item h5 mt-2 mb-2">器材资料</div>
-          <div class="form-group">
-            <div class="col-2 col-sm-12">
+          <div class="item h5 mb-2">器材资料</div>
+          <div class="form-group type">
+            <div class="col-3 col-sm-12">
               <label class="form-label" for="type">种类：</label>
             </div>
-            <div class="col-10 col-sm-12">
-              <input class="form-input" type="text" id="type">
+            <div class="col-9 col-sm-12">
+              <input class="form-input input-sm" type="text" id="type">
             </div>
           </div>
-          <div class="form-group">
-            <div class="col-2 col-sm-12">
-              <label class="form-label" for="type">编号：</label>
+          <div class="form-group serial">
+            <div class="col-3 col-sm-12">
+              <label class="form-label" for="serial">编号：</label>
             </div>
-            <div class="col-10 col-sm-12" style="display: flex; align-items: center;">
-              <input class="form-input mr-2" type="text" id="type">
+            <div class="col-9 col-sm-12">
+              <input class="form-input input-sm mr-2" type="text" id="serial">
               至
-              <input class="form-input ml-2" type="text" id="type">
+              <input class="form-input input-sm ml-2" type="text" id="serial">
             </div>
           </div>
-          <div class="form-group">
-            <div class="col-2 col-sm-12">
-              <label class="form-label" for="type">种类：</label>
+          <div class="form-group price">
+            <div class="col-3 col-sm-12">
+              <label class="form-label" for="price">价钱：</label>
             </div>
-            <div class="col-10 col-sm-12">
-              <input class="form-input" type="text" id="type" placeholder="种类">
+            <div class="col-9 col-sm-12">
+              <input class="form-input input-sm" type="price" id="price">
             </div>
           </div>
         </form>
       </div>
+
+      <div slot="footer" class="btn btn-lg btn-primary"
+      @click="add()">新增</div>
     </cpModal>
   </div>
 </template>
@@ -72,9 +76,13 @@ export default {
         name:'排球',
         serialnumber:'1-12',
       }
-
-      ]
-  })
+    ]
+  }),
+  methods: {
+    add() {
+      this.$refs.add.active = false
+    }
+  }
 }
 </script>
 
