@@ -15,11 +15,13 @@
 @import 'pages/rent/main';
 @import 'pages/rent/addNew';
 @import 'pages/item_management/management';
+@import 'pages/item_management/details';
 
 // add button
 .addBtn {
   width: 4rem;
   border-radius: .15rem;
-  font-size: $font-size;
+  font-size: $font-size !important;
+  margin-bottom: 1.8rem;
   box-shadow: 0 .1rem .5rem 0 rgba($primary-color, .5);
 }
