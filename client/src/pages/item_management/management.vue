@@ -5,7 +5,7 @@
     @click="$refs.add.active = true">新增</div>
     <mg-table width="40%" :columns="columns" :data="data" title>
       <div slot="record">
-        <i class="icon icon-external-link" @click="$router.push({
+        <i class="icon icon-external-link c-hand" @click="$router.push({
             'name':'management_details'
           })" ></i> 
       </div>
@@ -45,7 +45,6 @@
           </div>
         </form>
       </div>
-
       <div slot="footer" class="btn btn-lg btn-primary"
       @click="add()">新增</div>
     </cpModal>
@@ -67,14 +66,17 @@ export default {
       {
         name:'篮球',
         serialnumber:'1-12',
+        price: '16.00'
       },
       {
         name:'足球',
+        price: '18.00',
         serialnumber:'1-12',
       },
       {
         name:'排球',
         serialnumber:'1-12',
+        price: '12.00'
       }
     ]
   }),

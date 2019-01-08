@@ -1,4 +1,14 @@
 #_management {
+  #_table {
+    .col_record {
+      .icon {
+        font-size: $font-size-lg;
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+  }
   #_modal .modal-container {
     width: 100%;
     .modal-body {
