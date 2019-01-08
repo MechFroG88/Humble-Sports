@@ -13,6 +13,23 @@
         器材管理
       </div>
     </mg-table>
+
+    <div class="expired">
+      <h5 style="font-weight: 400;">器材逾期</h5>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <div class="col-3 col-sm-12">
+            <label class="form-label" for="price">罚款金额：</label>
+          </div>
+          <div class="col-9 col-sm-12">
+            <input class="form-input mr-2" type="number" id="price">
+            / 天
+          </div>
+        </div>
+        <div class="btn btn-lg btn-primary" type="submit">储存</div>
+      </form>
+    </div>
+
     <cpModal ref="add" title="新增器材" closable>
       <div slot="body">
         <form class="form-horizontal">
@@ -40,7 +57,7 @@
               <label class="form-label" for="price">价钱：</label>
             </div>
             <div class="col-9 col-sm-12">
-              <input class="form-input input-sm" type="price" id="price">
+              <input class="form-input input-sm" type="number" id="price">
             </div>
           </div>
         </form>
