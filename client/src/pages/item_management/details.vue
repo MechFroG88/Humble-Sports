@@ -1,5 +1,10 @@
 <template>
   <div id="_details">
+    <div class="btn btn-lg btn-primary addBtn" 
+    style="margin-bottom: 3.8rem;"
+    @click="$router.push('/management')">
+      <i class="icon icon-chevron-left mr-1"></i>返回
+    </div>
     <dtTable width="100%" :columns="columns" :data="data" title>
       <div slot="status">
         label
