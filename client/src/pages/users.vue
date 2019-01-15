@@ -5,6 +5,7 @@
     @click="$refs.add.active = true">新增</div>
 
     <userTable title :columns="users" :data="data" width="40">
+      <div slot="title">用户管理</div>
       <div slot="privilege" class="form-group">
         <select class="form-select">
           <option selected disabled>请选择权限</option>
@@ -12,17 +13,21 @@
           <option>老师</option>
         </select>
       </div>
-      <div slot="action" class="btn btn-primary addBtn" style="margin-bottom: 0; margin: 0 auto;">asdasdas</div>
+      <div slot="action" class="btn btn-primary addBtn">删除</div>
     </userTable>
   </div>
 </template>
 
 <script>
 import userTable from '@/components/tables'
+import modal from '@/components/modal'
+import cmodal from '@/components/confirm-modal'
 import { users } from '@/api/tableColumns'
 export default {
   components: {
-    userTable
+    userTable,
+    modal,
+    cmodal
   },
   data: () => ({
     users: users,
