@@ -6,8 +6,8 @@
         <div v-for="c in data" :key="c.title" class="section">
           <span class="category_title">{{c.title}}</span>
           <ul>
-            <li v-for="item in c.list" :key="item.title"
-            :class="{'active': active == item.title}" @click="active = item.title">
+            <li v-for="(item, index) in c.list" :key="item.title"
+            :class="{'active': active == item.target.name}" @click="active = item.target.name">
               <router-link :to="item.target" tag="div">
                 {{item.title}}
                 <span class="link_extender"></span>
@@ -22,7 +22,8 @@
           {{username}}
         </div>
         <div>
-          <i class="icon icon-settings mr-2 c-hand"></i>
+          <i class="icon icon-settings mr-2 c-hand"
+          @click="$router.push('/settings')"></i>
           <i class="icon icon-log-out ml-2 c-hand" 
           @click="$router.push('/login')"></i>
         </div>
@@ -41,10 +42,16 @@ export default {
     username: String
   },
   data: () => ({
-    active: ''
+    active: '',
+    targets: []
   }),
   mounted() {
-    this.active = this.data[0].list[0].title;
+    this.active = this.data[0].list[0].target.name;
+  },
+  watch: {
+    $route(to, from) {
+      this.active = to.name
+    }
   }
 }
 </script>
