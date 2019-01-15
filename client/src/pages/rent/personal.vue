@@ -7,7 +7,7 @@
       'state': 'personal'
       }
     })">新增</div>
-    <cp-table width="100%" class="mt-2"
+    <cp-table width="100" class="mt-2"
     :columns="columns" :data="data" title navbar="搜寻学号或名字">
       <template slot="title">
         aslkdjhasld
