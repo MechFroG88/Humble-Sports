@@ -6,7 +6,7 @@
         <div v-for="c in data" :key="c.title" class="section">
           <span class="category_title">{{c.title}}</span>
           <ul>
-            <li v-for="(item, index) in c.list" :key="item.title"
+            <li v-for="item in c.list" :key="item.title"
             :class="{'active': active == item.target.name}" @click="active = item.target.name">
               <router-link :to="item.target" tag="div">
                 {{item.title}}
