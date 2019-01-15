@@ -17,6 +17,11 @@ export default new Router({
       component: () => import('./pages/login.vue')
     },
     {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('./pages/settings.vue')
+    },
+    {
       path: '/rent/',
       component: () => import('./pages/homepage.vue'),
       children: [
