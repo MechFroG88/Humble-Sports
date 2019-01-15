@@ -33,3 +33,9 @@ export let details = [
     { name: '负责老师' , field: 'teacher'     },
     { name: '状态'    , field: 'status'      }
 ]
+
+export let users = [
+    { name: '名字', field: 'name'      },
+    { name: '权限', field: 'privilege' },
+    { name: '操作', field: 'action'    }
+]

@@ -56,5 +56,10 @@ export default new Router({
       name: 'management_details',
       component: () => import('./pages/item_management/details.vue')
     },
+    {
+      path: '/users',
+      name: 'users',
+      component: () => import('./pages/users.vue')
+    }
   ]
 });
