@@ -74,9 +74,9 @@
         </form>
       </div>
     </div>
-    <!-- <div class="modal-footer">
-      ...
-    </div> -->
+    <div class="modal-footer">
+      <div class="btn btn-lg btn-primary">借出</div>
+    </div>
   </div>
 </template>
 
