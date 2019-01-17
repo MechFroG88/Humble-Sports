@@ -35,10 +35,15 @@
       &:first-child {
         border: none;
       }
-      th, td {
+      td {
         padding: .4rem 0;
         max-width: 5rem;
       }
+    }
+
+    .table_columns td {
+      font-weight: 300;
+      color: lighten($text-gray, 8%);
     }
   }
 

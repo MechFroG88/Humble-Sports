@@ -19,11 +19,11 @@
       </tr>
 
       <tr class="table_columns">
-        <th
+        <td
           v-for="column in columns"
           :key="column.name"
           :class="`col_${column.field}`"
-        >{{column.name}}</th>
+        >{{column.name}}</td>
       </tr>
 
       <tr v-for="(row, row_num) in data" :key="row_num" :class="`row row_${row_num}`">
