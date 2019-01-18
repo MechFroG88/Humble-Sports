@@ -5,18 +5,44 @@
   text-align: left;
   .modal-header {
     margin-bottom: 1.8rem;
-    .icon {
-      border: solid .08rem #cbcbcb;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      padding-right: .1rem;
-      color: #cbcbcb;
+    .link {
+      &:hover .icon {
+        color: darken(#cbcbcb, 15%);
+        border-color: darken(#cbcbcb, 15%);
+        font-size: 1.1rem;
+        margin-top: 0.05rem;
+        margin-right: 0.05rem;
+        transition-duration: 155ms;
+      }
+      .icon {
+        border: solid .08rem #cbcbcb;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        padding-right: .1rem;
+        color: #cbcbcb;
+      }
     }
   }
   .modal-body .content {
     label {
       font-size: $font-size-sm;
       font-weight: 700;
+    }
+    .h5 {
+      margin-top: 1.2rem;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    .btn {
+      margin-top: 1.5rem;
+      margin-bottom: 0 !important;
+      @extend .addBtn
     }
   }
 }

@@ -4,7 +4,7 @@
     @click="$router.push({
       'name': 'addNew',
       'params': {
-        'state': 'personal'
+      'state': 'personal'
       }
     })">新增</div>
     <cp-table width="100%" class="mt-2"
