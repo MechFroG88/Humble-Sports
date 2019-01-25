@@ -1,0 +1,260 @@
+
+swagger: "2.0"
+
+info:
+  version: '1'
+  description: "A chkl sport department content management system."
+  title: "Humble-Sports"
+externalDocs:
+  description: "Github"
+  url: "https://github.com/MechFroG88/Humble-Sports/"
+host:
+  mechfrog88.ddns.net
+basePath:
+  /api
+schemes:
+- "http"
+- "https"
+paths:
+  /user:
+    post:
+      tags:
+      - "Users"
+      summary: "Create new user"
+      parameters:
+      - in: "body"
+        name: "Body"
+        description: "Create new user"
+        schema:
+          $ref: "#/definitions/UserPost"
+
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              password:
+                type : "string"
+                example : "asdasdasd"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+    get:
+      tags:
+      - "Users"
+      summary: "Get all users data"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UserGet"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /user/{userId}/password:
+    put:
+      tags:
+      - "Users"
+      summary: "Update user password"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "ID of user to update"
+        required: true
+        type: "integer"
+      - name: "body"
+        in: "body"
+        schema:
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+              example: "1"
+            password:
+              type: "string"
+              example: "aerdtfgvb"
+
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+  /user/login:
+    post:
+      tags:
+      - "Users"
+      summary : "Login"
+      parameters:
+      - in: "body"
+        name: "Body"
+        description: "Login user"
+        schema:
+          type: "object"
+          properties:
+            username:
+              type: "string"
+              example: "hello"
+            password:
+              type: "string"
+              example: "asdyughsakjdn"
+
+      responses:
+        200:
+          description: "Successful logged in"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /user/logout:
+    post:
+      tags:
+      - "Users"
+      summary : "Logout"
+      parameters:
+      - in: "body"
+        name: "Body"
+        description: "Login user"
+        schema:
+          type: "object"
+          properties:
+            userid:
+              type: "integer"
+              example: "1"
+
+      responses:
+        200:
+          description: "Successful logged out"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+      
+  /user/{userId}:
+    get:
+      tags:
+      - "Users"
+      summary: "Get single user data"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "ID of user to return"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/UserGet"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+    put:
+      tags:
+      - "Users"
+      summary: "Update user type"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "ID of user to update"
+        required: true
+        type: "integer"
+      - name: "body"
+        in: "body"
+        schema:
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+              example: "1"
+            type:
+              type: "integer"
+              description: "User type\n
+              0 : administrator\n
+              1 : user"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              cnname:
+                type: "string"
+                example: "陈科锦"
+              type:
+                type: "integer"
+                description: "User type\n
+                0 : administrator\n
+                1 : user"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+    delete:
+      tags:
+      - "Users"
+      summary: "Delete user"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "ID of user to delete"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+          
+    
+definitions:
+  UserPost:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+        example: "admin"
+      cn_name:
+        type: "string"
+        example: "陈科锦"
+      password:
+        type: "string"
+        example: "edrtfyuihgfdtser"
+      type:
+        type: "integer"
+        description: "User type\n
+        0 : administrator\n
+        1 : user"
+  UserGet:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        example: "1"
+      cn_name:
+        type: "string"
+        example: "陈科锦"
+      type:
+        type: "integer"
+        description: "User type\n
+        0 : administrator\n
+        1 : user"
+    
+
