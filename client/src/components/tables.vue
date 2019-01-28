@@ -1,7 +1,7 @@
 <template>
   <div id="_table">
     <table
-      :style="`width:${width};`"
+      :style="`width:${width}%;`"
       :class="{
       'striped': striped,
       'hoverable': hoverable
@@ -44,11 +44,18 @@ export default {
   props: {
     columns: Array,
     data: Array,
-    width: String,
+    width: {
+      type: [Number, String],
+      default: 100
+    },
     striped: Boolean,
     hoverable: Boolean,
     title: Boolean,
     navbar: String
+  },
+  mounted() {
+    console.log(this.width);
+    
   }
 };
 </script>
