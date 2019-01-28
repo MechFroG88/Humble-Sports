@@ -13,8 +13,10 @@
           <option>老师</option>
         </select>
       </div>
-      <div slot="action" class="btn btn-primary addBtn">删除</div>
+      <div slot="action" class="btn btn-primary addBtn" @click="confirm">删除</div>
     </userTable>
+    <cmodal ref="confirm_modal">
+    </cmodal>
   </div>
 </template>
 
@@ -39,7 +41,12 @@ export default {
         name: 'XXX'
       }
     ]
-  })
+  }),
+  methods: {
+    confirm() {
+      this.$refs.confirm_modal.active = true;
+    }
+  }
 }
 </script>
 
