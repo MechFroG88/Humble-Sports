@@ -15,6 +15,24 @@
       </div>
       <div slot="action" class="btn btn-primary addBtn" @click="confirm">删除</div>
     </userTable>
+
+    <modal ref="add" title="添加用户">
+      <div slot="body">
+        <div class="form-group">
+          <label class="form-label" for="name">name</label>
+          <input class="form-input" type="text" id="name" placeholder="Name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="input-example-1">Name</label>
+          <input class="form-input" type="text" id="input-example-1" placeholder="Name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="input-example-1">Name</label>
+          <input class="form-input" type="text" id="input-example-1" placeholder="Name">
+        </div>
+      </div>
+    </modal>
+
     <cmodal ref="confirm_modal" title="确认删除用户">
     </cmodal>
   </div>

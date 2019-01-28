@@ -52,10 +52,6 @@ export default {
     hoverable: Boolean,
     title: Boolean,
     navbar: String
-  },
-  mounted() {
-    console.log(this.width);
-    
   }
 };
 </script>
