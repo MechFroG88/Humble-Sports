@@ -32,4 +32,13 @@ export let details = [
     { name: '归还时间' , field: 'return_time' },
     { name: '负责老师' , field: 'teacher'     },
     { name: '状态'    , field: 'status'      }
+<<<<<<< HEAD
+=======
+]
+
+export let users = [
+    { name: '名字', field: 'name'      },
+    { name: '权限', field: 'privilege' },
+    { name: '操作', field: 'action'    }
+>>>>>>> cac920053ac7460ca7742986e03e9c2bf22ff50b
 ]

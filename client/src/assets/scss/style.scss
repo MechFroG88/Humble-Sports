@@ -16,6 +16,10 @@
 @import 'pages/rent/addNew';
 @import 'pages/item_management/management';
 @import 'pages/item_management/details';
+<<<<<<< HEAD
+=======
+@import 'pages/users';
+>>>>>>> cac920053ac7460ca7742986e03e9c2bf22ff50b
 
 // add-button
 .addBtn {
@@ -31,4 +35,55 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+<<<<<<< HEAD
 }
+=======
+}
+
+// remove spinners for <select>
+// .selectdiv {
+//   position: relative;
+//   &:after {
+//     content: '<>';
+//     font: 17px "Consolas", monospace;
+//     color: #333;
+//     -webkit-transform: rotate(90deg);
+//     -moz-transform: rotate(90deg);
+//     -ms-transform: rotate(90deg);
+//     transform: rotate(90deg);
+//     right: .15rem;
+//     /*Adjust for position however you want*/
+//     top: .9rem;
+//     padding: 0 0 .15rem;
+//     border-bottom: 1px solid #999;
+//     /*left line */
+//     position: absolute;
+//     pointer-events: none;
+//   }
+//   select {
+//     /*To remove button from IE11, thank you Matt */
+//     &::-ms-expand {
+//       display: none !important;
+//     }
+//     -webkit-appearance: none !important;
+//     -moz-appearance: none !important;
+//     appearance: none !important;
+//     /* Add some styling */
+//     display: block;
+//     width: 100%;
+//     max-width: 320px;
+//     height: 50px;
+//     float: right;
+//     margin: 5px 0px;
+//     padding: 0px 24px;
+//     font-size: 16px;
+//     line-height: 1.75;
+//     color: #333;
+//     background-color: #ffffff;
+//     background-image: none;
+//     border: 1px solid #cccccc;
+//     -ms-word-break: normal;
+//     word-break: normal;
+//   }
+// }
+>>>>>>> cac920053ac7460ca7742986e03e9c2bf22ff50b
