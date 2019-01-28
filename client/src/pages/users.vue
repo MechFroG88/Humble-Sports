@@ -15,7 +15,7 @@
       </div>
       <div slot="action" class="btn btn-primary addBtn" @click="confirm">删除</div>
     </userTable>
-    <cmodal ref="confirm_modal">
+    <cmodal ref="confirm_modal" title="确认删除用户">
     </cmodal>
   </div>
 </template>
