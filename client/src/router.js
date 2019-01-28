@@ -17,6 +17,11 @@ export default new Router({
       component: () => import('./pages/login.vue')
     },
     {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('./pages/settings.vue')
+    },
+    {
       path: '/rent/',
       component: () => import('./pages/homepage.vue'),
       children: [
@@ -44,12 +49,17 @@ export default new Router({
     {
       path: '/management',
       name: 'management',
-      component: () => import('./pages/itemmanagement/management.vue')
+      component: () => import('./pages/item_management/management.vue')
     },
     {
       path: '/management/details',
       name: 'management_details',
-      component: () => import('./pages/itemmanagement/details.vue')
+      component: () => import('./pages/item_management/details.vue')
     },
+    {
+      path: '/users',
+      name: 'users',
+      component: () => import('./pages/users.vue')
+    }
   ]
 });

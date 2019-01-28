@@ -34,7 +34,7 @@ export default {
       {
         title: '系统管理',
         list: [
-          { title: '用户管理', target: '/rent' }
+          { title: '用户管理', target: {'name': 'users'} }
         ]
       }
     ]
