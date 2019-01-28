@@ -1,7 +1,7 @@
 <template>
   <div id="_table">
     <table
-      :style="`width:${width}%;`"
+      :style="`width:${parseInt(width)}%;`"
       :class="{
       'striped': striped,
       'hoverable': hoverable
