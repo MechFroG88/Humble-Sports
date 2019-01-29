@@ -19,16 +19,27 @@
     <modal ref="add" title="添加用户">
       <div slot="body">
         <div class="form-group">
-          <label class="form-label" for="name">name</label>
-          <input class="form-input" type="text" id="name" placeholder="Name">
+          <label class="form-label" for="name">名字</label>
+          <input class="form-input" type="text" id="name" placeholder="名字">
         </div>
         <div class="form-group">
-          <label class="form-label" for="input-example-1">Name</label>
-          <input class="form-input" type="text" id="input-example-1" placeholder="Name">
+          <label class="form-label" for="username">用户名</label>
+          <input class="form-input" type="text" id="username" placeholder="用户名">
         </div>
-        <div class="form-group">
-          <label class="form-label" for="input-example-1">Name</label>
-          <input class="form-input" type="text" id="input-example-1" placeholder="Name">
+        <div class="form-group col-7">
+          <label class="form-label" for="privilege">权限</label>
+          <select class="form-select" id="privilege">
+            <option disabled>请选择权限</option>
+            <option>管理员</option>
+            <option>老师</option>
+          </select>
+        </div>
+      </div>
+
+      <div slot="footer">
+        <div class="button-group">
+          <div class="btn btn-lg mr-2 cancel" @click="$refs.add.active = false">取消</div>
+          <div class="btn btn-primary btn-lg">确定</div>
         </div>
       </div>
     </modal>
