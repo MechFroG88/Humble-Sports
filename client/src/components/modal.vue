@@ -1,5 +1,7 @@
 <template>
-  <div id="_modal" class="modal" :class="{'active': active} [size ? `modal-${size}` : '']">
+  <div id="_modal" class="modal" :class="[
+    active ? 'active' : ''
+  ]">
     <a class="modal-overlay" aria-label="Close"
     @click="active = false"/>
     <div class="modal-container">
@@ -25,8 +27,7 @@ export default {
       type: Boolean,
       default: true
     },
-    title: String,
-    size: String
+    title: String
   },
   data: () => ({
     active: false

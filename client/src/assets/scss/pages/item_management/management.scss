@@ -1,6 +1,69 @@
 #_management {
-  .btn {
-    margin-bottom: 3.8rem;
-    @extend .addBtn
+  #_table {
+    margin-bottom: 3rem;
+    .col_record {
+      .icon {
+        font-size: $font-size-lg;
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+
+  .expired {
+    text-align: left;
+    width: 40%;
+    padding: 1rem 1.2rem;
+    background-color: #fff;
+    border-style: hidden;
+    border-radius: .35rem;
+    box-shadow: 0 1.5px 6px 3px rgba(#ccc, .35);
+    .form-horizontal {
+      display: flex;
+      flex-direction: column;
+      .form-group {
+        .col-9 {
+          display: flex;
+          align-items: center;
+          color: $text-gray;
+          .form-input {
+            width: 75%;
+          }
+        }
+      }
+      .btn {
+        align-self: flex-end;
+        margin-top: 1rem;
+        margin-bottom: 0 !important;
+        @extend .addBtn
+      }
+    }
+  }
+
+  #_modal .modal-container {
+    width: 100%;
+    .modal-body {
+      width: 50%;
+      .form-horizontal {
+        .type, .serial, .price {
+          .col-9 {
+            display: flex; 
+            align-items: center;
+          }
+        }
+      }
+    }
+
+    .modal-footer {
+      display: flex;
+      flex-direction: row-reverse;
+      padding: 0 1.2rem 1.5rem;
+      .btn {
+        margin-bottom: 0 !important;
+        font-size: $font-size-sm;
+        @extend .addBtn 
+      }
+    }
   }
 }
