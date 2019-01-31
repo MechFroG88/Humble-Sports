@@ -56,5 +56,10 @@ export default new Router({
       name: 'management_details',
       component: () => import('./pages/item_management/details.vue')
     },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('./pages/settings.vue')
+    },
   ]
 });

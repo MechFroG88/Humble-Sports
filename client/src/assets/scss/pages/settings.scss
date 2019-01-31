@@ -1,0 +1,55 @@
+#_settings {
+  float: left;
+  .container {
+    text-align: left;
+    font-weight:400;
+    .title{
+      font-size:1.2rem;
+    }
+    .nametitle ,.usernametitle,.safety{
+      margin-top: .6rem;
+      font-size:.6rem;
+      color:#AAAAAA;
+    }
+    .name{
+      margin-top:.2rem;
+    } 
+    .username{
+      margin-top:.2rem;
+    }
+    .user{
+      display:flex;
+      flex-direction: row;
+      align-items: center;
+      position: relative;
+    }
+    .form-input{
+      margin-top:.2rem;
+      border-color: $primary-color;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      width:15rem;
+    }
+    .confirmbtn{
+      position:absolute;
+      width:5rem;
+      margin-top:.1rem;
+      margin-left:10rem;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      
+
+    }
+    .icon{
+      color:$primary-color;
+      font-weight:800;
+      margin-left:.6rem;
+      margin-top:.2rem;
+    }
+    .safetybtn{
+      margin-top:.2rem;
+      box-shadow: 0 4px 15px rgba($primary-color, 0.40);
+    }
+
+  }
+}
