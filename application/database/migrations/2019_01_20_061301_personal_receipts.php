@@ -15,7 +15,6 @@ class PersonalReceipts extends Migration
     {
         Schema::create('personal_receipts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('personalrent_id');
             $table->integer('user_id');
             $table->integer('total')->default(0);
             $table->integer('days')->default(0);
