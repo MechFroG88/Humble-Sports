@@ -12,42 +12,38 @@
       color:#AAAAAA;
     }
     .name{
-      margin-top:.2rem;
+      margin-top:.3rem;
     } 
     .username{
-      margin-top:.2rem;
+      margin-top:.3rem;
     }
     .user{
       display:flex;
       flex-direction: row;
       align-items: center;
-      position: relative;
+      .icon{
+        color:$primary-color;
+        font-weight:800;
+        margin-left:.6rem;
+        margin-top:.2rem;
+      }
     }
-    .form-input{
-      margin-top:.2rem;
-      border-color: $primary-color;
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-      width:15rem;
-    }
-    .confirmbtn{
-      position:absolute;
-      width:5rem;
-      margin-top:.1rem;
-      margin-left:10rem;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      
-
-    }
-    .icon{
-      color:$primary-color;
-      font-weight:800;
-      margin-left:.6rem;
-      margin-top:.2rem;
+    form {
+      .input-group{
+        border-color: $primary-color;
+        margin-top: .3rem;
+        width:12rem;
+        .form-input {
+          width: 100%;
+        }
+        .confirmbtn{
+          width:5rem;
+        }
+      }
     }
     .safetybtn{
       margin-top:.2rem;
+      width:5rem;
       box-shadow: 0 4px 15px rgba($primary-color, 0.40);
     }
 

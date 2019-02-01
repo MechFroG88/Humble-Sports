@@ -6,27 +6,19 @@
     <div class="name">{{name}}</div>
     <div class="usernametitle">用户名</div>
 
-    <div v-if="edit" class="user">
-    <span class="username">{{username}}</span>
-    <i class="icon icon-edit-2"
-          @click='edit =! edit'></i>
+    <div v-if="!edit" class="user">
+      <span class="username">{{username}}</span>
+      <i class="icon icon-edit-2" @click="edit = !edit"></i>
     </div>
-    <div v-else class="user">
-    <input class="form-input" type="text" id="username"  placeholder="请输入用户名" v-model="username">
-    <button class="btn btn-primary confirmbtn" type="submit" @click='edit =! edit'>确认
-    </button>
-    <!-- <form @submit.prevent="submit()">
-      <button class="btn btn-primary confirmbtn" type="submit" >确认</button>
-    </form> -->
-    </div>
- 
-
+    <form v-else @submit="edit = !edit">
+      <div class="input-group">
+        <input type="text" class="form-input" placeholder="请输入用户名" v-model="username">
+        <button class="btn btn-primary confirmbtn input-group-btn" type="submit">确认</button>
+      </div>
+    </form>
     <div class="safety">安全</div>
     <button class="btn btn-primary safetybtn">更改密码</button>
     </div>
-    
-    
-
   </div>
 </template>
 
@@ -36,12 +28,11 @@ export default {
     name: '董顺忠',
     username: 'dong1234',
     edit: false
-    }),
+  }),
   methods:{
     
-    }
   }
-
+}
 </script>
 
 <style>
