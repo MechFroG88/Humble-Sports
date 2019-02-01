@@ -25,7 +25,23 @@ paths:
         name: "Body"
         description: "Create new user"
         schema:
-          $ref: "#/definitions/UserPost"
+          type: "object"
+          properties:
+            username:
+              type: "string"
+              example: "admin"
+            cn_name:
+              type: "string"
+              example: "陈科锦"
+            password:
+              type: "string"
+              format: "password"
+              example: "edrtfyuihgfdtser"
+            type:
+              type: "integer"
+              description: "User type\n
+              0 : administrator\n
+              1 : user"
 
       responses:
         200:
@@ -51,7 +67,19 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/UserGet"
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                cn_name:
+                  type: "string"
+                  example: "陈科锦"
+                type:
+                  type: "integer"
+                  description: "User type\n
+                  0 : administrator\n
+                  1 : user"
         401:
           description: "Unauthorized"
         400:
@@ -153,7 +181,19 @@ paths:
         200:
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/UserGet"
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              cn_name:
+                type: "string"
+                example: "陈科锦"
+              type:
+                type: "integer"
+                description: "User type\n
+                0 : administrator\n
+                1 : user"
         401:
           description: "Unauthorized"
         400:
@@ -654,6 +694,13 @@ paths:
               amount:
                 type: "integer"
                 example: "1"
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
 
   /receipt_personal/{rent_Id}:
     get:
@@ -799,37 +846,3 @@ paths:
         400:
           description: "Validation Error"
       
-      
-definitions:
-  UserPost:
-    type: "object"
-    properties:
-      username:
-        type: "string"
-        example: "admin"
-      cn_name:
-        type: "string"
-        example: "陈科锦"
-      password:
-        type: "string"
-        format: "password"
-        example: "edrtfyuihgfdtser"
-      type:
-        type: "integer"
-        description: "User type\n
-        0 : administrator\n
-        1 : user"
-  UserGet:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        example: "1"
-      cn_name:
-        type: "string"
-        example: "陈科锦"
-      type:
-        type: "integer"
-        description: "User type\n
-        0 : administrator\n
-        1 : user"
