@@ -17,7 +17,7 @@ class Users extends Migration
             $table->increments('id');
             $table->string('cn_name',10)->unique();
             $table->string('username',30)->unique();
-            $table->string('password',30);
+            $table->string('password',64);
             $table->tinyInteger('type');
             $table->rememberToken();
             $table->timestamps();
