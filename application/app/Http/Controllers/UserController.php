@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
 
 class UserController extends Controller
 {
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
     private $rules = [
         "username" => "required|unique:users,username,NULL,id,deleted_at,NULL",
@@ -18,30 +22,88 @@ class UserController extends Controller
         "type"     => "required|integer|between:0,1",
     ];
 
+    private $login_rules = [
+        "username" => "required",
+        "password" => "required"
+    ];
+
+    private function fail()
+    {
+        return response("Validation error",400);
+    }
+
+    private function ok()
+    {
+        return response("Successful operation",200);
+    }
+
     public function login(Request $data)
     {
-        if (Auth::attempt($data,$remember)) {
-            return redirect()->intended();
+        $validator = Validator::make($data->all(), $this->login_rules);
+        if ($validator->fails()) return $this->fail();
+        $data = $data->only('username','password');
+        if (Auth::attempt($data,true)) {
+            return $this->ok();
+        } else {
+            return response("Unauthorized",401);
         }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return $this->ok();
     }
 
     public function create(Request $data)
     {
-        $validate = $data->validate($this->rules);
-
+        $validator = Validator::make($data->all(), $this->rules);
+        if ($validator->fails()) return $this->fail();
         $user = new user;
         $user->username = $data->username;
-        $user->cn_name = $data->cn_name;
-        $user->type = $data->type;
+        $user->cn_name  = $data->cn_name;
+        $user->type     = $data->type;
         $user->password = Hash::make($data->password);
         $user->save();
-        return response("Successful operation",200);
+        return $this->ok();
     }
 
     public function get()
     {
         $user = user::all();
         return response($user->toJson(),200);
+    }
+
+    public function change_password(Request $data)
+    {   
+        $validator = Validator::make($data->all(),array("password" => "required"));
+        if ($validator->fails()) {
+            var_dump($validator->messages());
+            return $this->fail();
+        }
+        user::where('id', Auth::user()->id)
+            ->update(["password" => Hash::make($data->password)]);
+        return $this->ok();
+    }
+
+    public function get_single($id)
+    {
+        return response(user::find($id)->toJson(),200);
+    }
+
+    public function update_type(Request $data,$id)
+    {
+        $validator = Validator::make($data->all(),["type" => "required|between:0,1"]);
+        if ($validator->fails()) return $this->fail();
+        user::where('id', Auth::user()->id)
+            ->update(["type" => $data->type]);
+        return $this->ok();
+    }
+
+    public function delete(Request $data,$id)
+    {
+        user::where('id', $id)->delete();
+        return $this->ok();
     }
 
 }
