@@ -42,6 +42,9 @@ $link-color: $primary-color !default;
 $link-color-dark: darken($link-color, 10%) !default;
 $link-color-light: lighten($link-color, 10%) !default;
 
+// Shadow 
+$button-shadow: 0 .1rem .5rem .05rem rgba($primary-color, .5) !default;
+
 // Fonts
 // Credit: https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/
 $base-font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",

@@ -24,7 +24,7 @@
   border-radius: .15rem;
   font-size: $font-size !important;
   margin-bottom: 1.8rem;
-  box-shadow: 0 .1rem .5rem .05rem rgba($primary-color, .5);
+  box-shadow: $button-shadow;
 }
 
 // remove spinners for input[type=number]
