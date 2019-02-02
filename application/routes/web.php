@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+/**
+ * User Route
+ */
+
 Route::post('login','UserController@login');
 Route::middleware('admin')->post('user','UserController@create');
 Route::middleware('admin')->get('user','UserController@get');
