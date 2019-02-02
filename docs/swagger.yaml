@@ -90,6 +90,16 @@ paths:
       tags:
       - "Users"
       summary: "Update user password"
+      parameters:
+      - in: "body"
+        name: "Body"
+        description: "Update password"
+        schema:
+          type: "object"
+          properties:
+            password:
+              type: "string"
+              example: "asdasd"
 
       responses:
         200:
