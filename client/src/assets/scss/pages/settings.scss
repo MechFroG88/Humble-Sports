@@ -2,14 +2,14 @@
   float: left;
   .container {
     text-align: left;
-    font-weight:400;
-    .title{
-      font-size:1.2rem;
+    font-weight: 400;
+    .title {
+      font-size: 1.2rem;
     }
-    .nameTitle, .usernameTitle, .safety{
+    .nameTitle, .usernameTitle, .safety {
       margin-top: .6rem;
-      font-size:.6rem;
-      color:#AAAAAA;
+      font-size: .6rem;
+      color: #AAAAAA;
     }
     .name, .username {
       margin-top: .3rem;
@@ -26,23 +26,21 @@
       }
     }
     form {
-      .input-group{
-        border-color: $primary-color;
+      .input-group {
         margin-top: .3rem;
-        width:12rem;
+        width: 12rem;
         .form-input {
           width: 100%;
         }
-        .confirmBtn{
-          width:5rem;
+        .confirmBtn {
+          width: 5rem;
         }
       }
     }
-    .safetyBtn{
-      margin-top:.2rem;
-      width:5rem;
-      box-shadow: 0 4px 15px rgba($primary-color, 0.40);
+    .safetyBtn {
+      margin-top: .3rem;
+      width: 5rem;
+      box-shadow: $button-shadow;
     }
-
   }
 }
