@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
 
 class UserController extends Controller
 {
-    use SoftDeletes;
-    protected $dates = ['deleted_at'];
 
     private $rules = [
         "username" => "required|unique:users,username,NULL,id,deleted_at,NULL",
-        "cn_name"  => array("required","regex:/[\x{4e00}-\x{9fa5}]+/u"),
+        "cn_name"  => ["required","regex:/[\x{4e00}-\x{9fa5}]+/u"],
         "password" => "required",
         "type"     => "required|integer|between:0,1",
     ];
@@ -26,16 +20,6 @@ class UserController extends Controller
         "username" => "required",
         "password" => "required"
     ];
-
-    private function fail()
-    {
-        return response("Validation error",400);
-    }
-
-    private function ok()
-    {
-        return response("Successful operation",200);
-    }
 
     public function login(Request $data)
     {
@@ -77,10 +61,7 @@ class UserController extends Controller
     public function change_password(Request $data)
     {   
         $validator = Validator::make($data->all(),array("password" => "required"));
-        if ($validator->fails()) {
-            var_dump($validator->messages());
-            return $this->fail();
-        }
+        if ($validator->fails()) return $this->fail();
         user::where('id', Auth::user()->id)
             ->update(["password" => Hash::make($data->password)]);
         return $this->ok();
@@ -95,7 +76,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($data->all(),["type" => "required|between:0,1"]);
         if ($validator->fails()) return $this->fail();
-        user::where('id', Auth::user()->id)
+        user::where('id', $id)
             ->update(["type" => $data->type]);
         return $this->ok();
     }
