@@ -13,6 +13,6 @@ class Authenticate
         if(Auth::check()){
             return $next($request);
         }
-        return redirect('/');
+        return response("Unauthorized",401);
     }
 }
