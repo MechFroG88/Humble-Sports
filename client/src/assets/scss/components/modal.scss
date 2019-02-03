@@ -41,7 +41,9 @@
     .modal-footer {
       padding-top: 1.2rem;
       .button-group {
-        float: right;
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
         .cancel {
           border-color: $button-color;
           background-color: $button-color;
