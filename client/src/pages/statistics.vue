@@ -68,7 +68,7 @@
       </div>
     </div>
     <div class="chart">
-      asdasd
+      <h4 class="chart-title">年月度统计表</h4>
       <GChart
       align="center"
       :settings="{packages: ['bar']}"    
@@ -89,7 +89,6 @@ export default {
   },
   data: () => ({
     chartsLib: null, 
-    // Array will be automatically processed with visualization.arrayToDataTable function
     chartData: [
       ['', '总借出量'],
       ['12月', 70],
@@ -104,7 +103,7 @@ export default {
     chartOptions () {
       if (!this.chartsLib) return null
       return this.chartsLib.charts.Bar.convertOptions({
-        bars: 'vertical', // Required for Material Bar Charts.
+        bars: 'vertical',
         hAxis: { format: 'short' },
         vAxis: {
           gridlines: {
