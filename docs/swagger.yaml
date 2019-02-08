@@ -46,12 +46,6 @@ paths:
       responses:
         200:
           description: "Successful operation"
-          schema:
-            type: "object"
-            properties:
-              password:
-                type : "string"
-                example : "asdasdasd"
         401:
           description: "Unauthorized"
         400:
@@ -227,7 +221,68 @@ paths:
           description: "Unauthorized"
         400:
           description: "Validation Error"
-    
+
+  /student:
+    post:
+      tags:
+      - "Students"
+      summary: "Create new user"
+      parameters:
+      - in: "body"
+        name: "Body"
+        description: "Create new user"
+        schema:
+          type: "object"
+          properties:
+            cn_name:
+              type: "string"
+              example: "陈科锦"
+            class:
+              type: "string"
+              example: "6szhong"
+            phone_no:
+              type: "string"
+              example: "012-5211843"
+
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+    get:
+      tags:
+      - "Students"
+      summary: "Returns all users data"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                cn_name:
+                  type: "string"
+                  example: "陈科锦"
+                class:
+                  type: "string"
+                  example: "6szhong"
+                phone_no:
+                  type: "string"
+                  example: "012-5211843"
+                picture:
+                  type: "string"
+                  example: "localhost/background-login.jpg"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
   /item:
     post:
       tags:
