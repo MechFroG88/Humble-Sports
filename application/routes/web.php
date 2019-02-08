@@ -21,10 +21,16 @@ Route::get('/', function () {
  */
 
 Route::post('login','UserController@login');
-Route::middleware('admin')->post('user','UserController@create');
+Route::post('user','UserController@create');
 Route::middleware('admin')->get('user','UserController@get');
 Route::middleware('auth')->put('user/password','UserController@change_password');
 Route::middleware('auth')->post('logout','UserController@logout');
 Route::middleware('auth')->get('user/{id}','UserController@get_single');
 Route::middleware('admin')->put('user/{id}','UserController@update_type');
 Route::middleware('admin')->delete('user/{id}','UserController@delete');
+
+/**
+ * Student Route
+ */
+Route::middleware('auth')->post('student','StudentController@create');
+Route::middleware('auth')->get('student','StudentController@get');
