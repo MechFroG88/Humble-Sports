@@ -2,9 +2,9 @@
   <div id="_settings">
     <div class="container ">
     <div class="title">您的资料</div>
-    <div class="nametitle">名字</div>
+    <div class="nameTitle">名字</div>
     <div class="name">{{name}}</div>
-    <div class="usernametitle">用户名</div>
+    <div class="usernameTitle">用户名</div>
 
     <div v-if="!edit" class="user">
       <span class="username">{{username}}</span>
