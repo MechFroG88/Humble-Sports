@@ -6,6 +6,7 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use Auth;
 
 class UserController extends Controller
 {
@@ -44,12 +45,8 @@ class UserController extends Controller
     {
         $validator = Validator::make($data->all(), $this->rules);
         if ($validator->fails()) return $this->fail();
-        $user = new user;
-        $user->username = $data->username;
-        $user->cn_name  = $data->cn_name;
-        $user->type     = $data->type;
-        $user->password = Hash::make($data->password);
-        $user->save();
+        $data->request->add(['password' => Hash::make($data->password)]); 
+        user::create($data->all());
         return $this->ok();
     }
 
