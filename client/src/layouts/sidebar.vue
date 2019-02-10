@@ -8,10 +8,7 @@
           <ul>
             <li v-for="item in c.list" :key="item.title"
             :class="{'active': active == item.target.name}" @click="active = item.target.name">
-<<<<<<< HEAD
-=======
               <!-- {{item.target.name}} -->
->>>>>>> 8162ebc04561843555d0517d7864366db411f513
               <router-link :to="item.target" tag="div">
                 {{item.title}}
                 <span class="link_extender"></span>
@@ -49,18 +46,8 @@ export default {
     active: '',
     targets: []
   }),
-<<<<<<< HEAD
-  mounted() {
-    this.active = this.data[0].list[0].target.name;
-  },
-  watch: {
-    $route(to, from) {
-      this.active = to.name
-    }
-=======
   beforeUpdate() {
     this.active = this.$route.name
->>>>>>> 8162ebc04561843555d0517d7864366db411f513
   }
 }
 </script>
