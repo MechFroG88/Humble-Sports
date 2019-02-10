@@ -3,7 +3,7 @@
     <div class="btn btn-lg btn-primary addBtn" 
     style="margin-bottom: 3.8rem;"
     @click="$refs.add.active = true">新增</div>
-    <mg-table width="40%" :columns="columns" :data="data" title>
+    <mg-table width="40" :columns="columns" :data="data" title>
       <div slot="record">
         <i class="icon icon-external-link c-hand" @click="$router.push({
             'name':'management_details'

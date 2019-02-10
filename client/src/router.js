@@ -57,9 +57,9 @@ export default new Router({
       component: () => import('./pages/item_management/details.vue')
     },
     {
-      path: '/settings',
-      name: 'settings',
-      component: () => import('./pages/settings.vue')
-    },
+      path: '/users',
+      name: 'users',
+      component: () => import('./pages/users.vue')
+    }
   ]
 });

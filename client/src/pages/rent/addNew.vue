@@ -1,7 +1,7 @@
 <template>
   <div id="_addNew">
     <div class="modal-header">
-      <router-link :to="{'name': 'personal'}" tag="div" class="link float-right c-hand">
+      <router-link :to="{'name': $route.params.state}" tag="div" class="link float-right c-hand">
         <i class="icon icon-x"></i>
       </router-link>
       <div class="modal-title h2">新增租借记录</div>
@@ -74,9 +74,9 @@
         </form>
       </div>
     </div>
-    <!-- <div class="modal-footer">
-      ...
-    </div> -->
+    <div class="modal-footer">
+      <div class="btn btn-lg btn-primary">借出</div>
+    </div>
   </div>
 </template>
 
