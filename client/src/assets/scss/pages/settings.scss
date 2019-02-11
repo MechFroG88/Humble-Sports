@@ -62,19 +62,18 @@
         
         .cancel {
           font-size: .8rem;
-          width:5rem;
+          width: 5rem;
           border-color: $button-color;
-          background-color:$button-color;
-          color: #fff;
-          box-shadow: 0 1px 8px rgba($button-color, 0.7) !important;
-         }
+          background-color: $button-color;
+          box-shadow: 0 1px 8px rgba($button-color, 0.7);
+        }
         .ok {
           font-size: .8rem;
-          margin-left:1.5rem;
-          width:5rem;
+          margin-left: 1.5rem;
+          width: 5rem;
           box-shadow: 0 1px 8px rgba($primary-color, 0.7);
         }
       }
     }
- }
+}
 

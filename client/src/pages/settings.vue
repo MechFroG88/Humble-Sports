@@ -31,12 +31,13 @@
           <label class="confirmPw">确认新密码</label>
           <input type="password" class="form-input" placeholder="请再次输入新密码" id="password">
         </form>
-       </div>
-       <div slot="footer">
+      </div>
+      <div slot="footer">
         <div class="button-group">
-         <div class="btn btn-lg btn-primary cancel" @click="add()">取消
-         </div>
-         <div class="btn btn-lg btn-primary ok" @click="add()">确定</div>
+          <div class="btn btn-lg btn-primary cancel" 
+          @click="$refs.add.active = false">取消</div>
+          <div class="btn btn-lg btn-primary ok"
+          @click="add()">确定</div>
         </div>
       </div>
     </pwModal>
@@ -46,7 +47,7 @@
 <script>
 import pwModal from '@/components/modal'
 export default {
-  components:{
+  components: {
     pwModal
   },
   data: () => ({
@@ -54,7 +55,7 @@ export default {
     username: 'dong1234',
     edit: false,
   }),
-  methods:{
+  methods: {
     add() {
       this.$refs.add.active = false
     }
