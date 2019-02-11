@@ -47,17 +47,17 @@
     .modal-body{
       .newPw ,.confirmPw{
         font-size: .6rem;
-        font-weight:400;
+        font-weight: 400;
       }
       .form-input{
-        margin-top:.1rem;
+        margin-top: .1rem;
         }
       }
     }
     .modal-footer{
       padding-top: 1rem;
       .button-group {
-        display:flex;
+        display: flex;
         justify-content: flex-end;
         
         .cancel {
