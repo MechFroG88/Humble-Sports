@@ -1,6 +1,6 @@
 <template>
   <div id="_personal">
-    <div class="btn btn-lg btn-primary mb-2" 
+    <div class="btn btn-lg btn-primary" 
     @click="$router.push({
       'name': 'addNew',
       'params': {

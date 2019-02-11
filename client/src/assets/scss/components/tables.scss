@@ -1,10 +1,11 @@
 #_table {
   table {
     background-color: #fff;
-    border: solid 1px #eaeaea;
-    border-radius: .3rem;
-    box-shadow: 0px 2px 12px rgba(0, 0, 0, .08);
+    border-style: hidden;
+    border-radius: .35rem;
+    box-shadow: 0 1.5px 6px 3px rgba(#ccc, .35);
     border-collapse: collapse;
+
     .title {
       td {
         padding: .8rem 1.2rem;
@@ -34,10 +35,15 @@
       &:first-child {
         border: none;
       }
-      th, td {
+      td {
         padding: .4rem 0;
-        max-width: 5rem;
+        // max-width: 5.5rem;
       }
+    }
+
+    .table_columns td {
+      font-weight: 300;
+      color: lighten($text-gray, 8%);
     }
   }
 

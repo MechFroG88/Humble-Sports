@@ -1,7 +1,7 @@
 <template>
   <div id="_table">
     <table
-      :style="`width:${width};`"
+      :style="`width:${parseInt(width)}%;`"
       :class="{
       'striped': striped,
       'hoverable': hoverable
@@ -18,15 +18,15 @@
         </td>
       </tr>
 
-      <tr class="table_columnns">
-        <th
+      <tr class="table_columns">
+        <td
           v-for="column in columns"
           :key="column.name"
-          :class="`col_${column.name}`"
-        >{{column.name}}</th>
+          :class="`col_${column.field}`"
+        >{{column.name}}</td>
       </tr>
 
-      <tr v-for="(row, row_num) in data" :key="row_num">
+      <tr v-for="(row, row_num) in data" :key="row_num" :class="`row row_${row_num}`">
         <td v-for="index in columns.length" :key="index" :class="`col_${columns[index-1].field}`">
           {{row[columns[index-1].field]}}
           <slot
@@ -44,11 +44,18 @@ export default {
   props: {
     columns: Array,
     data: Array,
-    width: String,
+    width: {
+      type: [Number, String],
+      default: 100
+    },
     striped: Boolean,
     hoverable: Boolean,
     title: Boolean,
     navbar: String
+  },
+  mounted() {
+    console.log(this.width);
+    
   }
 };
 </script>
