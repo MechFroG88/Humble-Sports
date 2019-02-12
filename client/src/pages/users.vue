@@ -22,7 +22,7 @@
 import userTable from '@/components/tables'
 import modal from '@/components/modal'
 import cmodal from '@/components/confirm-modal'
-import { users } from '@/api/tableColumns'
+import { users_column } from '@/api/tableColumns'
 export default {
   components: {
     userTable,
@@ -30,7 +30,7 @@ export default {
     cmodal
   },
   data: () => ({
-    users: users,
+    users: users_column,
     data: [
       {
         name: '董顺忠'

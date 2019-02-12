@@ -18,13 +18,13 @@
 
 <script>
 import dtTable from '@/components/tables'
-import { details } from '@/api/tableColumns'
+import { details_column } from '@/api/tableColumns'
 export default {
   components:{
     dtTable,
   },
   data:()=>({
-    columns: details,
+    columns: details_column,
     data:[
       {
         serialnumber:'1',
