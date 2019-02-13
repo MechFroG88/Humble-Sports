@@ -11,16 +11,16 @@ use App\Fine;
 
 class PersonalReceipt extends Model
 {
-    protected $visible = ['id','single_fine','fine','user','personalrent','type'];
+    protected $visible = ['single_fine','fine','user','personalrent','type'];
 
     public function item(){
-        return $this->belongsTo('App\Item','price');
+        return $this->belongsTo('App\Item');
     }
     public function user(){
-        return $this->belongsTo('App\User')->select(array('id','cn_name'));
+        return $this->belongsTo('App\User');
     }
     public function personalrent(){
-        return $this->belongsTo('App\PersonalRent')->select(array('id','student_id','item_id','item_out','item_in'));
+        return $this->belongsTo('App\PersonalRent');
     }
     public function fine(){
         return $this->belongsTo('App\Fine');
