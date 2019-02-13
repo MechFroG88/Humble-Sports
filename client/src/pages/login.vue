@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { userLogin } from '@/api/user'
 export default {
   data: () => ({
     username: '',
@@ -39,7 +40,12 @@ export default {
       alert('forgot password')
     },
     login() {
-      this.$router.push('/rent');
+      userLogin({
+        username: this.username,
+        password: this.password
+      }).then(() => {
+        this.$router.push('/rent');
+      })
     }
   }
 };
