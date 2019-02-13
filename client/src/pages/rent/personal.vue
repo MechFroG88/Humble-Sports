@@ -37,8 +37,11 @@ export default {
     data: personal
   }),
   mounted() {
-    getPersonalRent().then((data) => {
-      console.log(data)
+    getPersonalRent().then(({data}) => {
+      this.data = data;
+      for (let i = 0; i < this.data.length; i++) {
+        this.data[i].item_type = this.data[i].item.type
+      }
     }).catch((err) => {
       console.log(err)
     })
