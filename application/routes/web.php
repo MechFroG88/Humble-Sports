@@ -44,7 +44,7 @@ Route::middleware('auth') ->get('item/record/{id}','ItemController@get_single');
 /**
  * Fine Route
  */
-Route::middleware('auth')->post('fine/new','FineController@change_fine');
+Route::middleware('auth')->post('fine','FineController@change_fine');
 Route::middleware('auth')->get('fine','FineController@get');
 
 /**
@@ -54,7 +54,7 @@ Route::middleware('auth')->post('rent/personal','PersonalRentController@create')
 Route::middleware('auth')->get('rent/personal','PersonalRentController@get');
 Route::middleware('auth')->put('rent/personal/expired','PersonalRentController@update_expired');
 Route::middleware('auth')->put('rent/personal/{id}/return','PersonalRentController@update_returned');
-Route::middleware('auth')->post('rent/personal/{id}/lost','PersonalRentController@update_lost');
+Route::middleware('auth')->put('rent/personal/{id}/lost','PersonalRentController@update_lost');
 
 /**
  * GroupRent Route
@@ -63,7 +63,7 @@ Route::middleware('auth')->post('rent/group','GroupRentController@create');
 Route::middleware('auth')->get('rent/group','GroupRentController@get');
 Route::middleware('auth')->put('rent/group/expired','PersonalRentController@update_expired');
 Route::middleware('auth')->put('rent/group/{id}/return','GroupRentController@update_returned');
-Route::middleware('auth')->post('rent/group/{id}/lost','GroupRentController@update_lost');
+Route::middleware('auth')->put('rent/group/{id}/lost','GroupRentController@update_lost');
 
 /**
  * PersonalReceipt Route
