@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Validator;	
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Validator;	
 use App\User;
 use Auth;
 
