@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\GroupRent;
+use App\Report;
 use Validator;
 use Auth;
 
@@ -30,9 +31,9 @@ class GroupRentController extends Controller
         $data->request->add(['item_out' => date('Y-m-d H:i:s')]); 
         $data->request->add(['teacher'  => Auth::user()->cn_name]);
         grouprent::create($data->all());
-        $due_date = $data->due_date;
-        $year     = Carbon::createFromFormat('Y-m-d H:i:s', $due_date)->year;
-        $month    = Carbon::createFromFormat('Y-m-d H:i:s', $due_date)->month;
+        $date     = date('Y-m-d H:i:s');
+        $year     = Carbon::createFromFormat('Y-m-d H:i:s', $date)->year;
+        $month    = Carbon::createFromFormat('Y-m-d H:i:s', $date)->month;
         $total    = report::where('year',$year)
                           ->where('month',$month)              
                           ->select('total')
@@ -55,7 +56,7 @@ class GroupRentController extends Controller
 
     public function get()
     {
-        $grouprent = grouprent::with('item')->get()->makeHidden('due_date');
+        $grouprent = grouprent::with('item')->get()->makeHidden(['due_date','id']);
         return response($grouprent->toJson(),200);
     }
 
