@@ -7,7 +7,6 @@ use App\PersonalRent;
 use Carbon\Carbon;
 use App\Report;
 use Validator;
-use App\Item;
 use Auth;
 
 class PersonalRentController extends Controller
@@ -26,9 +25,9 @@ class PersonalRentController extends Controller
         $data->request->add(['item_out' => date('Y-m-d H:i:s')]); 
         $data->request->add(['teacher'  => Auth::user()->cn_name]);
         personalrent::create($data->all());
-        $date  = date('Y-m-d H:i:s');
-        $year  = Carbon::createFromFormat('Y-m-d H:i:s', $date)->year;
-        $month = Carbon::createFromFormat('Y-m-d H:i:s', $date)->month;
+        $due_date = $data->due_date;
+        $year  = Carbon::createFromFormat('Y-m-d H:i:s', $due_date)->year;
+        $month = Carbon::createFromFormat('Y-m-d H:i:s', $due_date)->month;
         $total = report::where('year',$year)
                        ->where('month',$month)
                        ->select('total')
@@ -50,15 +49,15 @@ class PersonalRentController extends Controller
     }
 
     public function get()
-    {       
+    {
         $personalrent = personalrent::with('student','item')->get();
-        return response($personalrent->toJson(),200); 
+        return response($personalrent->toJson(),200);
     }
 
     public function update_returned($id)
     {
         personalrent::where('id', $id)
-                    ->update(["status"  => "0",
+                    ->update(["status"  => "1",
                               "item_in" => date('Y-m-d H:i:s')]);
         return $this->ok();
     }
