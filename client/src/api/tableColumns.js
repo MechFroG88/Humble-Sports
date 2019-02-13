@@ -1,10 +1,10 @@
 export let personal_column = [
-    { name: '学生资料', field: 'name'        },
-    { name: '借用器材', field: 'item_type'        },
-    { name: '借出时间', field: 'rent_in'   },
-    { name: '归还时间', field: 'rent_out' },
-    { name: '负责老师', field: 'teacher'     },
-    { name: '状态'   , field: 'status'      }
+    { name: '学生资料', field: 'name' },
+    { name: '借用器材', field: 'item_type' },
+    { name: '借出时间', field: 'item_in' },
+    { name: '归还时间', field: 'item_out' },
+    { name: '负责老师', field: 'teacher' },
+    { name: '状态'   , field: 'status' }
 ];
 
 export let group_column = [
