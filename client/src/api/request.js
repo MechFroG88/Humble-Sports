@@ -1,3 +1,4 @@
+import { getToken, deleteToken } from '@/api/auth'
 import router from '@/router';
 import axios  from 'axios';
 import qs     from 'qs';
@@ -16,7 +17,7 @@ const service = axios.create({
 })
 
 service.interceptors.request.use(function (config) {
-  // config.headers.Authorization = getToken() ? getToken() : (window.token ? window.token : "")
+  config.headers.Authorization = getToken() ? getToken() : (window.token ? window.token : "")
   return config;
 }, function (error) {
   return Promise.reject(error);
