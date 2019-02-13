@@ -11,13 +11,13 @@ use App\Fine;
 
 class GroupReceipt extends Model
 {
-    protected $visible = ['id','single_fine','single_price','fine','user','grouprent','type'];
+    protected $visible = ['single_fine','fine','user','grouprent','type'];
 
     public function item(){
         return $this->belongsTo('App\Item');
     }
     public function user(){
-        return $this->belongsTo('App\User')->select(array('id','cn_name'));
+        return $this->belongsTo('App\User');
     }
     public function grouprent(){
         return $this->belongsTo('App\GroupRent');
