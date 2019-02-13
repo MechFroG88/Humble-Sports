@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Validator;
 use Illuminate\Http\Request;
 use App\Student;
+use Validator;
 
 class StudentController extends Controller
 {
@@ -20,14 +20,14 @@ class StudentController extends Controller
     {
         $validator = Validator::make($data->all(), $this->rules);
         if ($validator->fails()) return $this->fail();
-        $student = new student;
+        $student           = new student;
         $student->id       = $data->id;
         $student->cn_name  = $data->cn_name;
         $student->class    = $data->class;
         $student->phone_no = isset($data->phone_no) ? $data->phone_no : "";
-        $student->picture  = isset($data->picture) ? $data->picture : "";
+        $student->picture  = isset($data->picture)  ? $data->picture  : "";
         $student->save();
-        return $this->ok();
+        return $this->ok();     
     }
 
     public function get()
