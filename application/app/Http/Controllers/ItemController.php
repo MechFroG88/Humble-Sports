@@ -36,7 +36,7 @@ class ItemController extends Controller
     {
         $personalrent = personalrent::where('item_id',$id)->get();
         $grouprent    = grouprent::where('item_id',$id)->get()->makeHidden(['cn_name','class','phone_no']);
-        $merged       = $personalrent->merge($grouprent);
+        $merged       = $personalrent->merge($grouprent)->makeHidden(['item_tag','amount','lost','due_date','returned']);
         return response($merged->toJson(),200);
     }
 }
