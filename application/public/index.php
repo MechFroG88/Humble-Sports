@@ -6,7 +6,6 @@
  * @package  Laravel
  * @author   Taylor Otwell <taylor@laravel.com>
  */
-
 define('LARAVEL_START', microtime(true));
 
 /*
@@ -34,7 +33,13 @@ require __DIR__.'/../vendor/autoload.php';
 | the responses back to the browser and delight our users.
 |
 */
-
+if(isset($_SERVER['HTTP_ORIGIN'])){
+    header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN']);
+    header("Access-Control-Allow-Credentials: true");
+    header("Access-Control-Allow-Headers: authorization, X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding");
+    header("Access-Control-Max-Age: 1000");
+    header("Access-Control-Allow-Methods: PUT, POST, GET, OPTIONS, DELETE");
+}
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
 /*
@@ -58,3 +63,4 @@ $response = $kernel->handle(
 $response->send();
 
 $kernel->terminate($request, $response);
+
