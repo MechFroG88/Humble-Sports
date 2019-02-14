@@ -19,11 +19,11 @@ Route::get('/', function () {
  * User Route
  */
 
-Route::post('login','UserController@login');
+Route::post('user/login','UserController@login');
 Route::middleware('auth') ->get('user','UserController@get');
 Route::middleware('auth') ->get('user/{id}','UserController@get_single');
 Route::middleware('auth') ->put('user/password','UserController@change_password');
-Route::middleware('auth') ->post('logout','UserController@logout');
+Route::middleware('auth') ->post('user/logout','UserController@logout');
 Route::middleware('admin')->post('user','UserController@create');
 Route::middleware('admin')->put('user/{id}','UserController@update_type');
 Route::middleware('admin')->delete('user/{id}','UserController@delete');
