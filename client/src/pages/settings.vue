@@ -1,8 +1,5 @@
 <template>
   <div id="_settings">
-<<<<<<< HEAD
-    
-=======
     <div class="container">
       <div class="title">您的资料</div>
       <div class="nameTitle">名字</div>
@@ -44,15 +41,11 @@
         </div>
       </div>
     </pwModal>
->>>>>>> 541b61866697776b6d4f2cd78bf5b1849fb2d719
   </div>
 </template>
 
 <script>
 export default {
-<<<<<<< HEAD
-
-=======
   components: {
     pwModal
   },
@@ -66,7 +59,6 @@ export default {
       this.$refs.add.active = false
     }
   }
->>>>>>> 541b61866697776b6d4f2cd78bf5b1849fb2d719
 }
 </script>
 
