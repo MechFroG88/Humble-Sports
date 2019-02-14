@@ -7,10 +7,10 @@
       <form @submit.prevent="login()">
         <div class="input-group">
           <label class="input-label" for="username">用户名</label>
-          <input class="username" type="text" id="username" 
+          <input class="username" type="text" id="username"
           placeholder="请输入用户名" v-model="username">
           <label class="input-label" for="password">密码</label>
-          <input class="password" type="password" id="password" 
+          <input class="password" type="password" id="password"
           placeholder="请输入密码" v-model="password">
         </div>
         <div class="form-group">
@@ -29,11 +29,12 @@
 
 <script>
 import { userLogin } from '@/api/user'
+
 export default {
   data: () => ({
     username: '',
     password: '',
-    remember: false,
+    remember: false
   }),
   methods: {
     forgotPassword() {
@@ -44,10 +45,13 @@ export default {
         username: this.username,
         password: this.password
       }).then(() => {
-        this.$router.push('/rent');
-      })
-    }
-  }
+        this.$router.push('/rent')
+      }).catch((err) => {
+        alert('A problem has occured!')
+        console.log(err)
+      });
+    },
+  },
 };
 </script>
 
