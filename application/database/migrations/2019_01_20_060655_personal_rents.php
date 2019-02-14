@@ -14,7 +14,7 @@ class PersonalRents extends Migration
     public function up()
     {
         Schema::create('personal_rents', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increment('id');
             $table->integer('student_id');
             $table->integer('item_id');
             $table->integer('item_tag');

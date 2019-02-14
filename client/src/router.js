@@ -60,11 +60,6 @@ export default new Router({
       path: '/users',
       name: 'users',
       component: () => import('./pages/users.vue')
-    },
-    {
-      path: '/stats',
-      name: 'stats',
-      component: () => import('./pages/statistics.vue')
     }
   ]
 });

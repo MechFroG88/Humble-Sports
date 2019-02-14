@@ -1,7 +1,7 @@
 <template>
   <div id="_addNew">
     <div class="modal-header">
-      <router-link :to="{'name': $route.params.state}" tag="div" class="link float-right c-hand">
+      <router-link :to="$route.params.state === 'personal' ? {'name': 'personal'} : {'name': 'group'}" tag="div" class="link float-right c-hand">
         <i class="icon icon-x"></i>
       </router-link>
       <div class="modal-title h2">新增租借记录</div>
@@ -83,7 +83,7 @@
 <script>
 export default {
   mounted() {
-    console.log(this.$route.params.state)
+    // console.log(this.$route.params.state)
   }
 }
 </script>

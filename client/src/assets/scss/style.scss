@@ -16,9 +16,7 @@
 @import 'pages/rent/addNew';
 @import 'pages/item_management/management';
 @import 'pages/item_management/details';
-@import 'pages/settings';
 @import 'pages/users';
-@import 'pages/statistics';
 
 // add-button
 .addBtn {
@@ -26,7 +24,7 @@
   border-radius: .15rem;
   font-size: $font-size !important;
   margin-bottom: 1.8rem;
-  box-shadow: $button-shadow;
+  box-shadow: 0 .1rem .5rem .05rem rgba($primary-color, .5);
 }
 
 // remove spinners for input[type=number]
@@ -34,6 +32,23 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+}
+
+.label {
+  padding: .25rem .8rem !important;
+  font-weight: 300;
+  &.label-expired {
+    background-color: #88304E;
+    box-shadow: 0 .05rem .55rem .02rem rgba(#88304E, .5);
+    color: #fff;
+  }
+
+  // Label shadow
+  &.label-primary { box-shadow: 0 .05rem .55rem .02rem rgba($primary-color, .5); }
+  &.label-secondary { box-shadow: 0 .05rem .55rem .02rem rgba($secondary-color, .5); }
+  &.label-success { box-shadow: 0 .05rem .55rem .02rem rgba($success-color, .5); }
+  &.label-warning { box-shadow: 0 .05rem .55rem .02rem rgba($warning-color, .5); }
+  &.label-error { box-shadow: 0 .05rem .55rem .02rem rgba($error-color, .5); }
 }
 
 // remove spinners for <select>

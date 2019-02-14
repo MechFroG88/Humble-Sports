@@ -7,8 +7,8 @@
         'state': 'group'
       }
     })">新增</div>
-    <gpTable class="mt-2" width="100%" 
-    :columns="columns" :data="data" title navbar="搜寻学号或名字">
+    <gpTable class="mt-2" width="100" 
+    :columns="columns" :tableData="data" title navbar="搜寻学号或名字">
       <div slot="status">
         label
       </div>
@@ -21,13 +21,13 @@
 
 <script>
 import gpTable from '@/components/tables'
-import { group } from '@/api/tableColumns'
+import { group_column } from '@/api/tableColumns'
 export default {
   components:{
     gpTable
   },
   data:()=>({
-    columns: group,
+    columns: group_column,
     data:[
       {
         groupname:'篮球学会',
