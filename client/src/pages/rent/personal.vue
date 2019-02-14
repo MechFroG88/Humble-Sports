@@ -26,7 +26,7 @@ import { getPersonalRent } from '@/api/rental'
 import cpTable from '@/components/tables'
 import cmodal from '@/components/confirm-modal'
 import { personal_column } from '@/api/tableColumns'
-import { personal } from '@/api/mock/rental'
+// import { personal } from '@/api/mock/rental'
 export default {
   components: {
     cpTable,
@@ -34,7 +34,7 @@ export default {
   },
   data: () => ({
     columns: personal_column,
-    data: personal
+    data: []
   }),
   mounted() {
     getPersonalRent().then(({data}) => {

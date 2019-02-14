@@ -44,7 +44,7 @@ export default {
         username: this.username,
         password: this.password
       }).then(() => {
-        this.$router.push('/rent');
+        this.$router.push('/rent')
       })
     }
   }
