@@ -3,3 +3,16 @@
     @extend .addBtn
   }
 }
+
+#_personal {
+  #_table {
+    .row .col_student {
+      display: flex;
+      justify-content: space-around;
+
+      .student_data {
+        text-align: left;
+      }
+    }
+  }
+}

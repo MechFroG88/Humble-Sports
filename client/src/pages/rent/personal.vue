@@ -4,12 +4,22 @@
     @click="$router.push({
       'name': 'addNew',
       'params': {
-      'state': 'personal'
+        'state': 'personal'
       }
     })">新增</div>
     <cp-table width="100" class="mt-2" ref="table"
     :columns="columns" :tableData="data" title navbar="搜寻学号或名字">
       <template slot="title">租借记录（个人）</template>
+
+      <template slot="student" slot-scope="{ data }">
+        <img :src="data.student.image" alt="Student image">
+        <div class="student_data">
+          <div class="cn_name">{{data.student.cn_name}}</div>
+          <div class="id">{{data.student.id}}</div>
+          <div class="class_name">{{data.student.class}}</div>
+        </div>
+      </template>
+
       <template slot="status" slot-scope="{ data }">
           <span v-if="data.status == 0" class="label label-success">已归还</span>
           <span v-if="data.status == 1" class="label label-primary">未归还</span>
@@ -26,7 +36,7 @@ import { getPersonalRent } from '@/api/rental'
 import cpTable from '@/components/tables'
 import cmodal from '@/components/confirm-modal'
 import { personal_column } from '@/api/tableColumns'
-import { personal } from '@/api/mock/rental'
+// import { personal } from '@/api/mock/rental'
 export default {
   components: {
     cpTable,
@@ -34,7 +44,7 @@ export default {
   },
   data: () => ({
     columns: personal_column,
-    data: personal
+    data: [],
   }),
   mounted() {
     getPersonalRent().then(({data}) => {
@@ -42,6 +52,8 @@ export default {
       for (let i = 0; i < this.data.length; i++) {
         this.data[i].item_type = this.data[i].item.type
       }
+      this.$refs.table.isLoading = false
+      console.log(this.data)
     }).catch((err) => {
       console.log(err)
     })
