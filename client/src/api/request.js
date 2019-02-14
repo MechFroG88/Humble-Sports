@@ -3,10 +3,11 @@ import router from '@/router';
 import axios  from 'axios';
 import qs     from 'qs';
 
-const local = 'http://42.191.219.148';
+const local_shan = 'http://42.191.219.148';
+const local_kelzin = 'http://mechfrog88.ddns.net/'
 
 const service = axios.create({
-  baseURL: process.env.NODE_ENV == 'production' ? '/api/' : local,
+  baseURL: process.env.NODE_ENV == 'production' ? '/api/' : local_shan,
   transformRequest: [function (data, headers) {
     if(headers['Content-Type'] == "multipart/form-data"){
       return data;
