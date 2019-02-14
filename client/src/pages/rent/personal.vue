@@ -44,7 +44,7 @@ export default {
   },
   data: () => ({
     columns: personal_column,
-    data: [],
+    data: []
   }),
   mounted() {
     getPersonalRent().then(({data}) => {
