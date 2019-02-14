@@ -25,7 +25,7 @@
           <i class="icon icon-settings mr-2 c-hand"
           @click="$router.push('/settings')"></i>
           <i class="icon icon-log-out ml-2 c-hand" 
-          @click="$router.push('/login')"></i>
+          @click="logout()"></i>
         </div>
       </div>
     </div>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { userLogout } from '@/api/user'
 export default {
   props: {
     data: Array,
@@ -45,8 +46,18 @@ export default {
     active: '',
     targets: []
   }),
-  mounted() {
+  beforeMount() {
     this.active = this.data[0].list[0].target.name;
+  },
+  methods: {
+    logout() {
+      userLogout().then(() => {
+        this.$router.push('/login')
+      }).catch((err) => {
+        console.log(err)
+        alert('Error with logging out')
+      })
+    }
   },
   watch: {
     $route(to, from) {
