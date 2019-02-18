@@ -20,7 +20,8 @@
           </label>
           <span class="forgot c-hand" @click="forgotPassword()">忘记密码?</span>
         </div>
-        <button class="btn btn-primary submit" :class="{'loading': loading}" type="submit">登入</button>
+        <button class="btn btn-primary submit" 
+        :class="{'loading': loading}" type="submit">登入</button>
       </form>
     </div>
     <div class="pic col-8"></div>
@@ -39,7 +40,7 @@ export default {
   }),
   methods: {
     forgotPassword() {
-      alert('forgot password');
+      console.log('forgot password');
     },
     login() {
       this.loading = true;

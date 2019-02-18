@@ -1,7 +1,8 @@
 <template>
   <div id="_addNew">
     <div class="modal-header">
-      <router-link :to="$route.params.state === 'personal' ? {'name': 'personal'} : {'name': 'group'}" tag="div" class="link float-right c-hand">
+      <router-link tag="div" class="link float-right c-hand" 
+      :to="$route.params.state === 'personal' ? {'name': 'personal'} : {'name': 'group'}">
         <i class="icon icon-x"></i>
       </router-link>
       <div class="modal-title h2">新增租借记录</div>

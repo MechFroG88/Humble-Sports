@@ -11,11 +11,11 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'camel-case': {
-      properties: 'never',
+      'properties': 'never',
     },
     'prefer-const': ['error', {
-      destructuring: 'any',
-      ignoreReadBeforeAssign: false,
+      'destructuring': 'any',
+      'ignoreReadBeforeAssign': false,
     }],
     // 'sort-imports': ['error', {
     //   'ignoreCase': true,

@@ -44,13 +44,11 @@
 import { getPersonalRent } from '@/api/rental';
 
 import cpTable from '@/components/tables';
-import cmodal from '@/components/confirm-modal';
 import { personal_column } from '@/api/tableColumns';
 // import { personal } from '@/api/mock/rental'
 export default {
   components: {
     cpTable,
-    cmodal,
   },
   data: () => ({
     columns: personal_column,
@@ -76,7 +74,7 @@ export default {
       let time = '上午';
       const times = date.split(' ')[1].split(':');
       if (times[0] >= 12) {
-        time = times[0] == 12 ? '中午' : '下午';
+        time = times[0] === 12 ? '中午' : '下午';
         times[0] -= 12;
       }
       return `${time}${times[0]}：${times[1]}`;

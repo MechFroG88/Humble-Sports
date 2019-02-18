@@ -1,15 +1,15 @@
-import { getToken, deleteToken } from '@/api/auth';
-import router from '@/router';
+import { getToken } from '@/api/auth';
+// import router from '@/router';
 import axios from 'axios';
 import qs from 'qs';
 
-const local_shan = 'http://42.191.219.148';
-const local_kelzin = 'http://mechfrog88.ddns.net/';
+const local = 'http://42.191.219.148';
+// const local = 'http://mechfrog88.ddns.net/';
 
 const service = axios.create({
-  baseURL: process.env.NODE_ENV == 'production' ? '/api/' : local_shan,
-  transformRequest: [function (data, headers) {
-    if (headers['Content-Type'] == 'multipart/form-data') {
+  baseURL: process.env.NODE_ENV === 'production' ? '/api/' : local,
+  transformRequest: [(data, headers) => {
+    if (headers['Content-Type'] === 'multipart/form-data') {
       return data;
     }
     return qs.stringify(data);
