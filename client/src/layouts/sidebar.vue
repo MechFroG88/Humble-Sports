@@ -55,8 +55,8 @@ export default {
       userLogout().then(() => {
         this.$router.push('/login');
       }).catch((err) => {
+        console.log('Error with logging out');
         console.log(err);
-        alert('Error with logging out');
       });
     },
   },

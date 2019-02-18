@@ -3,14 +3,14 @@ if (!('boxShadow' in document.body.style)) {
 }
 
 document.body.addEventListener('click', (e) => {
-  const target = e.target;
+  const { target } = e;
   if (target.tagName === 'INPUT'
         && target.getAttribute('class').indexOf('liga') === -1) {
     target.select();
   }
 });
 
-(function () {
+(() => {
   const fontSize = document.getElementById('fontSize');
 
 
