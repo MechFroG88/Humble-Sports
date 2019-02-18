@@ -1,8 +1,8 @@
 export const personal_column = [
   { name: '学生资料', field: 'student' },
   { name: '借用器材', field: 'item_type' },
-  { name: '借出时间', field: 'item_in' },
-  { name: '归还时间', field: 'item_out' },
+  { name: '借出时间', field: 'item_out' },
+  { name: '归还时间', field: 'item_in' },
   { name: '负责老师', field: 'teacher' },
   { name: '状态', field: 'status' },
 ];
