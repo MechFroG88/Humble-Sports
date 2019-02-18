@@ -44,6 +44,7 @@
     .table_columns {
       height: 2.5rem;
       td {
+        font-size: $font-size-lg;
         font-weight: 300;
         color: lighten($text-gray, 8%);
       }
