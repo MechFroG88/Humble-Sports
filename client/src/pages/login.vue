@@ -20,7 +20,7 @@
           </label>
           <span class="forgot c-hand" @click="forgotPassword()">忘记密码?</span>
         </div>
-        <button class="btn btn-primary submit" type="submit">登入</button>
+        <button class="btn btn-primary submit" :class="{'loading': loading}" type="submit">登入</button>
       </form>
     </div>
     <div class="pic col-8"></div>
@@ -28,30 +28,39 @@
 </template>
 
 <script>
-import { userLogin } from '@/api/user'
+import { userLogin } from '@/api/user';
 
 export default {
   data: () => ({
     username: '',
     password: '',
-    remember: false
+    remember: false,
+    loading: false,
   }),
   methods: {
     forgotPassword() {
-      alert('forgot password')
+      alert('forgot password');
     },
     login() {
+      this.loading = true;
       userLogin({
         username: this.username,
-        password: this.password
+        password: this.password,
       }).then(() => {
-        this.$router.push('/rent')
+        this.loading = false;
+        this.$router.push('/rent');
       }).catch((err) => {
-        alert('A problem has occured!')
-        console.log(err)
+        this.loading = false;
+        console.log(
+          `%cLogin failed\n%c${err}\nPlease try again later`,
+          'color: red; font-size: 1.8rem; font-weight: 500;',
+          'font-size: 1rem',
+        );
       });
     },
-  }
+  },
+  mounted() {
+  },
 };
 </script>
 

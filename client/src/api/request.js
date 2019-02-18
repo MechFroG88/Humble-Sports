@@ -1,39 +1,27 @@
-import { getToken, deleteToken } from '@/api/auth'
+import { getToken, deleteToken } from '@/api/auth';
 import router from '@/router';
-import axios  from 'axios';
-import qs     from 'qs';
+import axios from 'axios';
+import qs from 'qs';
 
 const local_shan = 'http://42.191.219.148';
-const local_kelzin = 'http://mechfrog88.ddns.net/'
+const local_kelzin = 'http://mechfrog88.ddns.net/';
 
 const service = axios.create({
   baseURL: process.env.NODE_ENV == 'production' ? '/api/' : local_shan,
   transformRequest: [function (data, headers) {
-    if(headers['Content-Type'] == "multipart/form-data"){
+    if (headers['Content-Type'] == 'multipart/form-data') {
       return data;
     }
     return qs.stringify(data);
   }],
   withCredentials: true,
-})
-
-service.interceptors.request.use(function (config) {
-  config.headers.Authorization = getToken() ? getToken() : (window.token ? window.token : "")
-  return config;
-}, function (error) {
-  return Promise.reject(error);
-})
-
-service.interceptors.response.use(function (response) {
-  return response;
-}, function (error) { 
-  // if(error.response.status == 401 
-  //   && window.location.pathname != '/'
-  //   && window.location.pathname != '/login'
-  //   ){
-  //   router.push('/login');
-  // }
-  return Promise.reject(error);
 });
+
+service.interceptors.request.use((config) => {
+  config.headers.Authorization = getToken() ? getToken() : (window.token ? window.token : '');
+  return config;
+}, error => Promise.reject(error));
+
+service.interceptors.response.use(response => response, error => Promise.reject(error));
 
 export default service;

@@ -49,16 +49,16 @@ export default {
     tableData: Array,
     width: {
       type: [Number, String],
-      default: 100
+      default: 100,
     },
     striped: Boolean,
     hoverable: Boolean,
     title: Boolean,
-    navbar: String
+    navbar: String,
   },
   data: () => ({
-    isLoading: true
-  })
+    isLoading: false,
+  }),
 };
 </script>
 

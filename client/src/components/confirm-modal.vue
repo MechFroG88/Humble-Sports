@@ -26,14 +26,14 @@ export default {
   props: {
     closable: {
       type: Boolean,
-      default: true
+      default: true,
     },
-    title: String
+    title: String,
   },
   data: () => ({
-    active: false
-  })
-}
+    active: false,
+  }),
+};
 </script>
 
 <style>
