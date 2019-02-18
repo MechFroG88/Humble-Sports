@@ -1,13 +1,13 @@
 <template>
   <div id="_management">
-    <div class="btn btn-lg btn-primary addBtn" 
+    <div class="btn btn-lg btn-primary addBtn"
     style="margin-bottom: 3.8rem;"
     @click="$refs.add.active = true">新增</div>
     <mg-table width="40" :columns="columns" :tableData="data" title>
       <div slot="record">
         <i class="icon icon-external-link c-hand" @click="$router.push({
             'name':'management_details'
-          })" ></i> 
+          })" ></i>
       </div>
       <div slot="title">
         器材管理
@@ -69,40 +69,41 @@
 </template>
 
 <script>
-import mgTable from '@/components/tables'
-import cpModal from '@/components/modal'
-import { management_column } from '@/api/tableColumns'
+import mgTable from '@/components/tables';
+import cpModal from '@/components/modal';
+import { management_column } from '@/api/tableColumns';
+
 export default {
-  components:{
+  components: {
     mgTable,
-    cpModal
+    cpModal,
   },
-  data:()=>({
+  data: () => ({
     columns: management_column,
-    data:[
+    data: [
       {
-        name:'篮球',
-        serialnumber:'1-12',
-        price: '16.00'
+        name: '篮球',
+        serialnumber: '1-12',
+        price: '16.00',
       },
       {
-        name:'足球',
+        name: '足球',
         price: '18.00',
-        serialnumber:'1-12',
+        serialnumber: '1-12',
       },
       {
-        name:'排球',
-        serialnumber:'1-12',
-        price: '12.00'
-      }
-    ]
+        name: '排球',
+        serialnumber: '1-12',
+        price: '12.00',
+      },
+    ],
   }),
   methods: {
     add() {
-      this.$refs.add.active = false
-    }
-  }
-}
+      this.$refs.add.active = false;
+    },
+  },
+};
 </script>
 
 <style>

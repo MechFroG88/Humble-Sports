@@ -1,5 +1,6 @@
 <template>
   <div id="_settings">
+<<<<<<< HEAD
     <div class="container">
       <div class="title">您的资料</div>
       <div class="nameTitle">名字</div>
@@ -41,6 +42,9 @@
         </div>
       </div>
     </pwModal>
+=======
+
+>>>>>>> Linting
   </div>
 </template>
 
