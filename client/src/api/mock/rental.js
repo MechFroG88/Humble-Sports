@@ -4,7 +4,7 @@
   2 : expired
   3 : lost
 */
-export const personal = [
+const personal = [
   {
     id: '1',
     student_id: '140123',
@@ -62,3 +62,7 @@ export const personal = [
     status: 3,
   },
 ];
+
+module.exports = {
+  personal
+}

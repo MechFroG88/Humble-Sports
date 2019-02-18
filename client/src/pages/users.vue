@@ -1,6 +1,6 @@
 <template>
   <div id="_users">
-    <div class="btn btn-lg btn-primary addBtn" 
+    <div class="btn btn-lg btn-primary addBtn"
     style="margin-bottom: 3.8rem;"
     @click="$refs.add.active = true">新增</div>
 
@@ -19,28 +19,29 @@
 </template>
 
 <script>
-import userTable from '@/components/tables'
-import modal from '@/components/modal'
-import cmodal from '@/components/confirm-modal'
-import { users_column } from '@/api/tableColumns'
+import userTable from '@/components/tables';
+import modal from '@/components/modal';
+import cmodal from '@/components/confirm-modal';
+import { users_column } from '@/api/tableColumns';
+
 export default {
   components: {
     userTable,
     modal,
-    cmodal
+    cmodal,
   },
   data: () => ({
     users: users_column,
     data: [
       {
-        name: '董顺忠'
+        name: '董顺忠',
       },
       {
-        name: 'XXX'
-      }
-    ]
-  })
-}
+        name: 'XXX',
+      },
+    ],
+  }),
+};
 </script>
 
 <style>
