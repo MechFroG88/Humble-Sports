@@ -57,7 +57,7 @@ export default {
     navbar: String,
   },
   data: () => ({
-    isLoading: false,
+    isLoading: true,
   }),
 };
 </script>
