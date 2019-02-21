@@ -49,7 +49,6 @@ import { getPersonalRent } from '@/api/rental';
 
 import cpTable from '@/components/tables';
 import { personal_column } from '@/api/tableColumns';
-// import { personal } from '@/api/mock/rental'
 export default {
   components: {
     cpTable,
