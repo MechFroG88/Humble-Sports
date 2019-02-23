@@ -31,7 +31,10 @@
 
 // remove spinners for input[type=number]
 input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
+input[type=number]::-webkit-outer-spin-button,
+input[type=datetime-local]::-webkit-inner-spin-button, 
+input[type=datetime-local]::-webkit-outer-spin-button,
+input[type=datetime-local]::-webkit-clear-button { 
   -webkit-appearance: none; 
   margin: 0; 
 }
