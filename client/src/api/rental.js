@@ -8,7 +8,6 @@ export function getPersonalRent() {
 }
 
 export function postPersonalRent({student_id, item_type, item_tag, due_date}) {
-  console.log({student_id, item_type, item_tag, due_date});
   return request({
     url: '/rent/personal',
     method: 'POST',
