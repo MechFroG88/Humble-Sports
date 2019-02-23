@@ -3,8 +3,8 @@ import { getToken } from '@/api/auth';
 import axios from 'axios';
 import qs from 'qs';
 
-const local = 'http://42.191.219.148';
-// const local = 'http://mechfrog88.ddns.net/';
+// const local = 'http://42.191.219.148';
+const local = 'http://mechfrog88.ddns.net/';
 
 const service = axios.create({
   baseURL: process.env.NODE_ENV === 'production' ? '/api/' : local,
