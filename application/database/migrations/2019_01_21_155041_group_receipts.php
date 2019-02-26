@@ -15,6 +15,7 @@ class GroupReceipts extends Migration
     {
         Schema::create('group_receipts', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('grouprent_id');
             $table->integer('user_id');
             $table->integer('single_fine');
             $table->integer('fine');
