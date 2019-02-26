@@ -15,12 +15,13 @@ class PersonalRents extends Migration
     {
         Schema::create('personal_rents', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('teacher',10);
             $table->integer('student_id');
             $table->integer('item_id');
             $table->integer('item_tag');
             $table->datetime('item_out');
             $table->datetime('item_in');
-            $table->datetime('duedate');
+            $table->datetime('due_date');
             $table->tinyInteger('status');
             $table->softDeletes();
         });
@@ -33,6 +34,6 @@ class PersonalRents extends Migration
      */
     public function down()
     {
-        Schema::dropIfExits('personal_rents');
+        Schema::dropIfExists('personal_rents');
     }
 }
