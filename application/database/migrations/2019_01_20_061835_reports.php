@@ -18,6 +18,7 @@ class Reports extends Migration
             $table->integer('month');
             $table->integer('junior');
             $table->integer('senior');
+            $table->integer('total');
         });
     }
 
