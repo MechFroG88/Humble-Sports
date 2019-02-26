@@ -451,9 +451,9 @@ paths:
             student_id:
               type: "integer"
               example: "140048"
-            item_type:
-              type: "string"
-              example: "banqiu"
+            item_id:
+              type: "integer"
+              example: "1"
             item_tag:
               type: "integer"
               example: "1"
@@ -589,9 +589,9 @@ paths:
             phone:
               type: "integer"
               example: "0123456789"
-            item_type:
-              type: "string"
-              example: "lanqiu"
+            item_id:
+              type: "integer"
+              example: "1"
             item_tag:
               type: "integer"
               example: "1"
