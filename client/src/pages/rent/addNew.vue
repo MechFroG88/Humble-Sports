@@ -106,7 +106,6 @@ export default {
       this.data.due_date = this.date.replace('T', ' ').concat(':00');
       this.data.student_id = parseInt(this.data.student_id);
       this.data.item_tag = parseInt(this.data.item_tag);
-      // console.log(this.data)
       if (this.$route.params.state === 'personal') {
         postPersonalRent(this.data).then((msg) => {
           console.log(msg);
