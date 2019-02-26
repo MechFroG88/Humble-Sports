@@ -20,9 +20,9 @@ class PersonalRents extends Migration
             $table->integer('item_id');
             $table->integer('item_tag');
             $table->datetime('item_out');
-            $table->datetime('item_in');
+            $table->datetime('item_in')->nullable();
             $table->datetime('due_date');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(1);
             $table->softDeletes();
         });
     }

@@ -16,16 +16,19 @@ class GroupRents extends Migration
         Schema::create('group_rents', function (Blueprint $table) {
             $table->increments('id');
             $table->string('group_name',10);
+            $table->string('cn_name');
+            $table->string('class');
+            $table->integer('phone_no');
             $table->string('teacher',10);
-            $table->integer('student_id');
             $table->integer('item_id');
             $table->integer('item_tag');
             $table->integer('amount');
-            $table->integer('lost');
+            $table->integer('lost')->default(0);
+            $table->integer('returned')->default(0);
             $table->datetime('item_out');
-            $table->datetime('item_in');
+            $table->datetime('item_in')->nullable();
             $table->datetime('due_date');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(1);
             $table->softDeletes();
         
         });    //
