@@ -14,7 +14,8 @@ class PersonalReceipts extends Migration
     public function up()
     {
         Schema::create('personal_receipts', function (Blueprint $table) {
-            $table->integer('id');
+            $table->increments('id');
+            $table->integer('personalrent_id');
             $table->integer('user_id');
             $table->integer('fine');
             $table->integer('type');
