@@ -17,6 +17,8 @@ class Reports extends Migration
             $table->increments('id');
             $table->integer('year');
             $table->integer('month');
+            $table->integer('junior');
+            $table->integer('senior');
             $table->integer('total');
         });
     }
