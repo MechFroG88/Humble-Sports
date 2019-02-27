@@ -14,7 +14,7 @@ class GroupRentController extends Controller
 {
     private $rules = [
         "group_name" => "required",
-        "cn_name"    => "required|regex:/[\x{4e00}-\x{9fa5}]+/u",
+        "student_id" => "required",
         "class"      => "required",
         "phone_no"   => "required",
         "item_id"    => "required",
@@ -56,7 +56,7 @@ class GroupRentController extends Controller
 
     public function get()
     {
-        $grouprent = grouprent::with('item')->get()->makeHidden(['due_date','id']);
+        $grouprent = grouprent::with('item','student')->get()->makeHidden(['due_date','id']);
         return response($grouprent->toJson(),200);
     }
 
