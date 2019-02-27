@@ -17,6 +17,9 @@
       }
 
       .col_item_in, .col_item_out {
+        .expired {
+          font-size: .7rem;
+        }
         .date {
           color: darken($text-gray, 5%);
           font-size: .65rem;
