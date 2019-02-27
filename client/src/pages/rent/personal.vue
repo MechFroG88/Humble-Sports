@@ -15,12 +15,12 @@
     :columns="personal_columns" :tableData="data" title navbar="搜寻学号或名字">
       <template slot="title">租借记录（个人）</template>
 
-      <!-- <template slot="student" slot-scope="{ data }">
-        <img :src="data.student.image" alt="Student image">
+      <template slot="student" slot-scope="{ data }">
+        <!-- <img :src="data.student.image" alt="Student image"> -->
         <div class="student_data">
           <div class="cn_name">{{data.student_id}}</div>
-          <div class="id">{{data.student.id}}</div>
-          <div class="class_name">{{data.student.class}}</div>
+          <!-- <div class="id">{{data.student.id}}</div>
+          <div class="class_name">{{data.student.class}}</div> -->
         </div>
       </template> -->
 
