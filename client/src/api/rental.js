@@ -7,12 +7,12 @@ export function getPersonalRent() {
   });
 }
 
-export function postPersonalRent({student_id, item_type, item_tag, due_date}) {
+export function postPersonalRent({student_id, item_id, item_tag, due_date}) {
   return request({
     url: '/rent/personal',
     method: 'POST',
     data: {
-      student_id, item_type, item_tag, due_date
+      student_id, item_id, item_tag, due_date
     },
   });
 }
