@@ -18,7 +18,7 @@
       <!-- <template slot="student" slot-scope="{ data }">
         <img :src="data.student.image" alt="Student image">
         <div class="student_data">
-          <div class="cn_name">{{data.student.cn_name}}</div>
+          <div class="cn_name">{{data.student_id}}</div>
           <div class="id">{{data.student.id}}</div>
           <div class="class_name">{{data.student.class}}</div>
         </div>
@@ -30,8 +30,15 @@
       </template>
 
       <template slot="item_in" slot-scope="{ data }">
-        <div class="date">{{toDate(data.item_in)}}</div>
-        <div class="time">{{toTime(data.item_in)}}</div>
+        <div v-if="data.item_in">
+          <div class="date">{{toDate(data.item_in)}}</div>
+          <div class="time">{{toTime(data.item_in)}}</div>
+        </div>
+        <div v-else>
+          <div class="expired">逾期时间：</div>
+          <div class="date">{{toDate(data.due_date)}}</div>
+          <div class="time">{{toTime(data.due_date)}}</div>
+        </div>
       </template> -->
 
       <template slot="status" slot-scope="{ data }">

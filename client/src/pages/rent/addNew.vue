@@ -44,14 +44,14 @@
           <div class="item h5 mb-2">器材管理</div>
           <div class="form-group">
             <div class="col-2 col-sm-12">
-              <label class="form-label" for="item_type">种类：</label>
+              <label class="form-label" for="item_id">种类：</label>
             </div>
             <div class="col-10 col-sm-12">
-              <select class="form-select" name="item_type" id="item_type" 
-              v-model="data.item_type">
-                <option value="basketball">篮球</option>
-                <option value="football">足球</option>
-                <option value="volleyball">排球</option>
+              <select class="form-select" name="item_id" id="item_id" 
+              v-model="data.item_id">
+                <option value="1">篮球</option>
+                <option value="2">足球</option>
+                <option value="3">排球</option>
               </select>
             </div>
           </div>
@@ -82,7 +82,8 @@
       </div>
     </div>
     <div class="modal-footer">
-      <div class="btn btn-lg btn-primary" @click="createRent">借出</div>
+      <div class="btn btn-lg btn-primary" :class="{'loading': isLoading}"
+      @click="createRent">借出</div>
     </div>
   </div>
 </template>
@@ -92,24 +93,31 @@ import { postPersonalRent, postGroupRent } from '@/api/rental'
 export default {
   data: () => ({
     date: '',
+    isLoading: false,
     data: {
       group_name: '',
       student_id: null,
       phone: '',
-      item_type: '',
+      item_id: '',
       item_tag: 0,
       due_date: '',
     }
   }),
   methods: {
     createRent() {
-      this.data.due_date = this.date.replace('T', ' ').concat(':00');
+      this.isLoading = true;
+
+      this.data.due_date   = this.date.replace('T', ' ').concat(':00');
       this.data.student_id = parseInt(this.data.student_id);
-      this.data.item_tag = parseInt(this.data.item_tag);
+      this.data.item_tag   = parseInt(this.data.item_tag);
+      this.data.item_id    = parseInt(this.data.item_id);
+      
       if (this.$route.params.state === 'personal') {
         postPersonalRent(this.data).then((msg) => {
-          console.log(msg);
+          this.isLoading = false;
+          this.$router.push(`/rent/${this.$route.params.state}`)
         }).catch((err) => {
+          this.isLoading = false;
           console.log(err);
         });
       } else if (this.$route.params.state === 'group') {
