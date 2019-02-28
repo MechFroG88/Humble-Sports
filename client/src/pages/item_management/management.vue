@@ -88,7 +88,11 @@ export default {
     cpModal,
   },
   mounted() {
+<<<<<<< HEAD
     getItem().then(({ data }) => {
+=======
+    getItem().then(({data}) => {
+>>>>>>> Update item management page GET and POST request
       this.data = data;
       this.$refs.table.isLoading = false;
     })
