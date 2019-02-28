@@ -99,7 +99,7 @@ export default {
       student_id: null,
       phone: '',
       item_id: '',
-      item_tag: 0,
+      item_tag: '',
       due_date: '',
     }
   }),
