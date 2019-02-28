@@ -27,6 +27,7 @@ class GroupReceiptController extends Controller
         $now                   = Carbon::now();
         $days                  = $date->diffInDays($now);
         $receipt->total        = $single_fine->fine*$days;
+        $receipt->amount       = $days;
         $receipt->user_id      = Auth::user()->id;
         $receipt->type         = 2;
         $receipt->save();
@@ -40,8 +41,8 @@ class GroupReceiptController extends Controller
         $item_id               = grouprent::where('id',$id)->pluck('item_id');
         $single_price          = item::where('id',$item_id)->select('price')->first();
         $receipt->single_price = $single_price->price;
-        $amount                = grouprent::where('id',$id)->pluck('lost')->first();
-        $receipt->total        = $single_price->price * $amount; 
+        $receipt->amount                = grouprent::where('id',$id)->pluck('lost')->first();
+        $receipt->total        = $single_price->price * $receipt->amount; 
         $receipt->user_id      = Auth::user()->id;
         $receipt->type         = 3;
         $receipt->save();
