@@ -16,7 +16,7 @@ class Items extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title',10);
-            $table->tinyInteger('type');
+            $table->string('type');
             $table->integer('start_id');
             $table->integer('end_id');
             $table->integer('fine');
