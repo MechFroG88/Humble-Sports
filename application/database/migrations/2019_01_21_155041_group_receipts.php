@@ -18,6 +18,7 @@ class GroupReceipts extends Migration
             $table->integer('user_id');
             $table->integer('single_price')->nullable();
             $table->integer('single_fine')->nullable();
+            $table->integer('amount');
             $table->integer('total')->default(0);
             $table->tinyInteger('type');
             $table->timestamps();
