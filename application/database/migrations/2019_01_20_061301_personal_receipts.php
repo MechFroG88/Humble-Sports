@@ -17,6 +17,8 @@ class PersonalReceipts extends Migration
             $table->increments('id');
             $table->integer('personalrent_id');
             $table->integer('user_id');
+            $table->integer('total')->default(0);
+            $table->integer('days')->default(0);
             $table->integer('fine');
             $table->integer('type');
             $table->timestamps();
