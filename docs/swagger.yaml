@@ -439,7 +439,7 @@ paths:
   /rent/personal:
     post:
       tags:
-      - "Rents"
+      - "PersonalRents"
       summary: "Create personal rent"
       parameters:
       - in: "body"
@@ -451,9 +451,9 @@ paths:
             student_id:
               type: "integer"
               example: "140048"
-            item_id:
-              type: "integer"
-              example: "1"
+            item_type:
+              type: "string"
+              example: "banqiu"
             item_tag:
               type: "integer"
               example: "1"
@@ -472,7 +472,7 @@ paths:
           
     get:
       tags: 
-      - "Rents"
+      - "PersonalRents"
       summary: "Returns all personal rents data"
       responses:
         200:
@@ -492,20 +492,20 @@ paths:
               class:
                 type: "string"
                 example: "高二李忠"
-              image/png:
+              picture:
                 type: "string"
-                format: "binary"
+                example: "asfcdasfcda"
               item_tag:
                 type:  "integer"
                 example: "1"
               item_type:
                 type: "string"
                 example: "yumaoqiu"
-              rent_in:
+              item_in:
                 type: "string"
                 format: "date-time"
                 example: "2019-01-31 10:27:13"
-              rent_out:
+              item_out:
                 type: "string"
                 format: "date-time"
                 example: "2019-01-31 10:37:13"
@@ -529,11 +529,11 @@ paths:
         400:
           description: "Validation Error"
 
-  /rent/personal/{rentId}:  
+  /rent/personal/{rentId}/return:  
       put:
         tags:
-        - "Rents"
-        summary: "Update personal rent status"
+        - "PersonalRents"
+        summary: "Update personal rent returned"
         parameters:
           - name: "rentId"
             in: "path"
@@ -542,7 +542,7 @@ paths:
             type: "integer"
           - in: "body"
             name: "Body"
-            description: "Update personal rent status"
+            description: "Update personal rent returned"
             schema: 
               type: "object"
               properties:
@@ -564,11 +564,78 @@ paths:
             description: "Unauthorized"
           400:
             description: "Validation Error"
+            
+  /rent/personal/{rentId}/lost:  
+      put:
+        tags:
+        - "PersonalRents"
+        summary: "Update personal rent lost"
+        parameters:
+          - name: "rentId"
+            in: "path"
+            description: "Id of personal rent to update"
+            required: true
+            type: "integer"
+          - in: "body"
+            name: "Body"
+            description: "Update personal rent lost"
+            schema: 
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                status:
+                  type: "integer"
+                  description: "Status\n
+                  0 : returned\n
+                  1 : unreturned\n
+                  2 : expired\n
+                  3 : lost"
 
+        responses:
+          200:
+            description: "Successful operation"
+          401:
+            description: "Unauthorized"
+          400:
+            description: "Validation Error"       
+
+  /rent/personal/expired:  
+      put:
+        tags:
+        - "PersonalRents"
+        summary: "Update personal rent expired"
+        parameters:
+          - in: "body"
+            name: "Body"
+            description: "Update personal rent expired"
+            schema: 
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                status:
+                  type: "integer"
+                  description: "Status\n
+                  0 : returned\n
+                  1 : unreturned\n
+                  2 : expired\n
+                  3 : lost"
+
+        responses:
+          200:
+            description: "Successful operation"
+          401:
+            description: "Unauthorized"
+          400:
+            description: "Validation Error" 
+            
   /rent/group:
     post:
       tags:
-      - "Rents"
+      - "GroupRents"
       summary: "Create group rent"
       parameters:
       - in: "body"
@@ -583,15 +650,12 @@ paths:
             student_id:
               type: "integer"
               example: "140048"
-            name:
-              type: "string"
-              example: "陈智林"
             phone:
               type: "integer"
               example: "0123456789"
-            item_id:
-              type: "integer"
-              example: "1"
+            item_type:
+              type: "string"
+              example: "lanqiu"
             item_tag:
               type: "integer"
               example: "1"
@@ -610,7 +674,7 @@ paths:
     
     get:
       tags:
-      - "Rents"
+      - "GroupRents"
       summary: "Returns all group rents data"
         
       responses:
@@ -637,6 +701,14 @@ paths:
               item_tag:
                 type: "integer"
                 example: "1"
+              item_in:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"
+              item_out:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"
               due_date:
                 type: "string"
                 format: "date-time"
@@ -656,139 +728,287 @@ paths:
         400:
           description: "Validation Error"
 
-  /rent/group/{rentId}:  
-    put:
-      tags:
-      - "Rents"
-      summary: "Update group rent status"
-      parameters:
-        - name: "rentId"
-          in: "path"
-          description: "Id of group rent to update"
-          required: true
-          type: "integer"
-        - in: "body"
-          name: "Body"
-          description: "Update group rent status"
-          schema: 
-            type: "object"
-            properties:
-              id:
-                type: "integer"
-                example: "1"
-              status:
-                type: "integer"
-                description: "Status\n
-                0 : returned\n
-                1 : unreturned\n
-                2 : expired\n
-                3 : lost"
-                
-      responses:
-        200:
-          description: "Successful operation"
-        401:
-          description: "Unauthorized"
-        400:
-          description: "Validation Error"
+  /rent/group/{rentId}/return:  
+      put:
+        tags:
+        - "GroupRents"
+        summary: "Update group rent returned"
+        parameters:
+          - name: "rentId"
+            in: "path"
+            description: "Id of group rent to update"
+            required: true
+            type: "integer"
+          - in: "body"
+            name: "Body"
+            description: "Update group rent returned"
+            schema: 
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                status:
+                  type: "integer"
+                  description: "Status\n
+                  0 : returned\n
+                  1 : unreturned\n
+                  2 : expired\n
+                  3 : lost"
 
-  /rent/{rentId}/lost:
+        responses:
+          200:
+            description: "Successful operation"
+          401:
+            description: "Unauthorized"
+          400:
+            description: "Validation Error"
+            
+  /rent/group/{rentId}/lost:  
+      put:
+        tags:
+        - "GroupRents"
+        summary: "Update group rent lost"
+        parameters:
+          - name: "rentId"
+            in: "path"
+            description: "Id of group rent to update"
+            required: true
+            type: "integer"
+          - in: "body"
+            name: "Body"
+            description: "Update group rent lost"
+            schema: 
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                lost:
+                  type: "integer"
+                  example: "2"
+                status:
+                  type: "integer"
+                  description: "Status\n
+                  0 : returned\n
+                  1 : unreturned\n
+                  2 : expired\n
+                  3 : lost"
+
+        responses:
+          200:
+            description: "Successful operation"
+          401:
+            description: "Unauthorized"
+          400:
+            description: "Validation Error"       
+
+  /rent/group/expired:  
+      put:
+        tags:
+        - "GroupRents"
+        summary: "Update group rent expired"
+        parameters:
+          - in: "body"
+            name: "Body"
+            description: "Update group rent expired"
+            schema: 
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                status:
+                  type: "integer"
+                  description: "Status\n
+                  0 : returned\n
+                  1 : unreturned\n
+                  2 : expired\n
+                  3 : lost"
+
+        responses:
+          200:
+            description: "Successful operation"
+          401:
+            description: "Unauthorized"
+          400:
+            description: "Validation Error" 
+
+  /receipt/personal/fine/{rentId}:
     post:
       tags:
-      - "Rents"
-      summary: "Add lost amount"
+      - "PersonalReceipts"
+      summary: "Create new personal receipt for fine"
       parameters:
         - name: "rentId"
           in: "path"
-          type: "integer"
-          required: true
-          description: "Id of rent to update"
-        - name: "Body"
-          in: "body"
-          description: "Add lost amount"
-          schema:
-            type: "object"
-            properties:
-              id:
-                type: "integer"
-                example: "1"
-              amount:
-                type: "integer"
-                example: "1"
-      responses:
-        200:
-          description: "Successful operation"
-        401:
-          description: "Unauthorized"
-        400:
-          description: "Validation Error"
-
-  /receipt_personal/{rent_Id}:
-    get:
-      tags:
-      - "Receipt"
-      summary: "Returns personal receipt data"
-      parameters:
-        - name: "rent_Id"
-          in: "path"
-          description: "ID of personal rent to return"
+          description: "ID of personal rent to create receipt"
           required: true
           type: "integer"
       
       responses:
         200: 
           description: "Successful operation"
-          schema:
-            type: "object"
-            properties:
-              teacher:
-                type: "string"
-                example: "陈恪尽"
-              fine:
-                type: "number"
-                example: "10"
-              item_type:
-                type: "string"
-                example: "zuqiu"
         401:
           description: "Unauthorized"
         400:
           description: "Validation Error"
   
-  /receipt_group/{rent_Id}:    
-    get:
+  /receipt/personal/lost/{rentId}:    
+    post:
       tags:
-      - "Receipt"
-      summary: "Returns group receipt data"
+      - "PersonalReceipts"
+      summary: "Create new personal receipt for lost"
       parameters:
-        - name: "rent_Id"
+        - name: "rentId"
           in: "path"
-          description: "ID of group rent to return"
+          description: "ID of personal rent to create receipt"
           required: true
           type: "integer"
       
       responses:
         200: 
           description: "Successful operation"
-          schema:
-            type: "object"
-            properties:
-              teacher:
-                type: "string"
-                example: "陈恪尽"
-              single_fine:
-                type: "number"
-                example: "2"
-              fine:
-                type: "number"
-                example: "10"
-              item_type:
-                type: "string"
-                example: "paqiu"
         401:
           description: "Unauthorized"
         400:
           description: "Validation Error"    
+  
+  /receipt/personal/{receiptId}:
+    get:
+      tags:
+      - "PersonalReceipts"
+      summary: "Returns single receipt data"
+      parameters:
+        - name: "receiptId"
+          in: "path"
+          description: "ID of receipt to return"
+          required: true
+          type: "integer"
+      
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              student_id:
+                type: "integer"
+                example: "130047"
+              cn_name:
+                type: "string"
+                example: "黄咏志"
+              item_out:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"
+              item_in:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"
+              days:
+                type: "integer"
+                example: "1"
+              fine:
+                type: "integer"
+                example: "10"
+              total:
+                type: "integer"
+                example: "10"
+              item_type:
+                type: "string"
+                example: "lanqiu"
+              teacher:
+                type: "string"
+                example: "ahdong"
+            
+  /receipt/group/fine/{rentId}:
+    post:
+      tags:
+      - "GroupReceipts"
+      summary: "Create new group receipt for fine"
+      parameters:
+        - name: "rentId"
+          in: "path"
+          description: "ID of group rent to create receipt"
+          required: true
+          type: "integer"
+      
+      responses:
+        200: 
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+  
+  /receipt/group/lost/{rentId}:    
+    post:
+      tags:
+      - "GroupReceipts"
+      summary: "Create new group receipt for lost"
+      parameters:
+        - name: "rentId"
+          in: "path"
+          description: "ID of group rent to create receipt"
+          required: true
+          type: "integer"
+      
+      responses:
+        200: 
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"    
+  
+  /receipt/group/{receiptId}:
+    get:
+      tags:
+      - "GroupReceipts"
+      summary: "Returns single receipt data"
+      parameters:
+        - name: "receiptId"
+          in: "path"
+          description: "ID of receipt to return"
+          required: true
+          type: "integer"
+      
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              student_id:
+                type: "integer"
+                example: "130047"
+              cn_name:
+                type: "string"
+                example: "黄咏志"
+              item_out:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"
+              item_in:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"
+              days:
+                type: "integer"
+                example: "1"
+              fine:
+                type: "integer"
+                example: "10"
+              total:
+                type: "integer"
+                example: "10"
+              item_type:
+                type: "string"
+                example: "lanqiu"
+              teacher:
+                type: "string"
+                example: "ahdong"                
   
   /report:
     get:
@@ -808,62 +1028,40 @@ paths:
               lost:
                 type: "integer"
                 example: "10"
-              late:
+              expired:
                 type: "integer"
                 example: "30"
-              fine_late:
+              paid_fine_count:
                 type: "integer"
                 example: "50"
-              fine_late_total:
+              paid_fine:
                 type: "integer"
-                example: "120"
-              fine_lost:
+                example: "12000"
+              paid_lost_count:
                 type: "integer"
                 example: "20"
-              fine_lost_total:
+              paid_lost:
                 type: "integer"
-                example: "200"
-              month:
+                example: "20000"
+              year:
                 type: "object"
                 properties:
-                  1:
-                    type: "integer"
-                    example: "100"
-                  2:
-                    type: "integer"
-                    example: "200"
-                  3:
-                    type: "integer"
-                    example: "300"
-                  4:
-                    type: "integer"
-                    example: "400"
-                  5:
-                    type: "integer"
-                    example: "500"
-                  6:
-                    type: "integer"
-                    example: "600"
-                  7:
-                    type: "integer"
-                    example: "700"
-                  8:
-                    type: "integer"
-                    example: "800"
-                  9:
-                    type: "integer"
-                    example: "900"
-                  10:
-                    type: "integer"
-                    example: "1000"
-                  11:
-                    type: "integer"
-                    example: "1100"
-                  12:
-                    type: "integer"
-                    example: "1200"                               
+                  2019:
+                    type: "object"
+                    properties:
+                      1:
+                        type: "integer"
+                        example: "2"
+                  
+                  2020:
+                    type: "object"
+                    properties:
+                      1:
+                        type: "integer"
+                        example: "20"
+
+                          
         401:
           description: "Unauthorized"
         400:
           description: "Validation Error"
-      
