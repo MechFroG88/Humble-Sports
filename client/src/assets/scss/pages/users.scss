@@ -17,43 +17,8 @@
       }
       .col_action .btn {
         margin: 0 auto;
-        border-radius: .25rem;
+        border-radius: .3rem;
         width: 3.5rem;
-      }
-    }
-  }
-
-  #_modal {
-    .modal-footer {
-      padding-top: 1.2rem;
-      .button-group {
-        display: flex;
-        justify-content: flex-end;
-        width: 100%;
-        .cancel {
-          border-color: $button-color;
-          background-color: $button-color;
-          color: #fff;
-          box-shadow: 0 1px 8px rgba($button-color, 0.7) !important;
-          &:hover {
-            background-color: darken($button-color, 5%);
-          }
-          &:active {
-            box-shadow: 0 .3px .5px rgba($button-color, 0.7) !important;
-          }
-        }
-  
-        .btn {
-          padding-left: 1.7rem;
-          padding-right: 1.7rem;
-          border-radius: .15rem;
-          font-size: $font-size-sm;
-          font-weight: 200;
-          box-shadow: 0 1px 8px rgba($primary-color, 0.7);
-          &:active {
-            box-shadow: 0 .3px .5px rgba($primary-color, 0.7) !important;
-          }
-        }
       }
     }
   }

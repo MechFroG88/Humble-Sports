@@ -13,39 +13,8 @@
           <option>老师</option>
         </select>
       </div>
-      <div slot="action" class="btn btn-primary addBtn" @click="confirm">删除</div>
+      <div slot="action" class="btn btn-primary addBtn">删除</div>
     </userTable>
-
-    <modal ref="add" title="添加用户">
-      <div slot="body">
-        <div class="form-group">
-          <label class="form-label" for="name">名字</label>
-          <input class="form-input" type="text" id="name" placeholder="名字">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="username">用户名</label>
-          <input class="form-input" type="text" id="username" placeholder="用户名">
-        </div>
-        <div class="form-group col-7">
-          <label class="form-label" for="privilege">权限</label>
-          <select class="form-select" id="privilege">
-            <option disabled>请选择权限</option>
-            <option>管理员</option>
-            <option>老师</option>
-          </select>
-        </div>
-      </div>
-
-      <div slot="footer">
-        <div class="button-group">
-          <div class="btn btn-lg mr-2 cancel" @click="$refs.add.active = false">取消</div>
-          <div class="btn btn-primary btn-lg">确定</div>
-        </div>
-      </div>
-    </modal>
-
-    <cmodal ref="confirm_modal" title="确认删除用户">
-    </cmodal>
   </div>
 </template>
 
@@ -53,7 +22,7 @@
 import userTable from '@/components/tables'
 import modal from '@/components/modal'
 import cmodal from '@/components/confirm-modal'
-import { users } from '@/api/tableColumns'
+import { users_column } from '@/api/tableColumns'
 export default {
   components: {
     userTable,
@@ -61,7 +30,7 @@ export default {
     cmodal
   },
   data: () => ({
-    users: users,
+    users: users_column,
     data: [
       {
         name: '董顺忠'
@@ -70,12 +39,7 @@ export default {
         name: 'XXX'
       }
     ]
-  }),
-  methods: {
-    confirm() {
-      this.$refs.confirm_modal.active = true;
-    }
-  }
+  })
 }
 </script>
 

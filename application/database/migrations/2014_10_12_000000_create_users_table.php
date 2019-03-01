@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Users extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,20 +15,14 @@ class Users extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('cn_name',10)->unique();
-            $table->string('username',30)->unique();
-            $table->string('password',30);
-            $table->tinyInteger('type');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
-
-    /**
-     * type 0 : administrator
-     * type 1 : user
-     */
 
     /**
      * Reverse the migrations.

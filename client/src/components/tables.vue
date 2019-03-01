@@ -6,10 +6,10 @@
       'striped': striped,
       'hoverable': hoverable
     }">
-      <tr class="title" v-if="title" :class="navbar ? 'navbar_title' : ''">
+      <tr class="title" v-if="title || navbar" :class="navbar ? 'navbar_title' : ''">
         <td align="justify" :colspan="columns.length">
           <span class="title_name">
-            <slot name="title"/>
+            <slot name="title" v-if="title" />
           </span>
           <div class="input-group input-inline has-icon-right" v-if="navbar">
             <input class="form-input" type="text" :placeholder="navbar">
@@ -26,13 +26,15 @@
         >{{column.name}}</td>
       </tr>
 
-      <tr v-for="(row, row_num) in data" :key="row_num" :class="`row row_${row_num}`">
-        <td v-for="index in columns.length" :key="index" :class="`col_${columns[index-1].field}`">
-          {{row[columns[index-1].field]}}
+      <tr v-for="(row, row_num) in tableData" :key="row_num" :class="`row row_${row_num}`">
+        <td v-for="column in columns" :key="column.field" :class="`col_${column.field}`">
           <slot
-            :name="columns[index-1].field"
-            v-if="!row[columns[index-1].field] && row[columns[index-1].field] != ''"
-          />
+            :name="column.field"
+            :data="row">
+            <template>
+              {{row[column.field]}}
+            </template>
+          </slot>
         </td>
       </tr>
     </table>
@@ -43,7 +45,7 @@
 export default {
   props: {
     columns: Array,
-    data: Array,
+    tableData: Array,
     width: {
       type: [Number, String],
       default: 100

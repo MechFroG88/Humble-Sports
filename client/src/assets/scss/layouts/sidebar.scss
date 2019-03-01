@@ -89,9 +89,16 @@
         padding: .15rem;
         border: solid .07rem #fff;
         border-radius: 50%;
+        &:hover {
+          border-color: rgba(255, 255, 255, .7);
+        }
       }
       .icon-settings, .icon-log-out {
         font-size: $font-size-lg;
+      }
+
+      .icon:hover {
+        color: rgba(255, 255, 255, .7);
       }
     }
   }
