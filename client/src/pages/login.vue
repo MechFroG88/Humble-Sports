@@ -54,8 +54,8 @@ export default {
         this.loading = false;
         console.log(
           `%cLogin failed\n%c${err}\nPlease try again later`,
-          'color: red; font-size: 1.8rem; font-weight: 500;',
-          'font-size: 1rem',
+          'color: red; font-size: 1.6rem; font-weight: 500;',
+          'font-size: .9rem',
         );
       });
     },
