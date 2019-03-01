@@ -20,7 +20,7 @@ export const group_column = [
 
 export const management_column = [
   { name: '器材名称', field: 'type' },
-  { name: '编号', field: 'serialnumber' },
+  { name: '编号', field: 'serialNumber' },
   { name: '价格', field: 'price' },
   { name: '记录', field: 'record' },
 ];
