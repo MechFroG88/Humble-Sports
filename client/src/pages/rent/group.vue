@@ -37,6 +37,8 @@ export default {
     getGroupRent().then(({ data }) => {
       this.data = data;
       this.$refs.table.isLoading = false;
+    }).catch((err) => {
+      console.log(err);
     })
   }
 };
