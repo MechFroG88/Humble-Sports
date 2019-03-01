@@ -7,7 +7,7 @@
     :columns="columns" :tableData="data" title>
       <template slot="title">器材管理</template>
       <template slot="serialNumber" slot-scope="{ data }">
-        {{data.start}} - {{data.end}}
+        {{data.start_id}} - {{data.end_id}}
       </template>
 
       <template slot="record">
@@ -69,7 +69,7 @@
           </div>
         </form>
       </div>
-      <div slot="footer" class="btn btn-lg btn-primary"
+      <div slot="footer" class="btn btn-lg btn-primary" :class="{'loading': isLoading}"
       @click="add()">新增</div>
     </cpModal>
   </div>
@@ -88,7 +88,7 @@ export default {
     cpModal,
   },
   mounted() {
-    getItem().then(({data}) => {
+    getItem().then(({ data }) => {
       this.data = data;
       this.$refs.table.isLoading = false;
     })
@@ -96,42 +96,28 @@ export default {
   data: () => ({
     columns: management_column,
     data: [],
+    isLoading: false,
     item: {
       type: '',
       start_id: '',
       end_id: '',
       price: ''
     }
-    // data: [
-    //   {
-    //     name: '篮球',
-    //     serialnumber: '1-12',
-    //     price: '16.00',
-    //   },
-    //   {
-    //     name: '足球',
-    //     price: '18.00',
-    //     serialnumber: '1-12',
-    //   },
-    //   {
-    //     name: '排球',
-    //     serialnumber: '1-12',
-    //     price: '12.00',
-    //   },
-    // ],
   }),
   methods: {
     add() {
-      this.item.price    = parseInt(this.item.price);
-      this.item.end_id   = parseInt(this.item.end_id);
-      this.item.start_id = parseInt(this.item.start_id);
-
+      this.isLoading = true;
       postItem(this.item).then((msg) => {
-        console.log(msg);
+        this.isLoading = false;
         this.$refs.add.active = false;
+        this.$refs.table.isLoading = true;
+        getItem().then(({ data }) => {
+          this.data = data;
+          this.$refs.table.isLoading = false;
+        })
       }).catch((err) => {
-        console.log(this.item)
         console.log(err);
+        this.$refs.add.active = false;
       })
     },
   },
