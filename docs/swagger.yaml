@@ -326,6 +326,9 @@ paths:
           schema:
             type: "object"
             properties:
+              id:
+                type: "integer"
+                example: "1"
               type:
                 type: "string"
                 example: "ball"
@@ -402,6 +405,9 @@ paths:
           schema:
             type: "object"
             properties:
+              id:
+                type: "integer"
+                example: "1"
               fine:
                 type: "number"
                 example: "12"
@@ -421,9 +427,6 @@ paths:
         schema:
           type: "object"
           properties:
-            id:
-              type: "integer"
-              example: "1"
             fine:
               type: "integer"
               example: "12"
@@ -683,6 +686,9 @@ paths:
           schema:
             type: "object"
             properties:
+              id:
+                type: "integer"
+                example: "1"
               group_name:
                 type: "string"
                 example: "篮球"
@@ -892,6 +898,9 @@ paths:
           schema:
             type: "object"
             properties:
+              id:
+                type: "integer"
+                example: "1"
               student_id:
                 type: "integer"
                 example: "130047"
@@ -980,6 +989,9 @@ paths:
           schema:
             type: "object"
             properties:
+              id:
+                type: "integer"
+                example: "1"
               student_id:
                 type: "integer"
                 example: "130047"
