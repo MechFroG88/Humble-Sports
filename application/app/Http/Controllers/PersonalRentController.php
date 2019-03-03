@@ -51,7 +51,7 @@ class PersonalRentController extends Controller
 
     public function get()
     {       
-        $personalrent = personalrent::with('student','item')->get()->makeHidden(['id']);
+        $personalrent = personalrent::with('student','item')->get();
         return response($personalrent->toJson(),200); 
     }
 
