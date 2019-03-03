@@ -1,17 +1,17 @@
-import request from '@/api/request'
+import request from '@/api/request';
 
 export function getItem() {
   return request({
     url: '/item',
     method: 'GET'
-  })
+  });
 }
 
 export function getSingleItem(id) {
   return request({
     url: `/item/${id}`,
     method: 'GET'
-  })
+  });
 }
 
 export function postItem(data) {
@@ -19,12 +19,12 @@ export function postItem(data) {
     url: '/item',
     method: 'POST',
     data
-  })
+  });
 }
 
 export function getItemRecord(itemId) {
   return request({
     url: `/item/record/${itemId}`,
     method: 'GET'
-  })
+  });
 }
