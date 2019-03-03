@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import pwModal from '@/components/modal';
+
 export default {
   components: {
     pwModal
