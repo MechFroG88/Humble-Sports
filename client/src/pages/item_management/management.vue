@@ -10,9 +10,12 @@
         {{data.start_id}} - {{data.end_id}}
       </template>
 
-      <template slot="record">
+      <template slot="record" slot-scope="{ data }">
         <i class="icon icon-external-link c-hand" @click="$router.push({
-            'name':'management_details'
+            'name':'management_details',
+            'params': {
+              'id': data.id
+            }
           })" ></i>
       </template>
     </mg-table>
@@ -91,6 +94,8 @@ export default {
     getItem().then(({ data }) => {
       this.data = data;
       this.$refs.table.isLoading = false;
+    }).catch((err) => {
+      console.log(err);
     })
   },
   data: () => ({
