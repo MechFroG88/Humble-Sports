@@ -48,10 +48,9 @@
             </div>
             <div class="col-10 col-sm-12">
               <select class="form-select" name="item_id" id="item_id" 
-              v-model="data.item_id">
-                <option value="1">篮球</option>
-                <option value="2">足球</option>
-                <option value="3">排球</option>
+              v-model="selected_item">
+                <option v-for="item in items" :key="item.id"
+                :value="item">{{ item.type }}</option>
               </select>
             </div>
           </div>
@@ -62,9 +61,8 @@
             <div class="col-10 col-sm-12">
               <select class="form-select" name="item_tag" id="item_tag" 
               v-model="data.item_tag">
-                <option value="1">B-001</option>
-                <option value="2">B-002</option>
-                <option value="3">B-003</option>
+                <option v-for="index in id_range"
+                :key="index">{{ index }}</option>
               </select>
             </div>
           </div>
@@ -89,11 +87,21 @@
 </template>
 
 <script>
-import { postPersonalRent, postGroupRent } from '@/api/rental'
+import { postPersonalRent, postGroupRent } from '@/api/rental';
+import { getItem } from '@/api/item';
+
 export default {
+  mounted() {
+    getItem().then(({data}) => {
+      this.items = data;
+    })
+  },
   data: () => ({
     date: '',
     isLoading: false,
+    items: [],
+    selected_item: {},
+    id_range: 0,
     data: {
       group_name: '',
       student_id: null,
@@ -107,10 +115,8 @@ export default {
     createRent() {
       this.isLoading = true;
 
-      this.data.due_date   = this.date.replace('T', ' ').concat(':00');
-      this.data.student_id = parseInt(this.data.student_id);
-      this.data.item_tag   = parseInt(this.data.item_tag);
-      this.data.item_id    = parseInt(this.data.item_id);
+      this.data.due_date = this.date.replace('T', ' ').concat(':00');
+      this.data.item_id  = this.selected_item.id;
       
       if (this.$route.params.state === 'personal') {
         postPersonalRent(this.data).then((msg) => {
@@ -121,12 +127,17 @@ export default {
           console.log(err);
         });
       } else if (this.$route.params.state === 'group') {
-        postGroupRent(this.data).then((msg => {
+        postGroupRent(this.data).then((msg) => {
           console.log(msg);
-        })).catch((err) => {
+        }).catch((err) => {
           console.log(err);
         });
       }
+    },
+  },
+  watch: {
+    selected_item: function(new_value) {
+      this.id_range = new_value.end_id - new_value.start_id + 1;
     }
   }
 };
