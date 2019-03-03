@@ -26,10 +26,10 @@ export const management_column = [
 ];
 
 export const details_column = [
-  { name: '编号', field: 'serialnumber' },
-  { name: '学生/团体', field: 'name' },
-  { name: '借出时间', field: 'rent_time' },
-  { name: '归还时间', field: 'return_time' },
+  { name: '编号', field: 'id' },
+  { name: '学生/团体', field: 'individual' },
+  { name: '借出时间', field: 'item_out' },
+  { name: '归还时间', field: 'item_in' },
   { name: '负责老师', field: 'teacher' },
   { name: '状态', field: 'status' },
 ];
