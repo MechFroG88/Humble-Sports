@@ -22,9 +22,9 @@ export function getAllUsers() {
     method: 'GET'
   });
 }
-export function getUser(id) {
+export function getUser(userId) {
   return request({
-    url: `/user/${id}`,
+    url: `/user/${userId}`,
     method: 'GET'
   });
 }
