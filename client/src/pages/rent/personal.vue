@@ -92,7 +92,6 @@ export default {
     toTime(date) {
       let time = '上午';
       const times = date.split(' ')[1].split(':');
-      console.log(times)
       time = times[0] === 12 ? '中午' : '下午';
       if (times[0] > 12) {
         times[0] -= 12;
