@@ -35,7 +35,7 @@ export const details_column = [
 ];
 
 export const users_column = [
-  { name: '名字', field: 'name' },
-  { name: '权限', field: 'privilege' },
+  { name: '名字', field: 'cn_name' },
+  { name: '权限', field: 'type' },
   { name: '操作', field: 'action' },
 ];
