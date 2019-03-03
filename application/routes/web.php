@@ -23,6 +23,7 @@ Route::post('user/login','UserController@login');
 Route::middleware('auth') ->get('user','UserController@get');
 Route::middleware('auth') ->get('user/{id}','UserController@get_single');
 Route::middleware('auth') ->put('user/password','UserController@change_password');
+Route::middleware('auth') ->put('user/username','UserController@change_username');
 Route::middleware('auth') ->post('user/logout','UserController@logout');
 Route::middleware('admin')->post('user','UserController@create');
 Route::middleware('admin')->put('user/{id}','UserController@update_type');
@@ -45,7 +46,7 @@ Route::middleware('auth') ->get('item/record/{id}','ItemController@get_single_re
 /**
  * Fine Route
  */
-Route::middleware('auth')->post('fine','FineController@change_fine');
+Route::middleware('auth')->post('fine/new','FineController@change_fine');
 Route::middleware('auth')->get('fine','FineController@get');
 
 /**
