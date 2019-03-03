@@ -4,7 +4,7 @@
     style="margin-bottom: 3.8rem;"
     @click="$refs.add.active = true">新增</div>
 
-    <userTable title :columns="users" :data="data" width="40">
+    <userTable title ref="table" :columns="users" :data="data" width="40">
       <div slot="title">用户管理</div>
       <div slot="privilege" class="form-group">
         <select class="form-select">
@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { getAllUsers } from '@/api/user';
+
 import userTable from '@/components/tables';
 import modal from '@/components/modal';
 import cmodal from '@/components/confirm-modal';
@@ -32,15 +34,17 @@ export default {
   },
   data: () => ({
     users: users_column,
-    data: [
-      {
-        name: '董顺忠',
-      },
-      {
-        name: 'XXX',
-      },
-    ],
+    data: [],
   }),
+  mounted() {
+    getAllUsers().then(({ data }) => {
+      this.data = data;
+      this.$refs.table.isLoading = false;
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+
 };
 </script>
 
