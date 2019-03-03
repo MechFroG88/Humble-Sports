@@ -7,6 +7,13 @@ export function getItem() {
   })
 }
 
+export function getSingleItem(id) {
+  return request({
+    url: `/item/${id}`,
+    method: 'GET'
+  })
+}
+
 export function postItem(data) {
   return request({
     url: '/item',
