@@ -14,10 +14,9 @@ class Reports extends Migration
     public function up()
     {
         Schema::create('reports', function (Blueprint $table) {
-            $table->increments('year');
+            $table->increments('id');
+            $table->integer('year');
             $table->integer('month');
-            $table->integer('junior')->nullable();
-            $table->integer('senior')->nullable();
             $table->integer('total');
         });
     }
