@@ -58,6 +58,11 @@
         color: lighten($text-gray, 8%);
       }
     }
+
+    .table_columns td {
+      font-weight: 300;
+      color: lighten($text-gray, 8%);
+    }
   }
 
   .striped tr:nth-child(even), .hoverable tr:hover {

@@ -52,9 +52,14 @@ export default new Router({
       component: () => import('./pages/item_management/management.vue'),
     },
     {
-      path: '/management/details',
+      path: '/management/:id/details',
       name: 'management_details',
       component: () => import('./pages/item_management/details.vue'),
+    },
+    {
+      path: '/statistics',
+      name: 'stats',
+      component: () => import('./pages/statistics')
     },
     {
       path: '/users',

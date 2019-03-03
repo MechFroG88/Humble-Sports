@@ -14,7 +14,7 @@
       <div class="modal-footer">
         <div class="button-group">
           <div class="btn btn-lg mr-2 cancel" @click="active = false">取消</div>
-          <div class="btn btn-primary btn-lg ml-2">确定</div>
+          <div class="btn btn-primary btn-lg">确定</div>
         </div>
       </div>
     </div>

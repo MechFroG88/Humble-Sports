@@ -1,0 +1,54 @@
+#_statistics {
+  padding: 2rem 5rem;
+  .tile {
+    background-color: #fff;
+    box-shadow: 0 .2rem 1rem rgba(0, 0, 0, .08);
+    margin: 0 .8rem 1.5rem;
+    padding: 1.2rem;
+    border-radius: .2rem;
+    .tile-icon {
+      padding: .8rem;
+      border-radius: 50%;
+      .icon {
+        color: #fff;
+        font-size: 1.8rem;
+      }
+    }
+    .tile-content, .tile-action {
+      text-align: left;
+      .tile-title {
+        font-size: 1.4rem;
+        font-weight: 500;
+      }
+      .tile-subtitle {
+        font-weight: 350;
+      }
+    }
+  }
+  .unreturned .tile-icon {
+    background-color: $primary-color;
+  }
+  .expired .tile-icon {
+    background-color: $expired;
+  }
+  .loss .tile-icon {
+    background-color: $loss;
+  }
+  .fine .tile-icon, .payment .tile-icon {
+    background-color: $success-color;
+  }
+
+  .chart {
+    padding-top: 1.2rem;
+    margin: 0 .8rem;
+    box-shadow: 0 .2rem 1rem rgba(0, 0, 0, .08);
+    background-color: #fff;
+    .chart-title {
+      text-align: left;
+      margin-left: 1.2rem;
+    }
+    & > div {
+      padding: 1rem 0;
+    }
+  }
+}
