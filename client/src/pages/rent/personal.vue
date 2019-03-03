@@ -67,11 +67,6 @@ export default {
   mounted() {
     getPersonalRent().then(({ data }) => {
       this.data = data;
-      console.log(data);
-      // for (let i = 0; i < this.data.length; i++) {
-      //   this.data[i].item_type = this.data[i].item.type;
-      //   this.data[i].item_in_date = `${this.data[i].item_in.split(' ')[0].split('-')[0]}年${this.data[i].item_in.split(' ')[0].split('-')[1]}月${this.data[i].item_in.split(' ')[0].split('-')[2]}日`;
-      // }
       this.$refs.table.isLoading = false;
     }).catch((err) => {
       console.log(err);
@@ -84,7 +79,6 @@ export default {
     toTime(date) {
       let time = '上午';
       const times = date.split(' ')[1].split(':');
-      console.log(times)
       time = times[0] === 12 ? '中午' : '下午';
       if (times[0] > 12) {
         times[0] -= 12;
