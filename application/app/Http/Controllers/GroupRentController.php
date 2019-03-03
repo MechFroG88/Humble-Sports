@@ -56,7 +56,7 @@ class GroupRentController extends Controller
 
     public function get()
     {
-        $grouprent = grouprent::with('item','student')->get()->makeHidden(['due_date','id']);
+        $grouprent = grouprent::with('item','student')->get();
         return response($grouprent->toJson(),200);
     }
 
