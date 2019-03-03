@@ -65,6 +65,15 @@ class UserController extends Controller
         return $this->ok();
     }
 
+    public function change_username(Request $data)
+    {   
+        $validator = Validator::make($data->all(),array("username" => "required"));
+        if ($validator->fails()) return $this->fail();
+        user::where('id', Auth::user()->id)
+            ->update(["username" => $data->username]);
+        return $this->ok();
+    }
+
     public function get_single($id)
     {
         return response(user::find($id)->toJson(),200);
