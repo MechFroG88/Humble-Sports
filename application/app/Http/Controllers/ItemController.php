@@ -33,6 +33,12 @@ class ItemController extends Controller
 
     public function get_single($id)
     {
+        $item = item::where('id', $id)->get()->first();
+        return response($item->toJson(),200);
+    }
+
+    public function get_single_rent($id)
+    {
         $personalrent = personalrent::where('item_id',$id)->get();
         $grouprent    = grouprent::where('item_id',$id)->get()->makeHidden(['cn_name','class','phone_no']);
         $merged       = $personalrent->merge($grouprent)->makeHidden(['item_tag','amount','lost','due_date','returned']);
