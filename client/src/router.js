@@ -57,6 +57,11 @@ export default new Router({
       component: () => import('./pages/item_management/details.vue')
     },
     {
+      path: '/statistics',
+      name: 'stats',
+      component: () => import('./pages/statistics')
+    },
+    {
       path: '/users',
       name: 'users',
       component: () => import('./pages/users.vue')
