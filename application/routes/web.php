@@ -39,7 +39,8 @@ Route::middleware('auth')->get('student','StudentController@get');
  */
 Route::middleware('admin')->post('item','ItemController@create');
 Route::middleware('auth') ->get('item','ItemController@get');
-Route::middleware('auth') ->get('item/record/{id}','ItemController@get_single');
+Route::middleware('auth') ->get('item/{id}','ItemController@get_single');
+Route::middleware('auth') ->get('item/record/{id}','ItemController@get_single_rent');
 
 /**
  * Fine Route
