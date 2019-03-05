@@ -2,11 +2,12 @@
 
 ## Users
 * [ ] /user
-  * [ ] GET
+  * [x] GET
   * [ ] POST
 * [ ] /user/password **PUT**
-* [ ] /user/login **POST**
-* [ ] /user/logout **POST**
+* [x] /user/login **POST**
+* [x] /user/logout **POST**
+* [x] /user/current **GET**
 * [ ] /user/{userId}
   * [ ] GET
   * [ ] POST
@@ -23,10 +24,10 @@
 
 ## Items
 
-* [ ] /item
-  * [ ] GET
-  * [ ] POST
-* [ ] /item/record/{itemId} **GET**
+* [x] /item
+  * [x] GET
+  * [x] POST
+* [x] /item/record/{itemId} **GET**
 
 ---
 
@@ -39,15 +40,15 @@
 
 ## Rents
 - ### personal
-  * [ ] /rent/personal
-    * [ ] GET
-    * [ ] POST
+  * [x] /rent/personal
+    * [x] GET
+    * [x] POST
   * [ ] /rent/personal/{rentId}/return **PUT**
   * [ ] /rent/personal/{rentId}/lost **PUT**
   * [ ] /rent/personal/expired **PUT**
 - ### group
   * [ ] /rent/group
-    * [ ] GET
+    * [x] GET
     * [ ] POST
   * [ ] /rent/group/{rentId}/return **PUT**
   * [ ] /rent/group/{rentId}/lost **PUT**
@@ -68,4 +69,4 @@
 ---
 
 ## Report
-* [ ] /report **GET**
+* [x] /report **GET**
