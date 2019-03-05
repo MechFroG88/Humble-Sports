@@ -59,7 +59,6 @@ export default {
     getCurrentUser().then(({ data }) => {
       this.name = data.cn_name;
       this.username = data.username;
-      console.log(data);
     })
   },
   data: () => ({

@@ -2,7 +2,7 @@ import request from '@/api/request';
 
 export function getReport() {
   return request({
-    url: ' /report',
+    url: '/report',
     method: 'GET'
   });
 }
