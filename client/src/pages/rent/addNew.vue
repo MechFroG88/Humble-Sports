@@ -32,13 +32,22 @@
               type="number" id="student_id" v-model="data.student_id">
             </div>
           </div>
+          <div class="form-group">
+            <div class="col-2 col-sm-12">
+              <label class="form-label" for="class">班级：</label>
+            </div>
+            <div class="col-10 col-sm-12">
+              <input class="form-input" placeholder="班级"
+              type="text" id="class" v-model="data.class">
+            </div>
+          </div>
           <div class="form-group" v-if="$route.params.state === 'group'">
             <div class="col-2 col-sm-12">
-              <label class="form-label" for="phone">联络号码：</label>
+              <label class="form-label" for="phone_no">联络号码：</label>
             </div>
             <div class="col-10 col-sm-12">
               <input class="form-input" placeholder="联络号码"
-              type="text" id="phone" v-model="data.phone">
+              type="text" id="phone_no" v-model="data.phone_no">
             </div>
           </div>
           <div class="item h5 mb-2">器材管理</div>
@@ -64,6 +73,15 @@
                 <option v-for="index in id_range"
                 :key="index">{{ index }}</option>
               </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-2 col-sm-12">
+              <label class="form-label" for="amount">数量：</label>
+            </div>
+            <div class="col-10 col-sm-12">
+              <input class="form-input" placeholder="数量"
+              type="number" id="amount" v-model="data.amount">
             </div>
           </div>
           <div class="time h5 mb-2">时间</div>
@@ -103,9 +121,11 @@ export default {
     selected_item: {},
     id_range: 0,
     data: {
+      amount: '',
+      class: '',
       group_name: '',
       student_id: null,
-      phone: '',
+      phone_no: '',
       item_id: '',
       item_tag: '',
       due_date: '',
@@ -128,8 +148,10 @@ export default {
         });
       } else if (this.$route.params.state === 'group') {
         postGroupRent(this.data).then((msg) => {
+          this.isLoading = false;
           console.log(msg);
         }).catch((err) => {
+          this.isLoading = false;
           console.log(err);
         });
       }

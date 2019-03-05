@@ -20,6 +20,10 @@
         </div>
       </template>
 
+      <template slot="item_type" slot-scope="{ data }">
+        {{data.item_type}} -- {{data.item_tag}}
+      </template>
+
       <template slot="item_out" slot-scope="{ data }">
         <div class="date">{{toDate(data.item_out)}}</div>
         <div class="time">{{toTime(data.item_out)}}</div>
@@ -67,6 +71,9 @@ export default {
   mounted() {
     getPersonalRent().then(({ data }) => {
       this.data = data;
+      for (let i = 0; i < data.length; i++) {
+        this.data[i].item_type = data[i].item.type;
+      }
       this.$refs.table.isLoading = false;
     }).catch((err) => {
       console.log(err);

@@ -32,10 +32,10 @@ export function postGroupRent(data) {
   });
 }
 
-export function postLost(id, data) {
-  return request({
-    url: `/rent/${id}/lost`,
-    method: 'POST',
-    data,
-  });
-}
+// export function postLost(id, data) {
+//   return request({
+//     url: `/rent/${id}/lost`,
+//     method: 'POST',
+//     data,
+//   });
+// }
