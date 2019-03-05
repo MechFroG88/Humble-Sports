@@ -21,6 +21,7 @@ Route::get('/', function () {
 
 Route::post('user/login','UserController@login');
 Route::middleware('auth') ->get('user','UserController@get');
+Route::middleware('auth') ->get('user/current','UserController@get_current');
 Route::middleware('auth') ->get('user/{id}','UserController@get_single');
 Route::middleware('auth') ->put('user/password','UserController@change_password');
 Route::middleware('auth') ->put('user/username','UserController@change_username');
