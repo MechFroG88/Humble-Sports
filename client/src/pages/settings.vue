@@ -17,25 +17,27 @@
         </div>
       </form>
       <div class="safety">安全</div>
-      <div class="btn btn-primary safetyBtn" @click="$refs.add.active = true">更改密码
+      <div class="btn btn-primary safetyBtn" @click="$refs.change_password.active = true">更改密码
       </div>
     </div>
 
-    <pwModal ref="add" title="更改密码" closable>
+    <pwModal ref="change_password" title="更改密码" closable>
       <div slot="body">
         <form class=form-group>
-          <label class="newPw">新密码</label>
-          <input type="password" class="form-input" placeholder="请输入新密码" id="password">
+          <label class="newPw" for="password">新密码</label>
+          <input type="password" class="form-input" placeholder="请输入新密码" 
+          name="password" id="password">
         </form>
         <form class=form-group>
-          <label class="confirmPw">确认新密码</label>
-          <input type="password" class="form-input" placeholder="请再次输入新密码" id="password">
+          <label class="confirmPw" for="confirm_password">确认新密码</label>
+          <input type="password" class="form-input" placeholder="请再次输入新密码" 
+          name="confirm_password" id="confirm_password">
         </form>
       </div>
       <div slot="footer">
         <div class="button-group">
           <div class="btn btn-lg btn-primary cancel" 
-          @click="$refs.add.active = false">取消</div>
+          @click="$refs.change_password.active = false">取消</div>
           <div class="btn btn-lg btn-primary ok"
           @click="add()">确定</div>
         </div>
@@ -45,20 +47,29 @@
 </template>
 
 <script>
+import { getCurrentUser } from '@/api/user';
+
 import pwModal from '@/components/modal';
 
 export default {
   components: {
     pwModal
   },
+  mounted() {
+    getCurrentUser().then(({ data }) => {
+      this.name = data.cn_name;
+      this.username = data.username;
+      console.log(data);
+    })
+  },
   data: () => ({
-    name: '董顺忠',
-    username: 'dong1234',
+    name: '',
+    username: '',
     edit: false,
   }),
   methods: {
     add() {
-      this.$refs.add.active = false
+      this.$refs.change_password.active = false
     }
   }
 }

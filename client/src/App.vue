@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <sidebar :data="sidebar" username="董顺忠老师"
+    <sidebar :data="sidebar" :username="username"
     v-if="$route.name !== 'login'">
       <router-view/>
     </sidebar>
@@ -9,13 +9,23 @@
 </template>
 
 <script>
+import { getCurrentUser } from '@/api/user';
+
 import sidebar from './layouts/sidebar';
 
 export default {
   components: {
     sidebar,
   },
+  mounted() {
+    getCurrentUser().then(({ data }) => {
+      this.username = data.cn_name;
+    }).catch((err) => {
+      console.log(err);
+    })
+  },
   data: () => ({
+    username: '',
     sidebar: [
       {
         title: '器材',

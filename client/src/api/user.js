@@ -22,6 +22,14 @@ export function getAllUsers() {
     method: 'GET'
   });
 }
+
+export function getCurrentUser() {
+  return request({
+    url: '/user/current',
+    method: 'GET'
+  })
+}
+
 export function getUser(userId) {
   return request({
     url: `/user/${userId}`,
