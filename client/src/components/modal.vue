@@ -9,7 +9,7 @@
         <div class="modal-title h3">{{title}}</div>
         <slot name="header" />
         <i class="icon icon-x-circle float-right close-button" @click="active = false"
-        v-if="closable">
+        v-if="closable"></i>
       </div>
       <div class="modal-body">
         <slot name="body" class="content"/>
