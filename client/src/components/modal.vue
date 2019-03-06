@@ -6,9 +6,10 @@
     @click="active = false"/>
     <div class="modal-container">
       <div class="modal-header">
-        <i class="icon icon-x-circle float-right close-button" @click="active = false"
-        v-if="closable"/>
         <div class="modal-title h3">{{title}}</div>
+        <slot name="header" />
+        <i class="icon icon-x-circle float-right close-button" @click="active = false"
+        v-if="closable">
       </div>
       <div class="modal-body">
         <slot name="body" class="content"/>

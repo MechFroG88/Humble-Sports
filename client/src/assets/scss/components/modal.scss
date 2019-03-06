@@ -1,9 +1,12 @@
-#_modal {
+#_modal,#_receipt {
   .modal-container {
     width: 20rem;
     padding: 1rem .8rem;
 
     .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding-bottom: .3rem;
 
       .close-button {
