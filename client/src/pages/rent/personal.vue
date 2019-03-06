@@ -84,10 +84,10 @@ export default {
       return `${date.split(' ')[0].split('-')[0]} 年 ${parseInt(date.split(' ')[0].split('-')[1])} 月 ${parseInt(date.split(' ')[0].split('-')[2])} 日`;
     },
     toTime(date) {
-      let time = '上午';
       const times = date.split(' ')[1].split(':');
-      time = times[0] === 12 ? '中午' : '下午';
+      let time = times[0] == 12 ? '中午' : '上午';
       if (times[0] > 12) {
+        time = '下午';
         times[0] -= 12;
       }
       return `${time}${times[0]}：${times[1]}`;

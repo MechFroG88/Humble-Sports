@@ -18,11 +18,13 @@ export default {
     sidebar,
   },
   mounted() {
-    getCurrentUser().then(({ data }) => {
-      this.username = data.cn_name;
-    }).catch((err) => {
-      console.log(err);
-    })
+    if (this.$route.name !== 'login') {
+      getCurrentUser().then(({ data }) => {
+        this.username = data.cn_name;
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
   },
   data: () => ({
     username: '',

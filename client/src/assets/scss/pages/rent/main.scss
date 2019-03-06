@@ -4,27 +4,19 @@
   }
 }
 
-#_personal {
+#_personal, #_group {
   #_table {
-    .row {
-      .col_student {
-        .student_data {
-          text-align: left;
-        }    
+    .col_item_in, .col_item_out {
+      .expired {
+        font-size: .7rem;
       }
-
-      .col_item_in, .col_item_out {
-        .expired {
-          font-size: .7rem;
-        }
-        .date {
-          color: darken($text-gray, 5%);
-          font-size: .65rem;
-          font-weight: 300;
-        }
-        .time {
-          font-size: $font-size-lg;
-        }
+      .date {
+        color: darken($text-gray, 5%);
+        font-size: .65rem;
+        font-weight: 300;
+      }
+      .time {
+        font-size: $font-size-lg;
       }
     }
   }
