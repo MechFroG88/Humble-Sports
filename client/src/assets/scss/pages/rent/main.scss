@@ -28,4 +28,77 @@
       }
     }
   }
+  #_modal {
+    width: 100%;
+    .modal-container{
+      width: 50%;
+      height: 50%;
+    }
+    .modal-header{
+      .fine{
+        font-size:.8rem;
+        margin-right:13rem;
+      }
+    }
+    .modal-body{
+      padding-left:.5rem;
+      .container{
+        margin-top:1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .left-container{
+          flex-grow: 1;
+          .lend,.lendTime{
+            font-weight:400;
+            font-size:.8rem;
+          }
+          .lendDate{
+            margin-top:.7rem;
+            font-size:.6rem;
+            font-weight:200;
+          }
+       
+        }
+        .box1,.box2{
+          flex-grow: 1;
+          padding-top:.9rem;
+          .dottedLine{
+            border-top:dashed;
+            width:7.5rem;
+          }
+        } 
+        
+          
+        .center-container{
+          flex-grow: 1;
+          padding-top:.9rem;
+          .icon{
+            color:$primary-color;
+            font-size:2rem;
+          }
+        }
+        .right-container{
+          flex-grow: 1;
+          .return,.returnTime{
+            font-weight:400;
+            font-size:.8rem;
+          }
+          .returnDate{
+            margin-top:.7rem;
+            font-size:.6rem;
+            font-weight:200;
+          }
+        }
+      }
+      .largeContainer{
+        flex-direction: column;
+        text-align: center;
+        font-weight:400;
+        .late{
+         color:$primary-color;
+        }
+      }
+    }
+  }
 }

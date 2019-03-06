@@ -7,6 +7,44 @@
         'state': 'personal'
       }
     })">新增</div>
+    <!-- temporary receipt button -->
+    <div class="btn btn-lg btn-primary" style="margin-left: 2rem;" @click="$refs.add.active = true">receipt</div>
+
+    <receiptModal ref="add" title="罚款" closable>
+      <div slot="header">
+        <div class="fine">总计罚款金额：RM1.80</div>
+      </div>
+      <div slot="body">
+        <div class="container">
+          <div class="left-container">
+            <div class="lend">借出时间</div>
+            <div class="lendDate">2018 年 9 月 18 日
+            </div>
+            <div class="lendTime">早上 8：15</div>
+          </div>
+          <div class="box1">
+            <div class="dottedLine"></div>
+          </div>
+          <div class="center-container">
+            <i class="icon icon-x-circle" ></i>
+          </div>
+          <div class="box2">
+            <div class="dottedLine"></div>
+          </div>
+          <div class="right-container">
+            <div class="return">归还时间</div>
+            <div class="returnDate">2018 年 9 月 22 日</div>
+            <div class="returnTime">早上 8：45</div>
+          </div>
+        </div>
+        <div class="largeContainer">
+          <span class="late">已逾期 </span>
+          <span class="lateTime">1 天 3 小时</span>
+          <div class="lateFine">1 x RM 1.80 = RM 1.80</div>
+        </div>
+      </div>
+     </receiptModal> 
+
     <cp-table width="100" class="mt-2" ref="table"
     :columns="columns" :tableData="data" title navbar="搜寻学号或名字">
       <template slot="title">租借记录（个人）</template>
@@ -47,11 +85,13 @@
 <script>
 import { getPersonalRent } from '@/api/rental';
 
+import receiptModal from '@/components/modal';
 import cpTable from '@/components/tables';
 import { personal_column } from '@/api/tableColumns';
 export default {
   components: {
     cpTable,
+    receiptModal,
   },
   data: () => ({
     columns: personal_column,
@@ -70,6 +110,9 @@ export default {
     });
   },
   methods: {
+    add(){
+      this.$refs.add.active = false;
+    },
     toDate(date) {
       return `${date.split(' ')[0].split('-')[0]} 年 ${parseInt(date.split(' ')[0].split('-')[1])} 月 ${parseInt(date.split(' ')[0].split('-')[2])} 日`;
     },
