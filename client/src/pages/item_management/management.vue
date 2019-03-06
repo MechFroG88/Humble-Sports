@@ -10,6 +10,10 @@
         {{data.start_id}} - {{data.end_id}}
       </template>
 
+      <template slot="price" slot-scope="{ data }">
+        RM{{data.price}}
+      </template>
+
       <template slot="record" slot-scope="{ data }">
         <i class="icon icon-external-link c-hand" @click="$router.push({
             'name':'management_details',

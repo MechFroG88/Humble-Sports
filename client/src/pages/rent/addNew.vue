@@ -75,7 +75,7 @@
               </select>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" v-if="$route.params.state === 'group'">
             <div class="col-2 col-sm-12">
               <label class="form-label" for="amount">数量：</label>
             </div>
@@ -149,7 +149,7 @@ export default {
       } else if (this.$route.params.state === 'group') {
         postGroupRent(this.data).then((msg) => {
           this.isLoading = false;
-          console.log(msg);
+          this.$router.push(`/rent/${this.$route.params.state}`)
         }).catch((err) => {
           this.isLoading = false;
           console.log(err);

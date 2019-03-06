@@ -47,9 +47,9 @@
   * [ ] /rent/personal/{rentId}/lost **`PUT`**
   * [ ] /rent/personal/expired **`PUT`**
 - ### group
-  * [ ] /rent/group
+  * [x] /rent/group
     * [x] GET
-    * [ ] POST
+    * [x] POST
   * [ ] /rent/group/{rentId}/return **`PUT`**
   * [ ] /rent/group/{rentId}/lost **`PUT`**
   * [ ] /rent/group/expired **`PUT`**

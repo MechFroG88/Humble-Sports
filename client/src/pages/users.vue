@@ -41,7 +41,6 @@ export default {
     data: [],
   }),
   mounted() {
-    console.log(this.$refs.cancel);
     getAllUsers().then(({ data }) => {
       this.data = data;
       this.$refs.table.isLoading = false;
