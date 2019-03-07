@@ -37,10 +37,38 @@
             <div class="returnTime">早上 8：45</div>
           </div>
         </div>
-        <div class="largeContainer">
+        <div class="lateContainer">
           <span class="late">已逾期 </span>
           <span class="lateTime">1 天 3 小时</span>
-          <div class="lateFine">1 x RM 1.80 = RM 1.80</div>
+          <div class="lateFine">1 x RM 1.80 = RM 1.80 
+          </div>
+        </div>
+        <div class="detailsContainer">
+          <div class="payerContainer">
+            <div class="payer">支付者：</div>
+            <div class="payerName"> 140549 陈智霖</div>
+          </div>
+          <div class="itemContainer">
+            <div class="item">项目：</div>
+            <div class="itemGroup">
+              <div class="itemType">篮球逾期 1 天 3 小时
+              </div>
+              <div class="code">追踪代码：KL145-2</div>
+            </div>
+          </div>
+          <div class="moneyContainer">
+            <div class="money">来银：</div>
+            <div class="amount">RM 1.80</div>
+          </div>
+          <div class="cashierContainer">
+            <div class="cashier">收银人：</div>
+            <div class="cashierName">董顺忠老师</div>
+          </div>
+        </div>
+      </div>
+      <div slot="footer" class="footer">
+        <div class="print">（点击已收取便能列印收据）</div>
+        <div class="btn btn-lg btn-primary" @click="add()">已收取
         </div>
       </div>
      </receiptModal> 
