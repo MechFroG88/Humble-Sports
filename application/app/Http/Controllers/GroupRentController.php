@@ -21,7 +21,6 @@ class GroupRentController extends Controller
         "item_tag"   => "required",
         "amount"     => "required",
         "due_date"   => "required|date",
-        
     ];
 
     public function create(Request $data)

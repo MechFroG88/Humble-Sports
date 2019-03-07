@@ -16,7 +16,7 @@ class GroupRents extends Migration
         Schema::create('group_rents', function (Blueprint $table) {
             $table->increments('id');
             $table->string('group_name',10);
-            $table->string('cn_name');
+            $table->integer('student_id');
             $table->string('class');
             $table->integer('phone_no');
             $table->string('teacher',10);

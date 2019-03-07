@@ -39,9 +39,15 @@ class ItemController extends Controller
 
     public function get_single_rent($id)
     {
-        $personalrent = personalrent::where('item_id',$id)->get();
-        $grouprent    = grouprent::where('item_id',$id)->get()->makeHidden(['cn_name','class','phone_no']);
-        $merged       = $personalrent->merge($grouprent)->makeHidden(['item_tag','amount','lost','due_date','returned']);
+        $merged = collect();
+        $personalrent = personalrent::where('item_id',$id)->get()->makeHidden(['item_tag','amount','lost','due_date','returned']);
+        $grouprent    = grouprent::where('item_id',$id)->get()->makeHidden(['item_tag','amount','lost','due_date','returned','cn_name','class','phone_no']);
+        foreach ($personalrent as $single_personalrent){
+            $merged->push($single_personalrent);
+        }
+        foreach ($grouprent as $single_grouprent){
+            $merged->push($single_grouprent);
+        }
         return response($merged->toJson(),200);
     }
 }
