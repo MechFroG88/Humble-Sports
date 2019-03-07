@@ -37,10 +37,33 @@ export function getUser(userId) {
   });
 }
 
-export function postUser(data){
+export function createUser(data){
   return request({
     url: '/user',
     method: 'POST',
     data,
   });
+}
+
+export function updateUserPassword(data) {
+  return request({
+    url: '/user/password',
+    method: 'PUT',
+    data
+  })
+}
+
+export function updateUserType(userId, data) {
+  return request({
+    url: `/user/${userId}`,
+    method: 'PUT',
+    data
+  })
+}
+
+export function deleteUser(userId) {
+  return request({
+    url: `/user/${userId}`,
+    method: 'DELETE',
+  })
 }

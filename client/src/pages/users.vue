@@ -14,9 +14,40 @@
         </select>
       </template>
       <template slot="action" class="btn btn-primary addBtn">
-        <div class="btn btn-primary addBtn" @click="openCmodal()">删除</div>
+        <div class="btn btn-primary addBtn" @click="openCmodal">删除</div>
       </template>
     </userTable>
+
+    <modal ref="add" title="添加用户">
+      <div slot="body">
+        <div class="form-group">
+          <label class="form-label" for="cn_name">名字</label>
+          <input class="form-input" type="text" id="cn_name" 
+          placeholder="中文名字" v-model="user.cn_name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="username">用户名</label>
+          <input class="form-input" type="text" id="username" 
+          placeholder="用户名" v-model="user.username">
+        </div>
+        <div class="form-group col-7">
+          <label class="form-label" for="privilege">权限</label>
+          <select class="form-select" name="privilege" v-model="user.type">
+            <option disabled>请选择权限</option>
+            <option :value="0">管理员</option>
+            <option :value="1">使用者</option>
+          </select>
+        </div>
+      </div>
+
+      <div slot="footer">
+        <div class="button-group">
+          <div class="btn btn-lg mr-2 cancel" @click="$refs.add.active = false">取消</div>
+          <div class="btn btn-primary btn-lg confirm" :class="{'loading loading-lg': loading}"
+          @click="addUser">确定</div>
+        </div>
+      </div>
+    </modal>
 
     <flash-message class="notification"></flash-message>
     <cmodal ref="cancel" :trigger="removeUser"></cmodal>
@@ -24,7 +55,7 @@
 </template>
 
 <script>
-import { getAllUsers, updateUserType } from '@/api/user';
+import { getAllUsers, createUser, updateUserType, deleteUser } from '@/api/user';
 
 import userTable from '@/components/tables';
 import modal from '@/components/modal';
@@ -39,30 +70,53 @@ export default {
   },
   data: () => ({
     users: users_column,
+    loading: false,
     data: [],
+    user: {
+      username: '',
+      cn_name: '',
+      password: '',
+      type: 0
+    }
   }),
   mounted() {
-    getAllUsers().then(({ data }) => {
-      this.data = data;
-      this.$refs.table.isLoading = false;
-    }).catch((err) => {
-      console.log(err);
-    });
+    this.getAll();
   },
   methods: {
+    getAll() {
+      getAllUsers().then(({ data }) => {
+        this.data = data;
+        this.$refs.table.isLoading = false;
+      }).catch((err) => {
+        console.log(err);
+      });
+    },
     update(id, type) {
       updateUserType(id, {type: type}).then(() => {
         this.notification('成功更改资料', 'success');
-        // this.notification().destroyAll();
       }).catch(() => {
         this.notification('您没有权限进行此项操作', 'error');
+      });
+    },
+    addUser() {
+      this.loading = true;
+      this.user.password = this.user.username;
+      createUser(this.user).then((msg) => {
+        this.$refs.add.active = false;
+        this.getAll();
+      }).catch((err) => {
+        console.log(err);
       });
     },
     openCmodal() {
       this.$refs.cancel.active = true;
     },
-    removeUser() {
-      console.log("hey");
+    removeUser(id) {
+      deleteUser(id).then((msg) => {
+        console.log(msg);
+        this.$refs.cancel.active = false;
+        this.getAll();
+      })
     }
   },
 };
