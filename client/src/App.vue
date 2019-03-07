@@ -51,6 +51,17 @@ export default {
       },
     ],
   }),
+  watch: {
+    $route(to, from) {
+      if (from.name == 'login' && to.name != 'login') {
+        getCurrentUser().then(({ data }) => {
+          this.username = data.cn_name;
+        }).catch((err) => {
+          console.log(err);
+        })
+      }
+    }
+  }
 };
 </script>
 
