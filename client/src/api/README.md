@@ -1,17 +1,17 @@
 # API requests
 
 ## Users
-* [ ] /user
+* [x] /user
   * [x] GET
-  * [ ] POST
+  * [x] POST
 * [ ] /user/password **`PUT`**
 * [x] /user/login **`POST`**
 * [x] /user/logout **`POST`**
 * [x] /user/current **`GET`**
 * [ ] /user/{userId}
   * [ ] GET
-  * [ ] POST
-  * [ ] DELETE
+  * [x] POST
+  * [x] DELETE
 
 ---
 
