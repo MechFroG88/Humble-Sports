@@ -73,6 +73,69 @@
       </div>
      </receiptModal> 
 
+      <receiptModal ref="add2" title="罚款" closable>
+      <div slot="header">
+        <div class="fine">总计罚款金额：RM1.80</div>
+      </div>
+      <div slot="body">
+        <div class="container">
+          <div class="left-container">
+            <div class="lend">借出时间</div>
+            <div class="lendDate">2018 年 9 月 18 日
+            </div>
+            <div class="lendTime">早上 8：15</div>
+          </div>
+          <div class="box1">
+            <div class="dottedLine"></div>
+          </div>
+          <div class="center-container">
+            <i class="icon icon-x-circle" ></i>
+          </div>
+          <div class="box2">
+            <div class="dottedLine"></div>
+          </div>
+          <div class="right-container">
+            <div class="return">归还时间</div>
+            <div class="returnDate">2018 年 9 月 22 日</div>
+            <div class="returnTime">早上 8：45</div>
+          </div>
+        </div>
+        <div class="lateContainer">
+          <span class="late">已逾期 </span>
+          <span class="lateTime">1 天 3 小时</span>
+          <div class="lateFine">1 x RM 1.80 = RM 1.80 
+          </div>
+        </div>
+        <div class="detailsContainer">
+          <div class="payerContainer">
+            <div class="payer">支付者：</div>
+            <div class="payerName"> 140549 陈智霖</div>
+          </div>
+          <div class="itemContainer">
+            <div class="item">项目：</div>
+            <div class="itemGroup">
+              <div class="itemType">篮球逾期 1 天 3 小时
+              </div>
+              <div class="code">追踪代码：KL145-2</div>
+            </div>
+          </div>
+          <div class="moneyContainer">
+            <div class="money">来银：</div>
+            <div class="amount">RM 1.80</div>
+          </div>
+          <div class="cashierContainer">
+            <div class="cashier">收银人：</div>
+            <div class="cashierName">董顺忠老师</div>
+          </div>
+        </div>
+      </div>
+      <div slot="footer" class="footer">
+        <div class="btn btn-lg printBtn">列印</div>
+        <div class="btn btn-lg btn-primary " @click="add2()">完成
+        </div>
+      </div>
+     </receiptModal>
+
     <cp-table width="100" class="mt-2" ref="table"
     :columns="columns" :tableData="data" title navbar="搜寻学号或名字">
       <template slot="title">租借记录（个人）</template>
@@ -140,6 +203,10 @@ export default {
   methods: {
     add(){
       this.$refs.add.active = false;
+      this.$refs.add2.active = true;
+    },
+    add2(){
+      this.$refs.add2.active = false;
     },
     toDate(date) {
       return `${date.split(' ')[0].split('-')[0]} 年 ${parseInt(date.split(' ')[0].split('-')[1])} 月 ${parseInt(date.split(' ')[0].split('-')[2])} 日`;
