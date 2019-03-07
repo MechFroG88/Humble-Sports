@@ -2,7 +2,7 @@
   <div id="_statistics">
     <div class="columns">
       <div class="column col-4">
-        <div class="tile tile-centered unreturned">
+        <div class="tile tile-centered unreturned" :class="{'loading loading-lg': loading}">
           <div class="tile-icon mr-2">
             <i class="icon icon-users centered"></i>
           </div>
@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="column col-4">
-        <div class="tile tile-centered expired">
+        <div class="tile tile-centered expired" :class="{'loading loading-lg': loading}">
           <div class="tile-icon mr-2">
             <i class="icon icon-users centered"></i>
           </div>
@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="column col-4">
-        <div class="tile tile-centered loss">
+        <div class="tile tile-centered loss" :class="{'loading loading-lg': loading}">
           <div class="tile-icon mr-2">
             <i class="icon icon-users centered"></i>
           </div>
@@ -37,7 +37,7 @@
     </div>
     <div class="columns">
       <div class="column col-6">
-        <div class="tile tile-centered fine">
+        <div class="tile tile-centered fine" :class="{'loading loading-lg': loading}">
           <div class="tile-icon mr-2">
             <i class="icon icon-users centered"></i>
           </div>
@@ -52,7 +52,7 @@
         </div>
       </div>
       <div class="column col-6">
-        <div class="tile tile-centered payment">
+        <div class="tile tile-centered payment" :class="{'loading loading-lg': loading}">
           <div class="tile-icon mr-2">
             <i class="icon icon-users centered"></i>
           </div>
@@ -67,7 +67,7 @@
         </div>
       </div>
     </div>
-    <div class="chart" v-if="data.year">
+    <div class="chart" v-if="data.year" :class="{'loading loading-lg': loading}">
       <h4 class="chart-title">年月度统计表</h4>
       <GChart
       align="center"
@@ -92,13 +92,14 @@ export default {
   },
   mounted() {
     getReport().then(({ data }) => {
-      console.log(data);
+      this.loading = false;
       this.data = data;
     }).catch((err) => {
       console.log(err)
     })
   },
   data: () => ({
+    loading: true,
     data: {},
     chartsLib: null,
     chartData: [
