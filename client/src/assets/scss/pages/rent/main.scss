@@ -32,21 +32,24 @@
     width: 100%;
     .modal-container{
       width: 50%;
-      height: 50%;
+      height: 70%;
     }
     .modal-header{
       .fine{
         font-size:.8rem;
         margin-right:13rem;
       }
+      
     }
     .modal-body{
-      padding-left:.5rem;
+     
       .container{
         margin-top:1rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding-left: 0;
+        padding-right: 0;
         .left-container{
           flex-grow: 1;
           .lend,.lendTime{
@@ -58,18 +61,15 @@
             font-size:.6rem;
             font-weight:200;
           }
-       
         }
         .box1,.box2{
           flex-grow: 1;
           padding-top:.9rem;
           .dottedLine{
             border-top:dashed;
-            width:7.5rem;
+            width:8rem;
           }
         } 
-        
-          
         .center-container{
           flex-grow: 1;
           padding-top:.9rem;
@@ -91,13 +91,60 @@
           }
         }
       }
-      .largeContainer{
+      .lateContainer{
         flex-direction: column;
         text-align: center;
         font-weight:400;
         .late{
          color:$primary-color;
         }
+      }
+      .detailsContainer{
+        margin-top: 1.5rem;
+        .itemContainer,.payerContainer,.moneyContainer,.cashierContainer{
+          padding-top: .5rem;
+          display:flex;
+          flex-direction: row;
+          .payer,.item,.money,.cashier{
+           
+            width:12%;
+            text-align:right;
+            float:right;
+          }
+          .payerName,.itemGroup,.amount,.cashierName{
+            font-weight: 400;
+            width:26%;
+            text-align:left;
+            float:left;
+          }
+          .itemGroup{
+            .code{
+              font-size: .5rem;
+              font-weight: 300;
+            }
+          }
+          .amount{
+            color: $primary-color;
+          }
+        } 
+      }
+    }
+    .footer{
+      display:flex;
+      float: right;
+      align-items:baseline ;
+    }
+    .modal-footer{
+      padding:0;
+      padding-right:0.5rem;
+      .print{
+        font-size:.6rem;
+        font-weight:200;
+        color:grey;
+      }
+      .btn{
+        margin:0;
+        
       }
     }
   }
