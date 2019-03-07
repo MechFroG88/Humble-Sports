@@ -13,8 +13,8 @@
           <option :value="1">使用者</option>
         </select>
       </template>
-      <template slot="action" class="btn btn-primary addBtn">
-        <div class="btn btn-primary addBtn" @click="openCmodal">删除</div>
+      <template slot="action" slot-scope="{ data }" class="btn btn-primary addBtn">
+        <div class="btn btn-primary addBtn" @click="openCmodal(data.id)">删除</div>
       </template>
     </userTable>
 
@@ -77,7 +77,8 @@ export default {
       cn_name: '',
       password: '',
       type: 0
-    }
+    },
+    deleteId: '',
   }),
   mounted() {
     this.getAll();
@@ -88,6 +89,7 @@ export default {
         this.data = data;
         this.$refs.table.isLoading = false;
       }).catch((err) => {
+        this.notification('数据读取失败！请重试！', 'error');
         console.log(err);
       });
     },
@@ -103,19 +105,27 @@ export default {
       this.user.password = this.user.username;
       createUser(this.user).then((msg) => {
         this.$refs.add.active = false;
+        this.loading = false;
+        this.notification('成功添加用户', 'success');
         this.getAll();
       }).catch((err) => {
+        this.loading = false;
+        this.notification('操作失败！请重试！', 'error');
         console.log(err);
       });
     },
-    openCmodal() {
+    openCmodal(id) {
+      this.deleteId = id;
       this.$refs.cancel.active = true;
     },
-    removeUser(id) {
-      deleteUser(id).then((msg) => {
-        console.log(msg);
+    removeUser() {
+      deleteUser(this.deleteId).then((msg) => {
         this.$refs.cancel.active = false;
+        this.notification('成功删除用户', 'success');
         this.getAll();
+      }).catch((err) => {
+        this.notification('操作失败！请重试！', 'error');
+        console.log(err);
       })
     }
   },

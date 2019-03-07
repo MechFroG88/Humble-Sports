@@ -14,7 +14,7 @@
       <div class="modal-footer">
         <div class="button-group">
           <div class="btn btn-lg mr-2 cancel" @click="active = false">取消</div>
-          <div class="btn btn-primary btn-lg confirm" @click="trigger">确定</div>
+          <div class="btn btn-primary btn-lg confirm" @click="trigger()">确定</div>
         </div>
       </div>
     </div>
