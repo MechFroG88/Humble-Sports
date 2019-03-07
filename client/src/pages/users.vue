@@ -7,7 +7,7 @@
     <userTable title ref="table" :columns="users" :tableData="data" width="40">
       <template slot="title">用户管理</template>
       <template slot="type" slot-scope="{ data }" class="form-group">
-        <select class="form-select" v-model="data.type" @change="update(data.id)">
+        <select class="form-select" v-model="data.type" @change="update(data.id, data.type)">
           <option selected disabled>请选择权限</option>
           <option :value="0">管理员</option>
           <option :value="1">使用者</option>
@@ -18,12 +18,13 @@
       </template>
     </userTable>
 
+    <flash-message class="notification"></flash-message>
     <cmodal ref="cancel" :trigger="removeUser"></cmodal>
   </div>
 </template>
 
 <script>
-import { getAllUsers } from '@/api/user';
+import { getAllUsers, updateUserType } from '@/api/user';
 
 import userTable from '@/components/tables';
 import modal from '@/components/modal';
@@ -49,8 +50,13 @@ export default {
     });
   },
   methods: {
-    update(id) {
-      console.log(id);
+    update(id, type) {
+      updateUserType(id, {type: type}).then(() => {
+        this.notification('成功更改资料', 'success');
+        // this.notification().destroyAll();
+      }).catch(() => {
+        this.notification('您没有权限进行此项操作', 'error');
+      });
     },
     openCmodal() {
       this.$refs.cancel.active = true;
