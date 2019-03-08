@@ -7,12 +7,13 @@
         'state': 'personal'
       }
     })">新增</div>
-    <!-- temporary receipt button -->
-    <div class="btn btn-lg btn-primary" style="margin-left: 2rem;" @click="$refs.add.active = true">receipt</div>
+    <!-- temporary fine receipt button -->
+    <div class="btn btn-lg btn-primary" style="margin-left: 2rem;" @click="$refs.add.active = true"> fine </div>
 
     <receiptModal ref="add" title="罚款" closable>
-      <div slot="header">
-        <div class="fine">总计罚款金额：RM1.80</div>
+      <div slot="header" class="header">
+        <div class="fine">总计罚款金额：</div>
+        <div class="fineAmount">RM1.80</div>
       </div>
       <div slot="body">
         <div class="container">
@@ -73,39 +74,83 @@
       </div>
      </receiptModal> 
 
+
       <receiptModal ref="add2" title="罚款" closable>
-      <div slot="header">
-        <div class="fine">总计罚款金额：RM1.80</div>
+        <div slot="header" class="header">
+          <div class="fine">总计罚款金额：</div>
+          <div class="fineAmount">RM1.80</div>
+        </div>
+        <div slot="body">
+          <div class="container">
+            <div class="left-container">
+              <div class="lend">借出时间</div>
+              <div class="lendDate">2018 年 9 月 18 日
+              </div>
+              <div class="lendTime">早上 8：15</div>
+            </div>
+            <div class="box1">
+              <div class="dottedLine"></div>
+            </div>
+            <div class="center-container">
+              <i class="icon icon-x-circle" ></i>
+            </div>
+            <div class="box2">
+              <div class="dottedLine"></div>
+            </div>
+            <div class="right-container">
+              <div class="return">归还时间</div>
+              <div class="returnDate">2018 年 9 月 22 日</div>
+              <div class="returnTime">早上 8：45</div>
+            </div>
+          </div>
+          <div class="lateContainer">
+            <span class="late">已逾期 </span>
+            <span class="lateTime">1 天 3 小时</span>
+            <div class="lateFine">1 x RM 1.80 = RM 1.80 
+            </div>
+          </div>
+          <div class="detailsContainer">
+            <div class="payerContainer">
+              <div class="payer">支付者：</div>
+              <div class="payerName"> 140549 陈智霖</div>
+            </div>
+            <div class="itemContainer">
+              <div class="item">项目：</div>
+              <div class="itemGroup">
+                <div class="itemType">篮球逾期 1 天 3 小时
+                </div>
+                <div class="code">追踪代码：KL145-2</div>
+              </div>
+            </div>
+            <div class="moneyContainer">
+              <div class="money">来银：</div>
+              <div class="amount">RM 1.80</div>
+            </div>
+            <div class="cashierContainer">
+              <div class="cashier">收银人：</div>
+              <div class="cashierName">董顺忠老师</div>
+            </div>
+          </div>
+        </div>
+        <div slot="footer" class="footer">
+          <div class="btn btn-lg printBtn">列印</div>
+          <div class="btn btn-lg btn-primary " @click="add2()">完成
+          </div>
+        </div>
+     </receiptModal>
+
+    <!-- temporary compensation receipt button -->
+    <div class="btn btn-lg btn-primary" style="margin-left: 2rem;" @click="$refs.comp.active = true"> comp </div>
+
+    <receiptModal ref="comp" title="赔偿" closable>  
+      <div slot="header" class="header">
+        <div class="comp">总计赔偿金额：</div>
+        <div class="compAmount">RM25.00</div>
       </div>
       <div slot="body">
-        <div class="container">
-          <div class="left-container">
-            <div class="lend">借出时间</div>
-            <div class="lendDate">2018 年 9 月 18 日
-            </div>
-            <div class="lendTime">早上 8：15</div>
-          </div>
-          <div class="box1">
-            <div class="dottedLine"></div>
-          </div>
-          <div class="center-container">
-            <i class="icon icon-x-circle" ></i>
-          </div>
-          <div class="box2">
-            <div class="dottedLine"></div>
-          </div>
-          <div class="right-container">
-            <div class="return">归还时间</div>
-            <div class="returnDate">2018 年 9 月 22 日</div>
-            <div class="returnTime">早上 8：45</div>
-          </div>
-        </div>
-        <div class="lateContainer">
-          <span class="late">已逾期 </span>
-          <span class="lateTime">1 天 3 小时</span>
-          <div class="lateFine">1 x RM 1.80 = RM 1.80 
-          </div>
-        </div>
+        <cpTable width="100" class="mt-2" ref="table" :columns="columns[1]">
+
+        </cpTable>
         <div class="detailsContainer">
           <div class="payerContainer">
             <div class="payer">支付者：</div>
@@ -129,15 +174,12 @@
           </div>
         </div>
       </div>
-      <div slot="footer" class="footer">
-        <div class="btn btn-lg printBtn">列印</div>
-        <div class="btn btn-lg btn-primary " @click="add2()">完成
-        </div>
-      </div>
-     </receiptModal>
+    </receiptModal>
+
+
 
     <cp-table width="100" class="mt-2" ref="table"
-    :columns="columns" :tableData="data" title navbar="搜寻学号或名字">
+    :columns="columns[0]" :tableData="data" title navbar="搜寻学号或名字">
       <template slot="title">租借记录（个人）</template>
 
       <template slot="student" slot-scope="{ data }">
@@ -166,7 +208,8 @@
           已逾期 <div class="fine"><a href="">进行罚款</a></div>
         </span>
         <span v-if="data.status == 3" class="label label-error">
-          已丢失 <div class="fine"><a href="">索取赔偿</a></div>
+          已丢失 <div class="fine"><a href="">索取赔偿</a>
+          </div>
         </span>
       </template>
     </cp-table>
@@ -179,13 +222,15 @@ import { getPersonalRent } from '@/api/rental';
 import receiptModal from '@/components/modal';
 import cpTable from '@/components/tables';
 import { personal_column } from '@/api/tableColumns';
+import { comp_column } from '@/api/tableColumns';
+
 export default {
   components: {
     cpTable,
     receiptModal,
   },
   data: () => ({
-    columns: personal_column,
+    columns:[ personal_column,comp_column ], 
     data: [],
   }),
   mounted() {
