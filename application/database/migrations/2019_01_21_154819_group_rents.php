@@ -17,8 +17,6 @@ class GroupRents extends Migration
             $table->increments('id');
             $table->string('group_name',10);
             $table->integer('student_id');
-            $table->string('class');
-            $table->integer('phone_no');
             $table->string('teacher',10);
             $table->integer('item_id');
             $table->integer('item_tag');

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\GroupRent;
 use App\Report;
+use App\Student;
 use Validator;
 use Auth;
 
@@ -15,7 +16,6 @@ class GroupRentController extends Controller
     private $rules = [
         "group_name" => "required",
         "student_id" => "required",
-        "class"      => "required",
         "phone_no"   => "required",
         "item_id"    => "required",
         "item_tag"   => "required",
@@ -27,6 +27,11 @@ class GroupRentController extends Controller
     {
         $validator = Validator::make($data->all(),$this->rules);
         if ($validator->fails()) return $this->fail();
+        if (student::where('id',$data->only('student_id')['student_id'])->exists()){
+            student::where('id',$data->only('student_id')['student_id'])
+                   ->update('phone_no',$data->only('phone_no')['phone_no']);
+        }
+        $data->request->remove('phone_no');
         $data->request->add(['item_out' => date('Y-m-d H:i:s')]); 
         $data->request->add(['teacher'  => Auth::user()->cn_name]);
         grouprent::create($data->all());

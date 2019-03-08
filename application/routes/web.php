@@ -47,7 +47,7 @@ Route::middleware('auth') ->get('item/record/{id}','ItemController@get_single_re
 /**
  * Fine Route
  */
-Route::middleware('auth')->post('fine/new','FineController@change_fine');
+Route::middleware('auth')->post('fine','FineController@change_fine');
 Route::middleware('auth')->get('fine','FineController@get');
 
 /**

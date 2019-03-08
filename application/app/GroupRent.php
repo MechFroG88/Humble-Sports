@@ -13,7 +13,7 @@ class GroupRent extends Model
     use SoftDeletes;
     public $timestamps  = false;
     protected $hidden   = ['deleted_at'];
-    protected $fillable = ['amount','teacher','student_id','group_name','due_date','class','phone_no','item_id','item_tag','item_out'];
+    protected $fillable = ['amount','teacher','student_id','group_name','due_date','item_id','item_tag','item_out'];
     protected $dates    = ["rent_in","rent_out","due_date"];
 
     public function student(){

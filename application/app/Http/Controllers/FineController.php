@@ -25,7 +25,7 @@ class FineController extends Controller
     public function get()
     {
         $id   = fine::max('id');
-        $fine = fine::where('id', $id)->pluck('fine');
+        $fine = fine::where('id', $id)->get();
         return response($fine->toJson(),200);
 
     }
