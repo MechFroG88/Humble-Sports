@@ -98,7 +98,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <div class="btn btn-lg btn-primary" :class="{'loading': isLoading}"
+      <div class="btn btn-lg btn-primary" :class="{'loading': is_loading}"
       @click="createRent">借出</div>
     </div>
   </div>
@@ -116,7 +116,7 @@ export default {
   },
   data: () => ({
     date: '',
-    isLoading: false,
+    is_loading: false,
     items: [],
     selected_item: {},
     id_range: 0,
@@ -133,25 +133,25 @@ export default {
   }),
   methods: {
     createRent() {
-      this.isLoading = true;
+      this.is_loading = true;
 
       this.data.due_date = this.date.replace('T', ' ').concat(':00');
       this.data.item_id  = this.selected_item.id;
       
       if (this.$route.params.state === 'personal') {
         postPersonalRent(this.data).then((msg) => {
-          this.isLoading = false;
+          this.is_loading = false;
           this.$router.push(`/rent/${this.$route.params.state}`)
         }).catch((err) => {
-          this.isLoading = false;
+          this.is_loading = false;
           console.log(err);
         });
       } else if (this.$route.params.state === 'group') {
         postGroupRent(this.data).then((msg) => {
-          this.isLoading = false;
+          this.is_loading = false;
           this.$router.push(`/rent/${this.$route.params.state}`)
         }).catch((err) => {
-          this.isLoading = false;
+          this.is_loading = false;
           console.log(err);
         });
       }

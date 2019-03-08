@@ -45,6 +45,14 @@ export function createUser(data){
   });
 }
 
+export function updateUserUsername(data) {
+  return request({
+    url: '/user/username',
+    method: 'PUT',
+    data
+  })
+}
+
 export function updateUserPassword(data) {
   return request({
     url: '/user/password',

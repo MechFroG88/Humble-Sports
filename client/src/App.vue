@@ -5,6 +5,7 @@
       <router-view/>
     </sidebar>
     <router-view v-else/>
+    <flash-message class="notification"></flash-message>
   </div>
 </template>
 

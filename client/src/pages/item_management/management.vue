@@ -26,13 +26,13 @@
 
     <div class="expired">
       <h5 style="font-weight: 400;">器材逾期</h5>
-      <form class="form-horizontal">
+      <form class="form-horizontal" @submit.prevent="changeFine()">
         <div class="form-group">
           <div class="col-3 col-sm-12">
             <label class="form-label" for="price">罚款金额：</label>
           </div>
           <div class="col-9 col-sm-12">
-            <input class="form-input mr-2" type="number" id="price">
+            <input class="form-input mr-2" type="number" id="price" v-model="fine_price">
             / 天
           </div>
         </div>
@@ -76,13 +76,14 @@
           </div>
         </form>
       </div>
-      <div slot="footer" class="btn btn-lg btn-primary" :class="{'loading': isLoading}"
-      @click="add()">新增</div>
+      <div slot="footer" class="btn btn-lg btn-primary" :class="{'loading': is_loading}"
+      @click="add">新增</div>
     </cpModal>
   </div>
 </template>
 
 <script>
+import { postFine } from '@/api/fine';
 import { getItem, postItem } from '@/api/item';
 
 import mgTable from '@/components/tables';
@@ -97,7 +98,7 @@ export default {
   mounted() {
     getItem().then(({ data }) => {
       this.data = data;
-      this.$refs.table.isLoading = false;
+      this.$refs.table.is_loading = false;
     }).catch((err) => {
       console.log(err);
     })
@@ -105,7 +106,9 @@ export default {
   data: () => ({
     columns: management_column,
     data: [],
-    isLoading: false,
+    fine_price: null,
+    is_loading: false,
+    add_loading: false,
     item: {
       type: '',
       start_id: '',
@@ -114,15 +117,28 @@ export default {
     }
   }),
   methods: {
+    changeFine() {
+      this.add_loading = true;
+      postFine({fine: this.fine_price}).then((msg) => {
+        this.notification('成功更改罚款金额', 'success');
+        this.fine_price = null;
+        this.add_loading = false;
+        console.log(msg);
+      }).catch((err) => {
+        this.notification('罚款金额更换失败！请重试！', 'error');
+        this.add_loading = false;
+        console.log(err)
+      })
+    },
     add() {
-      this.isLoading = true;
+      this.is_loading = true;
       postItem(this.item).then((msg) => {
-        this.isLoading = false;
+        this.is_loading = false;
         this.$refs.add.active = false;
-        this.$refs.table.isLoading = true;
+        this.$refs.table.is_loading = true;
         getItem().then(({ data }) => {
           this.data = data;
-          this.$refs.table.isLoading = false;
+          this.$refs.table.is_loading = false;
         })
       }).catch((err) => {
         console.log(err);

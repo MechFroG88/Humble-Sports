@@ -5,7 +5,7 @@
       :class="{
       'striped': striped,
       'hoverable': hoverable,
-      'loading loading-lg': isLoading
+      'loading loading-lg': is_loading
     }">
       <tr class="title" v-if="title || navbar" :class="navbar ? 'navbar_title' : ''">
         <td align="justify" :colspan="columns.length">
@@ -57,7 +57,7 @@ export default {
     navbar: String,
   },
   data: () => ({
-    isLoading: true,
+    is_loading: true,
   }),
 };
 </script>

@@ -9,12 +9,13 @@
 }
 
 .notification {
+  z-index: 999;
   min-width: 12rem;
   position: absolute; top: 1.5%; right: 50%;
   transform: translateX(50%);
   .flash__wrapper .flash__message {
-    -webkit-animation:  slideDown 500ms 5s 1 ease forwards;
-    -moz-animation:     slideDown 500ms 5s 1 ease forwards;
+    -webkit-animation:  slideDown 500ms 4s 1 ease forwards;
+    -moz-animation:     slideDown 500ms 4s 1 ease forwards;
     -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .07);
   }
 }

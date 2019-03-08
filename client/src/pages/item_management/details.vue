@@ -56,7 +56,7 @@ export default {
     })
     getItemRecord(this.$route.params.id).then(({ data }) => {
       this.data = data;
-      this.$refs.table.isLoading = false;
+      this.$refs.table.is_loading = false;
     }).catch((err) => {
       console.log(err);
     })

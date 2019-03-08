@@ -49,7 +49,6 @@
       </div>
     </modal>
 
-    <flash-message class="notification"></flash-message>
     <cmodal ref="cancel" :trigger="removeUser"></cmodal>
   </div>
 </template>
@@ -87,7 +86,7 @@ export default {
     getAll() {
       getAllUsers().then(({ data }) => {
         this.data = data;
-        this.$refs.table.isLoading = false;
+        this.$refs.table.is_loading = false;
       }).catch((err) => {
         this.notification('数据读取失败！请重试！', 'error');
         console.log(err);
