@@ -47,7 +47,6 @@
 export default {
   props: {
     columns: Array,
-    // search: String,
     tableData: Array,
     width: {
       type: [Number, String],

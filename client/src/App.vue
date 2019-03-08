@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <sidebar :data="sidebar" :username="username"
+    <sidebar :data="sidebar"
     v-if="$route.name !== 'login'">
       <router-view/>
     </sidebar>
@@ -10,22 +10,11 @@
 </template>
 
 <script>
-import { getCurrentUser } from '@/api/user';
-
 import sidebar from './layouts/sidebar';
 
 export default {
   components: {
     sidebar,
-  },
-  mounted() {
-    if (this.$route.name && this.$route.name !== 'login') {
-      getCurrentUser().then(({ data }) => {
-        this.username = data.cn_name;
-      }).catch((err) => {
-        console.log(err);
-      });
-    }
   },
   data: () => ({
     username: '',
@@ -52,17 +41,6 @@ export default {
       },
     ],
   }),
-  watch: {
-    $route(to, from) {
-      if (from.name == 'login' && to.name != 'login') {
-        getCurrentUser().then(({ data }) => {
-          this.username = data.cn_name;
-        }).catch((err) => {
-          console.log(err);
-        })
-      }
-    }
-  }
 };
 </script>
 
