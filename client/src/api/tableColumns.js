@@ -39,3 +39,11 @@ export const users_column = [
   { name: '权限', field: 'privilege' },
   { name: '操作', field: 'action' },
 ];
+
+export const comp_column = [
+  { name: '种类', field: 'type' },
+  { name: '编号', field: 'serialnumber' },
+  { name: '单价', field: 'price' },
+  { name: '共丢失', field: 'lost'},
+  { name: '总价' , field: 'totalPrice'}
+];
