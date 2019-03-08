@@ -88,7 +88,6 @@ export default {
           this.notification('成功更改密码', 'success');
           this.loading = false;
           this.$refs.change_password.active = false;
-          console.log(msg);
         }).catch((err) => {
           this.notification('密码更换失败！请重试！', 'error');
           this.loading = false;

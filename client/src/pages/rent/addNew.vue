@@ -32,15 +32,6 @@
               type="number" id="student_id" v-model="data.student_id">
             </div>
           </div>
-          <div class="form-group">
-            <div class="col-2 col-sm-12">
-              <label class="form-label" for="class">班级：</label>
-            </div>
-            <div class="col-10 col-sm-12">
-              <input class="form-input" placeholder="班级"
-              type="text" id="class" v-model="data.class">
-            </div>
-          </div>
           <div class="form-group" v-if="$route.params.state === 'group'">
             <div class="col-2 col-sm-12">
               <label class="form-label" for="phone_no">联络号码：</label>
@@ -122,7 +113,6 @@ export default {
     id_range: 0,
     data: {
       amount: '',
-      class: '',
       group_name: '',
       student_id: null,
       phone_no: '',

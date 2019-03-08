@@ -19,12 +19,12 @@ export default {
     sidebar,
   },
   mounted() {
-    if (this.$route.name !== 'login') {
+    if (this.$route.name && this.$route.name !== 'login') {
       getCurrentUser().then(({ data }) => {
         this.username = data.cn_name;
       }).catch((err) => {
         console.log(err);
-      })
+      });
     }
   },
   data: () => ({

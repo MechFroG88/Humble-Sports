@@ -9,7 +9,7 @@ export function getFine() {
 
 export function postFine(data) {
   return request({
-    url: '/fine/new',
+    url: '/fine',
     method: 'POST',
     data
   });
