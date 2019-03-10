@@ -2,34 +2,34 @@
   <div id="_statistics">
     <div class="columns">
       <div class="column col-4">
-        <div class="tile tile-centered unreturned">
+        <div class="tile tile-centered unreturned" :class="{'loading loading-lg': loading}">
           <div class="tile-icon mr-2">
             <i class="icon icon-users centered"></i>
           </div>
           <div class="tile-content">
-            <p class="tile-title mb-2">3</p>
+            <p class="tile-title mb-2">{{data.unreturned}}</p>
             <p class="tile-subtitle">未归还数量</p>
           </div>
         </div>
       </div>
       <div class="column col-4">
-        <div class="tile tile-centered expired">
+        <div class="tile tile-centered expired" :class="{'loading loading-lg': loading}">
           <div class="tile-icon mr-2">
             <i class="icon icon-users centered"></i>
           </div>
           <div class="tile-content">
-            <p class="tile-title mb-2">20</p>
+            <p class="tile-title mb-2">{{data.expired}}</p>
             <p class="tile-subtitle">本月逾期数量</p>
           </div>
         </div>
       </div>
       <div class="column col-4">
-        <div class="tile tile-centered loss">
+        <div class="tile tile-centered loss" :class="{'loading loading-lg': loading}">
           <div class="tile-icon mr-2">
             <i class="icon icon-users centered"></i>
           </div>
           <div class="tile-content">
-            <p class="tile-title mb-2">2</p>
+            <p class="tile-title mb-2">{{data.lost}}</p>
             <p class="tile-subtitle">本月丢失数量</p>
           </div>
         </div>
@@ -37,37 +37,37 @@
     </div>
     <div class="columns">
       <div class="column col-6">
-        <div class="tile tile-centered fine">
+        <div class="tile tile-centered fine" :class="{'loading loading-lg': loading}">
           <div class="tile-icon mr-2">
             <i class="icon icon-users centered"></i>
           </div>
           <div class="tile-content">
-            <p class="tile-title mb-2">3</p>
+            <p class="tile-title mb-2">{{data.paid_fine_count}}</p>
             <p class="tile-subtitle">未归还数量</p>
           </div>
           <div class="tile-action">
-            <p class="tile-title mb-2">RM140</p>
+            <p class="tile-title mb-2">RM{{data.paid_fine}}</p>
             <p class="tile-subtitle">总额</p>
           </div>
         </div>
       </div>
       <div class="column col-6">
-        <div class="tile tile-centered payment">
+        <div class="tile tile-centered payment" :class="{'loading loading-lg': loading}">
           <div class="tile-icon mr-2">
             <i class="icon icon-users centered"></i>
           </div>
           <div class="tile-content">
-            <p class="tile-title mb-2">20</p>
+            <p class="tile-title mb-2">{{data.paid_lost_count}}</p>
             <p class="tile-subtitle">本月逾期数量</p>
           </div>
           <div class="tile-action">
-            <p class="tile-title mb-2">RM550</p>
+            <p class="tile-title mb-2">RM{{data.paid_lost}}</p>
             <p class="tile-subtitle">总额</p>
           </div>
         </div>
       </div>
     </div>
-    <div class="chart">
+    <div class="chart" v-if="data.year" :class="{'loading loading-lg': loading}">
       <h4 class="chart-title">年月度统计表</h4>
       <GChart
       align="center"
@@ -82,13 +82,26 @@
 </template>
 
 <script>
+import { getReport } from '@/api/report'
+
 import { GChart } from 'vue-google-charts'
+
 export default {
   components: {
     GChart
   },
+  mounted() {
+    getReport().then(({ data }) => {
+      this.loading = false;
+      this.data = data;
+    }).catch((err) => {
+      console.log(err)
+    })
+  },
   data: () => ({
-    chartsLib: null, 
+    loading: true,
+    data: {},
+    chartsLib: null,
     chartData: [
       ['', '总借出量'],
       ['12月', 70],

@@ -51,12 +51,8 @@ export default {
         this.loading = false;
         this.$router.push('/rent');
       }).catch((err) => {
+        this.notification('登录失败！请重试！', 'error');
         this.loading = false;
-        console.log(
-          `%cLogin failed\n%c${err}\nPlease try again later`,
-          'color: red; font-size: 1.8rem; font-weight: 500;',
-          'font-size: 1rem',
-        );
       });
     },
   },

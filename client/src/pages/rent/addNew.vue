@@ -34,24 +34,23 @@
           </div>
           <div class="form-group" v-if="$route.params.state === 'group'">
             <div class="col-2 col-sm-12">
-              <label class="form-label" for="phone">联络号码：</label>
+              <label class="form-label" for="phone_no">联络号码：</label>
             </div>
             <div class="col-10 col-sm-12">
               <input class="form-input" placeholder="联络号码"
-              type="text" id="phone" v-model="data.phone">
+              type="text" id="phone_no" v-model="data.phone_no">
             </div>
           </div>
           <div class="item h5 mb-2">器材管理</div>
           <div class="form-group">
             <div class="col-2 col-sm-12">
-              <label class="form-label" for="item_type">种类：</label>
+              <label class="form-label" for="item_id">种类：</label>
             </div>
             <div class="col-10 col-sm-12">
-              <select class="form-select" name="item_type" id="item_type" 
-              v-model="data.item_type">
-                <option value="basketball">篮球</option>
-                <option value="football">足球</option>
-                <option value="volleyball">排球</option>
+              <select class="form-select" name="item_id" id="item_id" 
+              v-model="selected_item">
+                <option v-for="item in items" :key="item.id"
+                :value="item">{{ item.type }}</option>
               </select>
             </div>
           </div>
@@ -62,10 +61,18 @@
             <div class="col-10 col-sm-12">
               <select class="form-select" name="item_tag" id="item_tag" 
               v-model="data.item_tag">
-                <option value="1">B-001</option>
-                <option value="2">B-002</option>
-                <option value="3">B-003</option>
+                <option v-for="index in id_range"
+                :key="index">{{ index }}</option>
               </select>
+            </div>
+          </div>
+          <div class="form-group" v-if="$route.params.state === 'group'">
+            <div class="col-2 col-sm-12">
+              <label class="form-label" for="amount">数量：</label>
+            </div>
+            <div class="col-10 col-sm-12">
+              <input class="form-input" placeholder="数量"
+              type="number" id="amount" v-model="data.amount">
             </div>
           </div>
           <div class="time h5 mb-2">时间</div>
@@ -82,43 +89,67 @@
       </div>
     </div>
     <div class="modal-footer">
-      <div class="btn btn-lg btn-primary" @click="createRent">借出</div>
+      <div class="btn btn-lg btn-primary" :class="{'loading': is_loading}"
+      @click="createRent">借出</div>
     </div>
   </div>
 </template>
 
 <script>
-import { postPersonalRent, postGroupRent } from '@/api/rental'
+import { postPersonalRent, postGroupRent } from '@/api/rental';
+import { getItem } from '@/api/item';
+
 export default {
+  mounted() {
+    getItem().then(({data}) => {
+      this.items = data;
+    })
+  },
   data: () => ({
     date: '',
+    is_loading: false,
+    items: [],
+    selected_item: {},
+    id_range: 0,
     data: {
+      amount: '',
       group_name: '',
       student_id: null,
-      phone: '',
-      item_type: '',
-      item_tag: 0,
+      phone_no: '',
+      item_id: '',
+      item_tag: '',
       due_date: '',
     }
   }),
   methods: {
     createRent() {
+      this.is_loading = true;
+
       this.data.due_date = this.date.replace('T', ' ').concat(':00');
-      this.data.student_id = parseInt(this.data.student_id);
-      this.data.item_tag = parseInt(this.data.item_tag);
+      this.data.item_id  = this.selected_item.id;
+      
       if (this.$route.params.state === 'personal') {
         postPersonalRent(this.data).then((msg) => {
-          console.log(msg);
+          this.is_loading = false;
+          this.$router.push(`/rent/${this.$route.params.state}`)
         }).catch((err) => {
+          this.is_loading = false;
           console.log(err);
         });
       } else if (this.$route.params.state === 'group') {
-        postGroupRent(this.data).then((msg => {
-          console.log(msg);
-        })).catch((err) => {
+        postGroupRent(this.data).then((msg) => {
+          this.is_loading = false;
+          this.$router.push(`/rent/${this.$route.params.state}`)
+        }).catch((err) => {
+          this.is_loading = false;
           console.log(err);
         });
       }
+    },
+  },
+  watch: {
+    selected_item: function(new_value) {
+      this.id_range = new_value.end_id - new_value.start_id + 1;
     }
   }
 };

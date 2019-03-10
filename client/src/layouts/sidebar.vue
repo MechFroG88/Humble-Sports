@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="footer">
-        <div class="user c-hand">
+        <div class="user c-hand" :class="{'loading loading-lg': loading}">
           <i class="icon icon-user mr-2"></i>
           {{username}}
         </div>
@@ -36,19 +36,36 @@
 </template>
 
 <script>
-import { userLogout } from '@/api/user';
+import { userLogout, getCurrentUser } from '@/api/user';
 
 export default {
   props: {
     data: Array,
-    username: String,
   },
   data: () => ({
     active: '',
     targets: [],
+    username: '',
+    loading: true,
   }),
   beforeMount() {
     this.active = this.data[0].list[0].target.name;
+    getCurrentUser().then(({ data }) => {
+      this.loading = false;
+      this.username = data.cn_name;
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+  methods: {
+    logout() {
+      userLogout().then(() => {
+        this.$router.push('/login');
+      }).catch((err) => {
+        console.log('Error with logging out');
+        console.log(err);
+      });
+    },
   },
   methods: {
     logout() {
@@ -63,7 +80,14 @@ export default {
   watch: {
     $route(to, from) {
       this.active = to.name;
-    },
+      if (from.name == 'login' && to.name != 'login') {
+        getCurrentUser().then(({ data }) => {
+          this.username = data.cn_name;
+        }).catch((err) => {
+          console.log(err);
+        })
+      }
+    }
   },
 };
 </script>

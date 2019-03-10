@@ -5,7 +5,7 @@
       :class="{
       'striped': striped,
       'hoverable': hoverable,
-      'loading loading-lg': isLoading
+      'loading loading-lg': is_loading
     }">
       <tr class="title" v-if="title || navbar" :class="navbar ? 'navbar_title' : ''">
         <td align="justify" :colspan="columns.length">
@@ -13,7 +13,8 @@
             <slot name="title" v-if="title" />
           </span>
           <div class="input-group input-inline has-icon-right" v-if="navbar">
-            <input class="form-input" type="text" :placeholder="navbar">
+            <input class="form-input" type="text" 
+            :placeholder="navbar" v-model="search.message" @keyup="searchData">
             <i class="form-icon icon icon-search"></i>
           </div>
         </td>
@@ -27,7 +28,7 @@
         >{{column.name}}</td>
       </tr>
 
-      <tr v-for="(row, row_num) in tableData" :key="row_num" :class="`row row_${row_num}`">
+      <tr v-for="(row, row_num) in displayData" :key="row_num" :class="`row row_${row_num}`">
         <td v-for="column in columns" :key="column.field" :class="`col_${column.field}`">
           <slot
             :name="column.field"
@@ -57,8 +58,47 @@ export default {
     navbar: String,
   },
   data: () => ({
-    isLoading: true,
+    is_loading: true,
+    search: {
+      columns: [],
+      message: '',
+    },
+    originalData: [],
+    displayData : [],
   }),
+  methods: {
+    searchData() {
+      if(this.search.message == ''){
+        this.displayData = this.originalData;
+      }else{
+        var searchColumns = this.search.columns;
+        var searchMessage = this.search.message;
+        this.displayData = this.originalData.filter((row) => {
+          let found = false;
+          Object.keys(row).forEach((k) => {
+            if(searchColumns.indexOf(k) > -1){
+              if(row[k].includes(searchMessage)){
+                found = true;
+              }
+            }
+          });
+          return found;
+        })
+      }
+    }
+  },
+  watch: {
+    tableData(data) {
+      this.loading = false;
+      if (this.tableData) {
+        this.originalData = this.tableData;
+        this.displayData  = this.tableData;
+      }
+      this.search.columns = this.columns
+        .filter((x) => x.search)
+        .map(({field}) => field);
+    }
+  },
 };
 </script>
 

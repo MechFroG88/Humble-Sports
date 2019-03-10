@@ -1,10 +1,11 @@
 <template>
   <div id="app">
-    <sidebar :data="sidebar" username="董顺忠老师"
+    <sidebar :data="sidebar"
     v-if="$route.name !== 'login'">
       <router-view/>
     </sidebar>
     <router-view v-else/>
+    <flash-message class="notification"></flash-message>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ export default {
     sidebar,
   },
   data: () => ({
+    username: '',
     sidebar: [
       {
         title: '器材',
