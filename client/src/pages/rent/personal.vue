@@ -7,8 +7,12 @@
         'state': 'personal'
       }
     })">新增</div>
+
+    <fine ref="add"></fine>
+    <comp ref="add2"></comp>
+
     <cp-table width="100" class="mt-2" ref="table"
-    :columns="columns" :tableData="data" title navbar="搜寻学号或名字">
+    :columns="personal_columns" :tableData="data" title navbar="搜寻学号或名字">
       <template slot="title">租借记录（个人）</template>
 
       <template slot="student" slot-scope="{ data }">
@@ -58,14 +62,19 @@
 <script>
 import { getPersonalRent } from '@/api/rental';
 
+import fine from '@/components/receipt/fine';
+import comp from '@/components/receipt/comp';
 import cpTable from '@/components/tables';
 import { personal_column } from '@/api/tableColumns';
+
 export default {
   components: {
     cpTable,
+    fine,
+    comp,
   },
   data: () => ({
-    columns: personal_column,
+    personal_columns: personal_column,
     data: [],
   }),
   mounted() {

@@ -59,7 +59,7 @@ export default new Router({
     {
       path: '/statistics',
       name: 'stats',
-      component: () => import('./pages/statistics')
+      component: () => import('./pages/statistics.vue')
     },
     {
       path: '/users',

@@ -48,7 +48,7 @@ export default {
     username: '',
     loading: true,
   }),
-  mounted() {
+  beforeMount() {
     this.active = this.data[0].list[0].target.name;
     getCurrentUser().then(({ data }) => {
       this.loading = false;
@@ -56,6 +56,16 @@ export default {
     }).catch((err) => {
       console.log(err);
     });
+  },
+  methods: {
+    logout() {
+      userLogout().then(() => {
+        this.$router.push('/login');
+      }).catch((err) => {
+        console.log('Error with logging out');
+        console.log(err);
+      });
+    },
   },
   methods: {
     logout() {

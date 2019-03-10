@@ -13,7 +13,6 @@ export const group_column = [
   { name: '借用器材', field: 'item_type' },
   { name: '借出时间', field: 'item_out' },
   { name: '归还时间', field: 'item_in' },
-  { name: '数量', field: 'amount' },
   { name: '负责老师', field: 'teacher' },
   { name: '状态', field: 'status' },
 ];
@@ -38,4 +37,12 @@ export const users_column = [
   { name: '名字', field: 'cn_name' },
   { name: '权限', field: 'type' },
   { name: '操作', field: 'action' },
+];
+
+export const comp_column = [
+  { name: '种类', field: 'type' },
+  { name: '编号', field: 'serialnumber' },
+  { name: '单价', field: 'price' },
+  { name: '共丢失', field: 'lost'},
+  { name: '总价' , field: 'totalPrice'}
 ];
