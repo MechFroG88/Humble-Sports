@@ -6,9 +6,10 @@
     @click="active = false"/>
     <div class="modal-container">
       <div class="modal-header">
-        <i class="icon icon-x-circle float-right close-button" @click="active = false"
-        v-if="closable"/>
         <div class="modal-title h3">{{title}}</div>
+        <slot name="header" />
+        <i class="icon icon-x-circle float-right close-button" @click="active = false"
+        v-if="closable"></i>
       </div>
       <div class="modal-body">
         <slot name="body" class="content"/>
@@ -25,14 +26,14 @@ export default {
   props: {
     closable: {
       type: Boolean,
-      default: true
+      default: true,
     },
-    title: String
+    title: String,
   },
   data: () => ({
-    active: false
-  })
-}
+    active: false,
+  }),
+};
 </script>
 
 <style>

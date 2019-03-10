@@ -7,10 +7,10 @@
       <form @submit.prevent="login()">
         <div class="input-group">
           <label class="input-label" for="username">用户名</label>
-          <input class="username" type="text" id="username" 
+          <input class="username" type="text" id="username"
           placeholder="请输入用户名" v-model="username">
           <label class="input-label" for="password">密码</label>
-          <input class="password" type="password" id="password" 
+          <input class="password" type="password" id="password"
           placeholder="请输入密码" v-model="password">
         </div>
         <div class="form-group">
@@ -20,7 +20,8 @@
           </label>
           <span class="forgot c-hand" @click="forgotPassword()">忘记密码?</span>
         </div>
-        <button class="btn btn-primary submit" type="submit">登入</button>
+        <button class="btn btn-primary submit" 
+        :class="{'loading': loading}" type="submit">登入</button>
       </form>
     </div>
     <div class="pic col-8"></div>
@@ -28,20 +29,37 @@
 </template>
 
 <script>
+import { userLogin } from '@/api/user';
+
 export default {
   data: () => ({
     username: '',
     password: '',
     remember: false,
+    loading: false,
   }),
   methods: {
     forgotPassword() {
-      alert('forgot password')
+      console.log('forgot password');
     },
     login() {
-      this.$router.push('/rent');
-    }
-  }
+      this.loading = true;
+      userLogin({
+        username: this.username,
+        password: this.password,
+      }).then(() => {
+        this.loading = false;
+        this.$router.push('/rent');
+      }).catch((err) => {
+        this.loading = false;
+        console.log(
+          `%cLogin failed\n%c${err}\nPlease try again later`,
+          'color: red; font-size: 1.8rem; font-weight: 500;',
+          'font-size: 1rem',
+        );
+      });
+    },
+  },
 };
 </script>
 

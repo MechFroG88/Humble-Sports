@@ -1,6 +1,6 @@
 <template>
   <div id="_details">
-    <div class="btn btn-lg btn-primary addBtn" 
+    <div class="btn btn-lg btn-primary addBtn"
     style="margin-bottom: 3.8rem;"
     @click="$router.push('/management')">
       <i class="icon icon-chevron-left mr-1"></i>返回
@@ -17,35 +17,36 @@
 </template>
 
 <script>
-import dtTable from '@/components/tables'
-import { details_column } from '@/api/tableColumns'
+import dtTable from '@/components/tables';
+import { details_column } from '@/api/tableColumns';
+
 export default {
-  components:{
+  components: {
     dtTable,
   },
-  data:()=>({
+  data: () => ({
     columns: details_column,
-    data:[
+    data: [
       {
-        serialnumber:'1',
-        name:'陈智霖',
-        rent_time:'2018 年 7 月 19 日',
-        return_time:'2018 年 7 月 19 日',
-        teacher:'陈晓明老师',
+        serialnumber: '1',
+        name: '陈智霖',
+        rent_time: '2018 年 7 月 19 日',
+        return_time: '2018 年 7 月 19 日',
+        teacher: '陈晓明老师',
       },
       {
-        serialnumber:'2',
-        name:'蔡小轩',
-        rent_time:'2018 年 7 月 19 日',
-        return_time:'2018 年 7 月 19 日',
-        teacher:'陈小花老师',
+        serialnumber: '2',
+        name: '蔡小轩',
+        rent_time: '2018 年 7 月 19 日',
+        return_time: '2018 年 7 月 19 日',
+        teacher: '陈小花老师',
       },
 
-    ]
+    ],
 
-  })
+  }),
 
-}
+};
 </script>
 
 <style>

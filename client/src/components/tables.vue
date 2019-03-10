@@ -4,7 +4,8 @@
       :style="`width:${parseInt(width)}%;`"
       :class="{
       'striped': striped,
-      'hoverable': hoverable
+      'hoverable': hoverable,
+      'loading loading-lg': isLoading
     }">
       <tr class="title" v-if="title || navbar" :class="navbar ? 'navbar_title' : ''">
         <td align="justify" :colspan="columns.length">
@@ -48,13 +49,16 @@ export default {
     tableData: Array,
     width: {
       type: [Number, String],
-      default: 100
+      default: 100,
     },
     striped: Boolean,
     hoverable: Boolean,
     title: Boolean,
-    navbar: String
-  }
+    navbar: String,
+  },
+  data: () => ({
+    isLoading: true,
+  }),
 };
 </script>
 

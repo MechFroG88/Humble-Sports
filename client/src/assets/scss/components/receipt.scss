@@ -1,0 +1,120 @@
+#_receipt {
+  @extend #_modal;
+  text-align: left;
+  .modal-container {
+    width: 50%;
+    .modal-header {
+      .modal-title-group {
+        display: flex;
+        align-items: center;
+        .header {
+          display: flex;
+          .amount {
+            color: $primary-color;      
+          }
+        }
+      }
+    }
+    .modal-body {
+      .detailsContainer {
+        & > div {
+          display: flex;
+          margin-top: .5rem;
+        }
+        .columns .column {
+          text-align: right;
+        }
+        .payerName, .cashierName {
+          font-weight: 400;
+        }
+        .itemGroup {
+          font-weight: 400;
+          .code {
+            font-size: .6rem;
+            font-weight: 300;
+            color: darken($text-gray, 5%);
+          }
+        }
+        .amount {
+          font-weight: 400;
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
+
+#_comp {
+  @extend #_receipt;
+  .modal-body {
+    #_table table {
+      box-shadow: none;
+    }
+  }
+  .modal-footer {
+    padding-bottom: 0;
+    .footer {
+      display: flex;
+      .printBtn {
+        border-color: $button-color;
+        background-color: $button-color;
+        color: #fff;
+        box-shadow: 0 1px 8px rgba($button-color, 0.7) !important;
+        &:hover {
+          background-color: darken($button-color, 5%);
+        }
+        &:active {
+          box-shadow: 0 .3px .5px rgba($button-color, 0.7) !important;
+        }
+      }
+    }
+    align-self: flex-end;
+  }
+}
+
+#_fine {
+  @extend #_receipt;
+  .modal-body {
+
+    .container {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 0;
+      padding-right: 0;
+      .left-container, .right-container {
+        .title, .time {
+          font-weight: 400;
+          font-size: .8rem;
+        }
+        .date {
+          color: $text-gray;
+          margin-top: .7rem;
+          font-size: .6rem;
+          font-weight: 300;
+        }
+      }
+      .box1, .box2 {
+        padding-top: .9rem;
+        .dottedLine {
+          border-top: dashed;
+          width: 8rem;
+        }
+      } 
+      .icon {
+        padding-top: .9rem;
+        color: $primary-color;
+        font-size: 2rem;
+      }
+    }
+    .lateContainer {
+      flex-direction: column;
+      text-align: center;
+      font-weight: 400;
+      .late {
+        color: $primary-color;
+      }
+    }
+  }
+}

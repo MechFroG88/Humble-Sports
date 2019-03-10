@@ -9,20 +9,21 @@
 </template>
 
 <script>
-import sidebar from './layouts/sidebar'
+import sidebar from './layouts/sidebar';
+
 export default {
   components: {
-    sidebar
+    sidebar,
   },
   data: () => ({
     sidebar: [
       {
         title: '器材',
         list: [
-          { title: '租借器材 ( 个人 )', target: {'name': 'personal'} },
-          { title: '租借器材 ( 团队 )', target: {'name': 'group'} },
-          { title: '管理器材'       , target: {'name': 'management'} },
-        ]
+          { title: '租借器材 ( 个人 )', target: { name: 'personal' } },
+          { title: '租借器材 ( 团队 )', target: { name: 'group' } },
+          { title: '管理器材', target: { name: 'management' } },
+        ],
       },
       {
         title: '统计',
@@ -33,12 +34,12 @@ export default {
       {
         title: '系统管理',
         list: [
-          { title: '用户管理', target: {'name': 'users'} }
-        ]
-      }
-    ]
-  })
-}
+          { title: '用户管理', target: { name: 'users' } },
+        ],
+      },
+    ],
+  }),
+};
 </script>
 
 <style lang="scss">
