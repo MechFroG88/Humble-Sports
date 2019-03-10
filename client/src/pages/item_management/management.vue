@@ -36,7 +36,7 @@
             / 天
           </div>
         </div>
-        <div class="btn btn-lg btn-primary" type="submit">储存</div>
+        <div class="btn btn-lg btn-primary" type="submit" @click="changeFine()">储存</div>
       </form>
     </div>
 
@@ -123,7 +123,6 @@ export default {
         this.notification('成功更改罚款金额', 'success');
         this.fine_price = null;
         this.add_loading = false;
-        console.log(msg);
       }).catch((err) => {
         this.notification('罚款金额更换失败！请重试！', 'error');
         this.add_loading = false;

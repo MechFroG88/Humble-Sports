@@ -30,10 +30,10 @@
         <span v-if="data.status == 0" class="label label-success">已归还</span>
         <span v-if="data.status == 1" class="label label-primary">未归还</span>
         <span v-if="data.status == 2" class="label label-expired">
-          已逾期 <div class="fine"><a href="">进行罚款</a></div>
+          已逾期
         </span>
         <span v-if="data.status == 3" class="label label-error">
-          已丢失 <div class="fine"><a href="">索取赔偿</a></div>
+          已丢失
         </span>
       </template>
     </dtTable>

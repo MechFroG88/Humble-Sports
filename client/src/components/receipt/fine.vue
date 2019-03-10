@@ -22,9 +22,9 @@
           <div class="container">
             <div class="left-container">
               <div class="title">借出时间</div>
-              <div class="date">2018 年 9 月 18 日
+              <div class="date">{{data.item_out_date}}
               </div>
-              <div class="time">早上 8：15</div>
+              <div class="time">{{data.item_out_time}}</div>
             </div>
             <div class="box1">
               <div class="dottedLine"></div>
@@ -84,6 +84,12 @@ export default {
       default: true,
     },
     title: String,
+    data: {
+      type: Object,
+      validator: function(data) {
+        
+      }
+    }
   },
   data: () => ({
     active: false,

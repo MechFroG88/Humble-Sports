@@ -51,6 +51,7 @@
         </span>
       </template>
     </gpTable>
+    <receipt :data="data"></receipt>
   </div>
 </template>
 
