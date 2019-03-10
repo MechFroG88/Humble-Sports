@@ -72,7 +72,7 @@
         <div class="btn btn-lg btn-primary" @click="add()">已收取
         </div>
       </div>
-     </receiptModal> 
+    </receiptModal> 
 
 
       <receiptModal ref="add2" title="罚款" closable>
@@ -137,7 +137,7 @@
           <div class="btn btn-lg btn-primary " @click="add2()">完成
           </div>
         </div>
-     </receiptModal>
+    </receiptModal>
 
     <!-- temporary compensation receipt button -->
     <div class="btn btn-lg btn-primary" style="margin-left: 2rem;" @click="$refs.comp.active = true"> comp </div>
@@ -148,7 +148,7 @@
         <div class="compAmount">RM25.00</div>
       </div>
       <div slot="body">
-        <cpTable width="100" class="mt-2" ref="table" :columns="columns[1]">
+        <cpTable width="100" class="mt-2" ref="table" :columns="comp_column">
 
         </cpTable>
         <div class="detailsContainer">
@@ -179,7 +179,7 @@
 
 
     <cp-table width="100" class="mt-2" ref="table"
-    :columns="columns[0]" :tableData="data" title navbar="搜寻学号或名字">
+    :columns="personal_column" :tableData="data" title navbar="搜寻学号或名字">
       <template slot="title">租借记录（个人）</template>
 
       <template slot="student" slot-scope="{ data }">
@@ -230,7 +230,7 @@ export default {
     receiptModal,
   },
   data: () => ({
-    columns:[ personal_column,comp_column ], 
+    // columns:[ personal_column,comp_column ], 
     data: [],
   }),
   mounted() {

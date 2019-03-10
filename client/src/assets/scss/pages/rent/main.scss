@@ -38,12 +38,12 @@
       height: 70%;
     }
     .header {
-      display:flex;
+      display: flex;
 
-      .fine,.comp {
+      .fine, .comp {
         font-size: .8rem;
       }
-      .fineAmount,.compAmount {
+      .fineAmount, .compAmount {
         color: $primary-color;
         margin-right: 14rem;
         
