@@ -42,16 +42,22 @@
 
       <template slot="status" slot-scope="{ data }">
         <span v-if="data.status == 0" class="label label-success">已归还</span>
-        <span v-if="data.status == 1" class="label label-primary">未归还</span>
-        <span v-if="data.status == 2" class="label label-expired">
-          已逾期 <div class="fine"><a href="">进行罚款</a></div>
-        </span>
-        <span v-if="data.status == 3" class="label label-error">
-          已丢失 <div class="fine"><a href="">索取赔偿</a></div>
-        </span>
+        <div v-if="data.status == 1">
+          <span class="label label-primary">未归还</span> 
+          <div class="action return" @click="returnItem(data.id)">归还物品</div>
+          <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
+        </div>
+        <div v-if="data.status == 2">
+          <span class="label label-expired">已逾期</span>
+          <div class="action">进行罚款</div>
+          <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
+        </div>
+        <div v-if="data.status == 3">
+          <span class="label label-error">已丢失</span> 
+          <div class="action">索取赔偿</div>
+        </div>
       </template>
     </gpTable>
-    <receipt :data="data"></receipt>
   </div>
 </template>
 
@@ -93,6 +99,18 @@ export default {
       }
       return `${time}${times[0]}：${times[1]}`;
     },
+    returnItem(id) {
+      returnPersonal(id).then(() => {
+        this.notification('成功归还物品！', 'success');
+        this.getAll();
+      }).catch((err) => {
+        this.notification('操作失败！请重试！', 'error');
+        console.log(err)
+      })
+    },
+    loseItem(id) {
+      
+    }
   }
 };
 </script>

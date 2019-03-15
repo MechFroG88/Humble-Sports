@@ -8,8 +8,8 @@
       }
     })">新增</div>
 
-    <fine ref="add"></fine>
-    <comp ref="add2"></comp>
+    <!-- <fine ref="add"></fine>
+    <comp ref="add2"></comp> -->
 
     <cp-table width="100" class="mt-2" ref="table"
     :columns="personal_columns" :tableData="data" title navbar="搜寻学号或名字">
@@ -47,20 +47,28 @@
 
       <template slot="status" slot-scope="{ data }">
         <span v-if="data.status == 0" class="label label-success">已归还</span>
-        <span v-if="data.status == 1" class="label label-primary">未归还</span>
-        <span v-if="data.status == 2" class="label label-expired">
-          已逾期 <div class="fine"><a href="">进行罚款</a></div>
-        </span>
-        <span v-if="data.status == 3" class="label label-error">
-          已丢失 <div class="fine"><a href="">索取赔偿</a></div>
-        </span>
+        <div v-if="data.status == 1">
+          <span class="label label-primary">未归还</span> 
+          <div class="action return" @click="returnItem(data.id)">归还物品</div>
+          <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
+        </div>
+        <div v-if="data.status == 2">
+          <span class="label label-expired">已逾期</span>
+          <div class="action">进行罚款</div>
+          <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
+        </div>
+        <div v-if="data.status == 3">
+          <span class="label label-error">已丢失</span> 
+          <div class="action">索取赔偿</div>
+        </div>
       </template>
     </cp-table>
   </div>
 </template>
 
 <script>
-import { getPersonalRent } from '@/api/rental';
+import { getPersonalRent, returnPersonal, lostPersonal } from '@/api/rental';
+import { getPersonalReceipt, postPersonalReceiptFine } from '@/api/receipt';
 
 import fine from '@/components/receipt/fine';
 import comp from '@/components/receipt/comp';
@@ -78,17 +86,20 @@ export default {
     data: [],
   }),
   mounted() {
-    getPersonalRent().then(({ data }) => {
-      this.data = data;
-      for (let i = 0; i < data.length; i++) {
-        this.data[i].item_type = data[i].item.type;
-      }
-      this.$refs.table.is_loading = false;
-    }).catch((err) => {
-      console.log(err);
-    });
+    this.getAll();
   },
   methods: {
+    getAll() {
+      getPersonalRent().then(({ data }) => {
+        this.data = data;
+        for (let i = 0; i < data.length; i++) {
+          this.data[i].item_type = data[i].item.type;
+        }
+        this.$refs.table.is_loading = false;
+      }).catch((err) => {
+        console.log(err);
+      });
+    },
     toDate(date) {
       return `${date.split(' ')[0].split('-')[0]} 年 ${parseInt(date.split(' ')[0].split('-')[1])} 月 ${parseInt(date.split(' ')[0].split('-')[2])} 日`;
     },
@@ -101,6 +112,18 @@ export default {
       }
       return `${time}${times[0]}：${times[1]}`;
     },
+    returnItem(id) {
+      returnPersonal(id).then(() => {
+        this.notification('成功归还物品！', 'success');
+        this.getAll();
+      }).catch((err) => {
+        this.notification('操作失败！请重试！', 'error');
+        console.log(err)
+      })
+    },
+    loseItem(id) {
+      
+    }
   },
 };
 </script>

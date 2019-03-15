@@ -1,6 +1,6 @@
 #_personal, #_group {
   .btn {
-    @extend .addBtn
+    @extend .addBtn;
   }
 }
 
@@ -17,6 +17,18 @@
       }
       .time {
         font-size: $font-size-lg;
+      }
+    }
+    .col_status {
+      .action {
+        font-size: .75rem;
+        color: $primary-color;
+        text-decoration: underline;
+        cursor: pointer;
+
+        &:hover {
+          color: darken($primary-color, 25%);
+        }
       }
     }
   }

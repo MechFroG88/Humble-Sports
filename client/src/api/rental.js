@@ -32,10 +32,30 @@ export function postGroupRent(data) {
   });
 }
 
-// export function postLost(id, data) {
-//   return request({
-//     url: `/rent/${id}/lost`,
-//     method: 'POST',
-//     data,
-//   });
-// }
+export function returnPersonal(rentId) {
+  return request({
+    url: `/rent/personal/${rentId}/return`,
+    method: 'PUT'
+  })
+}
+
+export function lostPersonal(rentId) {
+  return request({
+    url: `/rent/personal/${rentId}/lost`,
+    method: 'PUT'
+  })
+}
+
+export function returnGroup(rentId) {
+  return request({
+    url: `/rent/group/${rentId}/return`,
+    method: 'PUT'
+  })
+}
+
+export function lostGroup(rentId) {
+  return request({
+    url: `/rent/group/${rentId}/lost`,
+    method: 'PUT'
+  })
+}
