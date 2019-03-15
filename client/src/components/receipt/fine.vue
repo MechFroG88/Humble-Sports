@@ -24,7 +24,8 @@
               <div class="title">借出时间</div>
               <div class="date">{{data.item_out_date}}
               </div>
-              <div class="time">{{data.item_out_time}}</div>
+              <div class="time">{{data.item_out_time}}
+              </div>
             </div>
             <div class="box1">
               <div class="dottedLine"></div>
@@ -35,36 +36,38 @@
             </div>
             <div class="right-container">
               <div class="title">归还时间</div>
-              <div class="date">2018 年 9 月 22 日</div>
-              <div class="time">早上 8：45</div>
+              <div class="date">{{data.item_in_data}}</div>
+              <div class="time">{{data.item_in_time}}</div>
             </div>
           </div>
           <div class="lateContainer">
             <span class="late">已逾期 </span>
-            <span class="lateTime">1 天 3 小时</span>
-            <div class="lateFine">1 x RM 1.80 = RM 1.80 
+            <span class="lateTime">{{data.late_time}}</span>
+            <div class="lateFine">{{data.days}}x
+              {{data.fine}}={{data.total_fine}}
             </div>
           </div>
           <div class="detailsContainer mt-2">
             <div class="payerContainer columns">
               <div class="payer column col-2">支付者：</div>
-              <div class="payerName"> 140549 陈智霖</div>
+              <div class="payerName">{{data.student_id}}{{data.cn_name}} </div>
             </div>
             <div class="itemContainer columns">
               <div class="item column col-2">项目：</div>
               <div class="itemGroup">
-                <div class="itemType">篮球逾期 1 天 3 小时
+                <div class="itemType">{{data.item_type}}逾期{{data.late_time}}
                 </div>
-                <div class="code">追踪代码：KL145-2</div>
+                <div class="code">追踪代码：
+                  {{data.code}}</div>
               </div>
             </div>
             <div class="moneyContainer columns">
               <div class="money column col-2">来银：</div>
-              <div class="amount">RM 1.80</div>
+              <div class="amount">{{data.total_fine}}</div>
             </div>
             <div class="cashierContainer columns">
               <div class="cashier column col-2">收银人：</div>
-              <div class="cashierName">董顺忠老师</div>
+              <div class="cashierName">{{data.teacher}}</div>
             </div>
           </div>
         </div>
@@ -86,8 +89,17 @@ export default {
     title: String,
     data: {
       type: Object,
-      validator: function(data) {
-        
+      validator: function(obj) {
+        return (obj.id) 
+        && (obj.student_id)
+        && (obj.cn_name)
+        && (obj.item_out)
+        && (obj.item_in)
+        && (obj.days)
+        && (obj.fine)
+        && (obj.total)
+        && (obj.item_type)
+        && (obj.teacher)
       }
     }
   },
