@@ -89,9 +89,9 @@ class GroupRentController extends Controller
 
     public function update_expired()
     {   
-        grouprent::update(["status" => "2"])
-                 ->where('due_date','<=', date('Y-m-d H:i:s'))
-                 ->where('status','=','1');
+        grouprent::whereDate('due_date','<=', date('Y-m-d H:i:s'))
+                 ->where('status','=','1')
+                 ->update(["status" => "2"]);
         return $this->ok();
     }
 }

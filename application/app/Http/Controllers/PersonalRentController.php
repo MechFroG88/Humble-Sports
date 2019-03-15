@@ -74,7 +74,7 @@ class PersonalRentController extends Controller
     public function update_expired()
     {   
         personalrent::where('status'  ,'=','1')
-                    ->where('due_date','<=',date('Y-m-d H:i:s'))
+                    ->whereDate('due_date','<=',date('Y-m-d H:i:s'))
                     ->update(["status" => "2"]);
         return $this->ok();
     }

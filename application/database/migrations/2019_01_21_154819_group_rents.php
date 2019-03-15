@@ -28,6 +28,7 @@ class GroupRents extends Migration
             $table->datetime('due_date');
             $table->tinyInteger('status')->default(1);
             $table->softDeletes();
+            $table->index('status');
         
         });    //
     }
