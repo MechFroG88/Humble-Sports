@@ -134,6 +134,9 @@ export default {
       postItem(this.item).then((msg) => {
         this.is_loading = false;
         this.$refs.add.active = false;
+        for (let i in Object.keys(this.item)) {
+          this.item[i] = '';
+        }
         this.$refs.table.is_loading = true;
         getItem().then(({ data }) => {
           this.data = data;

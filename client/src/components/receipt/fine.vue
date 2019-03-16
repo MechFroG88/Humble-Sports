@@ -90,16 +90,16 @@ export default {
     data: {
       type: Object,
       validator: function(obj) {
-        return (obj.id) 
-        && (obj.student_id)
-        && (obj.cn_name)
-        && (obj.item_out)
-        && (obj.item_in)
-        && (obj.days)
-        && (obj.fine)
-        && (obj.total)
-        && (obj.item_type)
-        && (obj.teacher)
+        return obj.id
+            && obj.student_id
+            && obj.cn_name
+            && obj.item_out
+            && obj.item_in
+            && obj.days
+            && obj.fine
+            && obj.total
+            && obj.item_type
+            && obj.teacher;
       }
     }
   },

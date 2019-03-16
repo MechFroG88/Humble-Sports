@@ -59,3 +59,10 @@ export function lostGroup(rentId) {
     method: 'PUT'
   })
 }
+
+export function expire(type) {
+  return request({
+    url: `/rent/${type}/expired`,
+    method: 'PUT'
+  })
+}
