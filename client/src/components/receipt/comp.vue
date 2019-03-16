@@ -10,7 +10,8 @@
           <div class="modal-title h3">赔偿</div>
           <div class="header ml-2">
             <div class="comp">总计赔偿金额：</div>
-            <div class="amount">RM25.00</div>
+            <div class="amount">{{data.total_fine}}
+            </div>
           </div>
         </div>
         <i class="icon icon-x-circle float-right close-button" @click="active = false"
@@ -24,23 +25,25 @@
           <div class="detailsContainer mt-2">
             <div class="payerContainer columns">
               <div class="payer column col-2">支付者：</div>
-              <div class="payerName"> 140549 陈智霖</div>
+              <div class="payerName"> {{data.student_id}}{{data.cn_name}}</div>
             </div>
             <div class="itemContainer columns">
               <div class="item column col-2">项目：</div>
               <div class="itemGroup">
-                <div class="itemType">篮球逾期 1 天 3 小时
+                <div class="itemType">{{data.item_type}}逾期{{data.late_time}}
                 </div>
-                <div class="code">追踪代码：KL145-2</div>
+                <div class="code">追踪代码：
+                  {{data.code}}</div>
               </div>
             </div>
             <div class="moneyContainer columns">
               <div class="money column col-2">来银：</div>
-              <div class="amount">RM 1.80</div>
+              <div class="amount">{{data.total_fine}}
+              </div>
             </div>
             <div class="cashierContainer columns">
               <div class="cashier column col-2">收银人：</div>
-              <div class="cashierName">董顺忠老师</div>
+              <div class="cashierName">{{data.teacher}}</div>
             </div>
           </div>
         </div>
@@ -66,6 +69,21 @@ export default {
       default: true,
     },
     title: String,
+    data: {
+      type: Object,
+      validator: function(obj) {
+        return (obj.id)
+        && (obj.student_id)
+        && (obj.cn_name)
+        && (obj.item_out)
+        && (obj.item_in)
+        && (obj.days)
+        && (obj.fine)
+        && (obj.total)
+        && (obj.item_type)
+        && (obj.teacher)
+      }
+    }
   },
   components: {
     cpTable

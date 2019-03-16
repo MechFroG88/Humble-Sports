@@ -10,7 +10,8 @@
           <div class="modal-title h3">罚款</div>
           <div class="header ml-2">
             <div class="fine">总计罚款金额：</div>
-            <div class="amount">RM1.80</div>
+            <div class="amount">{{data.total}}
+           </div>
           </div>
         </div>
         <i class="icon icon-x-circle float-right close-button" @click="active = false"
@@ -22,9 +23,9 @@
           <div class="container">
             <div class="left-container">
               <div class="title">借出时间</div>
-              <div class="date">{{data.item_out_date}}
+              <div class="date">{{toDate(data.item_out)}}
               </div>
-              <div class="time">{{data.item_out_time}}
+              <div class="time">{{toTime(data.item_out)}}
               </div>
             </div>
             <div class="box1">
@@ -36,15 +37,16 @@
             </div>
             <div class="right-container">
               <div class="title">归还时间</div>
-              <div class="date">{{data.item_in_data}}</div>
-              <div class="time">{{data.item_in_time}}</div>
+              <div class="date">{{toDate(data.item_in)}}</div>
+              <div class="time">{{toTime(data.item_in)}}</div>
             </div>
           </div>
           <div class="lateContainer">
             <span class="late">已逾期 </span>
-            <span class="lateTime">{{data.late_time}}</span>
+            <span class="lateTime">{{data.days}}天
+              {{calTime(date.item_in,date.item_out)}}</span>
             <div class="lateFine">{{data.days}}x
-              {{data.fine}}={{data.total_fine}}
+              {{data.fine}}={{data.total}}
             </div>
           </div>
           <div class="detailsContainer mt-2">
@@ -55,7 +57,8 @@
             <div class="itemContainer columns">
               <div class="item column col-2">项目：</div>
               <div class="itemGroup">
-                <div class="itemType">{{data.item_type}}逾期{{data.late_time}}
+                <div class="itemType">{{data.item_type}}逾期{{data.days}}天
+              {{calTime(date.item_in,date.item_out)}}
                 </div>
                 <div class="code">追踪代码：
                   {{data.code}}</div>
@@ -63,7 +66,7 @@
             </div>
             <div class="moneyContainer columns">
               <div class="money column col-2">来银：</div>
-              <div class="amount">{{data.total_fine}}</div>
+              <div class="amount">{{data.total}}</div>
             </div>
             <div class="cashierContainer columns">
               <div class="cashier column col-2">收银人：</div>
@@ -103,6 +106,46 @@ export default {
       }
     }
   },
+  methods: {
+    getAll() {
+      getPersonalRent().then(({ data }) => {
+        this.data = data;
+        for (let i = 0; i < data.length; i++) {
+          this.data[i].item_type = data[i].item.type;
+        }
+        this.$refs.table.is_loading = false;
+      }).catch((err) => {
+        console.log(err);
+      });
+    },
+    toDate(date) {
+      return `${date.split(' ')[0].split('-')[0]} 年 ${parseInt(date.split(' ')[0].split('-')[1])} 月 ${parseInt(date.split(' ')[0].split('-')[2])} 日`;
+    },
+    toTime(date) {
+      const times = date.split(' ')[1].split(':');
+      let time = times[0] == 12 ? '中午' : '上午';
+      if (times[0] > 12) {
+        time = '下午';
+        times[0] -= 12;
+      }
+      return `${time}${times[0]}：${times[1]}`;
+    },
+    calTime(dateIn,dateOut) {
+      const timeIn = dateIn.split(' ')[1].split(':');
+      const timeOut = dateOut.split(' ')[1].split(':');
+      var lateHour = (timeIn[0]-timeOut[0]);
+      if (lateHour < 0){
+        lateHour += 24;
+      }
+      var lateMinutes = (timeIn[1]-timeOut[1]);
+      if (lateMinutes < 0){
+        lateMinutes += 60;
+        lateHour -= 1
+      }
+      return `${lateHour} 小时 ${lateMinutes} 分钟`;
+    }
+  },
+  
   data: () => ({
     active: false,
   }),
