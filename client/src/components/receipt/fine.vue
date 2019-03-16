@@ -10,8 +10,7 @@
           <div class="modal-title h3">罚款</div>
           <div class="header ml-2">
             <div class="fine">总计罚款金额：</div>
-            <div class="amount">{{data.total}}
-           </div>
+            <div class="amount">{{data.total}}</div>
           </div>
         </div>
         <i class="icon icon-x-circle float-right close-button" @click="active = false"
@@ -19,19 +18,16 @@
       </div>
       <div class="modal-body">
         <div class="content">
-
           <div class="container">
             <div class="left-container">
               <div class="title">借出时间</div>
-              <div class="date">{{toDate(data.item_out)}}
-              </div>
-              <div class="time">{{toTime(data.item_out)}}
-              </div>
+              <div class="date">{{toDate(data.item_out)}}</div>
+              <div class="time">{{toTime(data.item_out)}}</div>
             </div>
             <div class="box1">
               <div class="dottedLine"></div>
             </div>
-            <i class="icon icon-x-circle" ></i>
+            <i class="icon icon-x-circle"></i>
             <div class="box2">
               <div class="dottedLine"></div>
             </div>
@@ -42,26 +38,26 @@
             </div>
           </div>
           <div class="lateContainer">
-            <span class="late">已逾期 </span>
+            <span class="late">已逾期</span>
             <span class="lateTime">{{data.days}}天
-              {{calTime(date.item_in,date.item_out)}}</span>
-            <div class="lateFine">{{data.days}}x
-              {{data.fine}}={{data.total}}
+              {{calTime(date.item_in,date.item_out)}}
+            </span>
+            <div class="lateFine">
+              {{data.days}}x{{data.fine}}={{data.total}}
             </div>
           </div>
           <div class="detailsContainer mt-2">
             <div class="payerContainer columns">
               <div class="payer column col-2">支付者：</div>
-              <div class="payerName">{{data.student_id}}{{data.cn_name}} </div>
+              <div class="payerName">{{data.student_id}}{{data.cn_name}}</div>
             </div>
             <div class="itemContainer columns">
               <div class="item column col-2">项目：</div>
               <div class="itemGroup">
-                <div class="itemType">{{data.item_type}}逾期{{data.days}}天
-              {{calTime(date.item_in,date.item_out)}}
+                <div class="itemType">
+                  {{data.item_type}}逾期{{data.days}}天{{calTime(date.item_in,date.item_out)}}
                 </div>
-                <div class="code">追踪代码：
-                  {{data.code}}</div>
+                <div class="code">追踪代码：{{data.code}}</div>
               </div>
             </div>
             <div class="moneyContainer columns">
@@ -95,7 +91,7 @@ export default {
       validator: function(obj) {
         return obj.id
             && obj.student_id
-            && obj.cn_name
+            // && obj.cn_name
             && obj.item_out
             && obj.item_in
             && obj.days
@@ -107,17 +103,6 @@ export default {
     }
   },
   methods: {
-    getAll() {
-      getPersonalRent().then(({ data }) => {
-        this.data = data;
-        for (let i = 0; i < data.length; i++) {
-          this.data[i].item_type = data[i].item.type;
-        }
-        this.$refs.table.is_loading = false;
-      }).catch((err) => {
-        console.log(err);
-      });
-    },
     toDate(date) {
       return `${date.split(' ')[0].split('-')[0]} 年 ${parseInt(date.split(' ')[0].split('-')[1])} 月 ${parseInt(date.split(' ')[0].split('-')[2])} 日`;
     },
@@ -128,7 +113,7 @@ export default {
         time = '下午';
         times[0] -= 12;
       }
-      return `${time}${times[0]}：${times[1]}`;
+      return `${time}${parseInt(times[0])}：${times[1]}`;
     },
     calTime(dateIn,dateOut) {
       const timeIn = dateIn.split(' ')[1].split(':');
