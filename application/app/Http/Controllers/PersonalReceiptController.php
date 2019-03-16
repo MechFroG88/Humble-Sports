@@ -53,7 +53,7 @@ class PersonalReceiptController extends Controller
     {
         $receipt = personalreceipt::with('user','personalrent','personalrent.student','personalrent.item')->find($id);
         if (!isset($receipt)){
-            $receipt = new stdClass;
+            $receipt = [];
         }
         return response($receipt->toJson(),200);
     }
