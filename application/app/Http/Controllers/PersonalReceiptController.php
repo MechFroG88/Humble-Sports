@@ -29,6 +29,8 @@ class PersonalReceiptController extends Controller
         $receipt->user_id         = Auth::user()->id;
         $receipt->type            = 2;
         $receipt->save();
+        personalrent::where('id', $id)
+                    ->update(["item_in" => date('Y-m-d H:i:s')]);
         return $this->ok();
     }
 
@@ -46,6 +48,8 @@ class PersonalReceiptController extends Controller
         $receipt->user_id         = Auth::user()->id;
         $receipt->type            = 3;
         $receipt->save();
+        personalrent::where('id', $id)
+                    ->update(["item_in" => date('Y-m-d H:i:s')]);
         return $this->ok();
     }
     
