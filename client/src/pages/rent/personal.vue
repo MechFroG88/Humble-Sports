@@ -15,14 +15,11 @@
     :columns="personal_columns" :tableData="data" title navbar="搜寻学号或名字">
       <template slot="title">租借记录（个人）</template>
 
-      <template slot="student" slot-scope="{ tableData }">
-        <!-- <img :src="data.student.image" alt="Student image"> -->
+      <!-- <template slot="student" slot-scope="{ tableData }">
         <div class="student_data">
           <div class="cn_name">{{tableData.student_id}}</div>
-          <!-- <div class="id">{{data.student.id}}</div>
-          <div class="class_name">{{data.student.class}}</div> -->
         </div>
-      </template>
+      </template> -->
 
       <template slot="item_type" slot-scope="{ tableData }">
         {{tableData.item_type}} -- {{tableData.item_tag}}
@@ -54,7 +51,7 @@
         </div>
         <div v-if="tableData.status == 2">
           <span class="label label-expired">已逾期</span>
-          <div class="action">进行罚款</div>
+          <div class="action fine" @click="fineItem(data.id)">进行罚款</div>
           <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
         </div>
         <div v-if="tableData.status == 3">
@@ -67,7 +64,7 @@
 </template>
 
 <script>
-import { getPersonalRent, returnPersonal, lostPersonal } from '@/api/rental';
+import { getPersonalRent, returnPersonal, lostPersonal, expire } from '@/api/rental';
 import { getPersonalReceipt, postPersonalReceiptFine } from '@/api/receipt';
 
 import fine from '@/components/receipt/fine';
@@ -86,12 +83,14 @@ export default {
     tableData:[],
     fineData:[],
     compData:[],
+    receipt_data: {},
   }),
   mounted() {
     this.getAll();
   },
   methods: {
     getAll() {
+      expire('personal');
       getPersonalRent().then(({ data }) => {
         this.tableData = data;
         for (let i = 0; i < data.length; i++) {
@@ -117,19 +116,33 @@ export default {
         time = '下午';
         times[0] -= 12;
       }
-      return `${time}${times[0]}：${times[1]}`;
+      return `${time}${parseInt(times[0])}：${times[1]}`;
     },
     returnItem(id) {
       returnPersonal(id).then(() => {
-        this.notification('成功归还物品！', 'success');
+        this.notification('成功更新物品状态：归还', 'success');
         this.getAll();
       }).catch((err) => {
         this.notification('操作失败！请重试！', 'error');
         console.log(err)
       })
     },
+    fineItem(id) {
+      getPersonalReceipt(id).then(({ data }) => {
+        if (data.length == 0) {
+          postPersonalReceiptFine(id).then((msg) => {
+            this.notification('成功进行罚款', 'success');
+          })
+        } else {
+          this.receipt_data = data;
+        }
+      })
+    },
     loseItem(id) {
-      
+      lostPersonal(id).then((msg) => {
+        this.notification('成功更新物品状态：遗失', 'success');
+        this.getAll();
+      })
     }
   },
 };

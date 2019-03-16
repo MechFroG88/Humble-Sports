@@ -68,16 +68,16 @@ export default {
   }),
   methods: {
     searchData() {
-      if(this.search.message == ''){
+      if (this.search.message == '') {
         this.displayData = this.originalData;
-      }else{
+      } else {
         var searchColumns = this.search.columns;
         var searchMessage = this.search.message;
         this.displayData = this.originalData.filter((row) => {
           let found = false;
           Object.keys(row).forEach((k) => {
-            if(searchColumns.indexOf(k) > -1){
-              if(row[k].includes(searchMessage)){
+            if(searchColumns.indexOf(k) > -1) {
+              if(JSON.stringify(row[k]).includes(searchMessage)) {
                 found = true;
               }
             }

@@ -19,7 +19,6 @@
       </div>
       <div class="modal-body">
         <div class="content">
-
           <div class="container">
             <div class="left-container">
               <div class="title">借出时间</div>
@@ -31,20 +30,23 @@
             <div class="box1">
               <div class="dottedLine"></div>
             </div>
-            <i class="icon icon-x-circle" ></i>
+            <i class="icon icon-x-circle"></i>
             <div class="box2">
               <div class="dottedLine"></div>
             </div>
             <div class="right-container">
               <div class="title">归还时间</div>
-              <div class="date">{{toDate(fineData.item_in)}}</div>
-              <div class="time">{{toTime(fineData.item_in)}}</div>
+              <div class="date">{{toDate(fineData.item_in)}} 
+              </div>
+              <div class="time">{{toTime(fineData.item_in)}}
+              </div>
             </div>
           </div>
           <div class="lateContainer">
             <span class="late">已逾期 </span>
             <span class="lateTime">{{fineData.days}}天
-              {{calTime(fineData.item_in,fineData.item_out)}}</span>
+              {{calTime(fineData.item_in,fineData.item_out)}}
+            </span>
             <div class="lateFine">{{fineData.days}}x
               {{fineData.fine}}={{fineData.total}}
             </div>
@@ -52,7 +54,8 @@
           <div class="detailsContainer mt-2">
             <div class="payerContainer columns">
               <div class="payer column col-2">支付者：</div>
-              <div class="payerName">{{fineData.student_id}}{{fineData.cn_name}} </div>
+              <div class="payerName">{{fineData.student_id}}{{fineData.cn_name}}
+              </div>
             </div>
             <div class="itemContainer columns">
               <div class="item column col-2">项目：</div>
@@ -61,7 +64,8 @@
               {{calTime(fineData.item_in,fineData.item_out)}}
                 </div>
                 <div class="code">追踪代码：
-                  {{fineData.code}}</div>
+                  {{fineData.code}}
+                </div>
               </div>
             </div>
             <div class="moneyContainer columns">
@@ -93,16 +97,16 @@ export default {
     data: {
       type: Object,
       validator: function(obj) {
-        return (obj.id) 
-        && (obj.student_id)
-        && (obj.cn_name)
-        && (obj.item_out)
-        && (obj.item_in)
-        && (obj.days)
-        && (obj.fine)
-        && (obj.total)
-        && (obj.item_type)
-        && (obj.teacher)
+        return obj.id
+            && obj.student_id
+            // && obj.cn_name
+            && obj.item_out
+            && obj.item_in
+            && obj.days
+            && obj.fine
+            && obj.total
+            && obj.item_type
+            && obj.teacher;
       }
     }
   },
@@ -117,7 +121,7 @@ export default {
         time = '下午';
         times[0] -= 12;
       }
-      return `${time}${times[0]}：${times[1]}`;
+      return `${time}${parseInt(times[0])}：${times[1]}`;
     },
     calTime(dateIn,dateOut) {
       const timeIn = dateIn.split(' ')[1].split(':');
