@@ -52,10 +52,9 @@ class PersonalReceiptController extends Controller
     public function get_receipt($id)
     {
         $receipt = personalreceipt::with('user','personalrent','personalrent.student','personalrent.item')->find($id);
-        if (isset($receipt)){
-            return response($receipt->toJson(),200);
-        } else {
-            return response(new stdClass,200);
+        if (!isset($receipt)){
+            $receipt = new stdClass;
         }
+        return response($receipt->toJson(),200);
     }
 }
