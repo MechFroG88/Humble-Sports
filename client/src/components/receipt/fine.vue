@@ -10,7 +10,7 @@
           <div class="modal-title h3">罚款</div>
           <div class="header ml-2">
             <div class="fine">总计罚款金额：</div>
-            <div class="amount">{{data.total}}
+            <div class="amount">{{fineData.total}}
            </div>
           </div>
         </div>
@@ -23,9 +23,9 @@
           <div class="container">
             <div class="left-container">
               <div class="title">借出时间</div>
-              <div class="date">{{toDate(data.item_out)}}
+              <div class="date">{{toDate(fineData.item_out)}}
               </div>
-              <div class="time">{{toTime(data.item_out)}}
+              <div class="time">{{toTime(fineData.item_out)}}
               </div>
             </div>
             <div class="box1">
@@ -37,40 +37,40 @@
             </div>
             <div class="right-container">
               <div class="title">归还时间</div>
-              <div class="date">{{toDate(data.item_in)}}</div>
-              <div class="time">{{toTime(data.item_in)}}</div>
+              <div class="date">{{toDate(fineData.item_in)}}</div>
+              <div class="time">{{toTime(fineData.item_in)}}</div>
             </div>
           </div>
           <div class="lateContainer">
             <span class="late">已逾期 </span>
-            <span class="lateTime">{{data.days}}天
-              {{calTime(date.item_in,date.item_out)}}</span>
-            <div class="lateFine">{{data.days}}x
-              {{data.fine}}={{data.total}}
+            <span class="lateTime">{{fineData.days}}天
+              {{calTime(fineData.item_in,fineData.item_out)}}</span>
+            <div class="lateFine">{{fineData.days}}x
+              {{fineData.fine}}={{fineData.total}}
             </div>
           </div>
           <div class="detailsContainer mt-2">
             <div class="payerContainer columns">
               <div class="payer column col-2">支付者：</div>
-              <div class="payerName">{{data.student_id}}{{data.cn_name}} </div>
+              <div class="payerName">{{fineData.student_id}}{{fineData.cn_name}} </div>
             </div>
             <div class="itemContainer columns">
               <div class="item column col-2">项目：</div>
               <div class="itemGroup">
-                <div class="itemType">{{data.item_type}}逾期{{data.days}}天
-              {{calTime(date.item_in,date.item_out)}}
+                <div class="itemType">{{fineData.item_type}}逾期{{fineData.days}}天
+              {{calTime(fineData.item_in,fineData.item_out)}}
                 </div>
                 <div class="code">追踪代码：
-                  {{data.code}}</div>
+                  {{fineData.code}}</div>
               </div>
             </div>
             <div class="moneyContainer columns">
               <div class="money column col-2">来银：</div>
-              <div class="amount">{{data.total}}</div>
+              <div class="amount">{{fineData.total}}</div>
             </div>
             <div class="cashierContainer columns">
               <div class="cashier column col-2">收银人：</div>
-              <div class="cashierName">{{data.teacher}}</div>
+              <div class="cashierName">{{fineData.teacher}}</div>
             </div>
           </div>
         </div>
@@ -107,17 +107,6 @@ export default {
     }
   },
   methods: {
-    getAll() {
-      getPersonalRent().then(({ data }) => {
-        this.data = data;
-        for (let i = 0; i < data.length; i++) {
-          this.data[i].item_type = data[i].item.type;
-        }
-        this.$refs.table.is_loading = false;
-      }).catch((err) => {
-        console.log(err);
-      });
-    },
     toDate(date) {
       return `${date.split(' ')[0].split('-')[0]} 年 ${parseInt(date.split(' ')[0].split('-')[1])} 月 ${parseInt(date.split(' ')[0].split('-')[2])} 日`;
     },
