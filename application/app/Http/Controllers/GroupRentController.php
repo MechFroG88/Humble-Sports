@@ -11,7 +11,7 @@ use Validator;
 use Auth;
 
 
-class GroupRentController extends Controller
+class GroupRentController extends GroupReceiptController
 {
     private $rules = [
         "group_name" => "required",
