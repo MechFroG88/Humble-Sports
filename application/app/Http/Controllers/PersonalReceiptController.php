@@ -15,7 +15,7 @@ use Auth;
 
 class PersonalReceiptController extends Controller
 {
-    public function create_fine($id)
+    public function create_receipt($id)
     {
         $receipt                  = new personalreceipt;
         $receipt->personalrent_id = $id;
@@ -25,28 +25,13 @@ class PersonalReceiptController extends Controller
         $date                     = Carbon::parse(grouprent::where('id',$id)->pluck('due_date')->first());
         $now                      = Carbon::now();
         $receipt->days            = $date->diffInDays($now);
-        $receipt->total           = $fine->fine*$receipt->days;
+        $receipt->total_fine      = $fine->fine*$receipt->days;
+        $item_id                  = personalrent::where('id',$id)->pluck('item_id');
+        $price                    = item::where('id',$item_id)->select('price')->first();
+        $receipt->price           = $price->price;
+        $receipt->lost            = personalrent::where('id',$id)->pluck('lost')->first();
+        $receipt->total_price     = $price->price * $receipt->lost; 
         $receipt->user_id         = Auth::user()->id;
-        $receipt->type            = 2;
-        $receipt->save();
-        personalrent::where('id', $id)
-                    ->update(["item_in" => date('Y-m-d H:i:s')]);
-        return $this->ok();
-    }
-
-    public function create_lost($id)
-    {
-        $receipt                  = new personalreceipt;
-        $receipt->personalrent_id = $id;
-        $item_id                  = personalrent::where('id',$id)->pluck('item_id')->first();
-        $fine                     = item::where('id',$item_id)->select('price')->first();
-        $receipt->fine            = $fine->price;
-        $date                     = Carbon::parse(grouprent::where('id',$id)->pluck('due_date')->first());
-        $now                      = Carbon::now();
-        $receipt->days            = $date->diffInDays($now);
-        $receipt->total           = $fine->price*$receipt->days;
-        $receipt->user_id         = Auth::user()->id;
-        $receipt->type            = 3;
         $receipt->save();
         personalrent::where('id', $id)
                     ->update(["item_in" => date('Y-m-d H:i:s')]);

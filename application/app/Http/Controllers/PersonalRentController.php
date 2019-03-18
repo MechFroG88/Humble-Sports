@@ -10,7 +10,7 @@ use Validator;
 use App\Item;
 use Auth;
 
-class PersonalRentController extends Controller
+class PersonalRentController extends PersonalReceiptController
 {
     private $rules = [
         "student_id" => "required",
@@ -55,19 +55,21 @@ class PersonalRentController extends Controller
         return response($personalrent->toJson(),200); 
     }
 
-    public function update_returned($id)
+    public function update_return(Request $data,$id)
     {
-        personalrent::where('id', $id)
-                    ->update(["status"  => "0",
-                              "item_in" => date('Y-m-d H:i:s')]);
-        return $this->ok();
-    }
-
-    public function update_lost($id)
-    {
-        personalrent::where('id', $id)
-                    ->update(["status"  => "3",
-                              "item_in" => date('Y-m-d H:i:s')]);
+        $lost     = $data->lost;
+        if($lost>0){
+            personalrent::where('id', $id)
+                     ->update(["status"   => "3",
+                               "item_in"  => date('Y-m-d H:i:s'),
+                               "lost"     => $lost,]);
+            $this->create_receipt($id);               
+        }
+        else if($lost=0){
+            personal::where('id', $id)
+            ->update(["status"   => "0",
+                      "item_in"  => date('Y-m-d H:i:s')]);
+        }
         return $this->ok();
     }
 

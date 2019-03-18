@@ -11,7 +11,7 @@ use App\Fine;
 
 class GroupReceipt extends Model
 {
-    protected $visible = ['id','single_fine','single_price','fine','user','grouprent','type'];
+    protected $visible = ['id','single_fine','total_price','days','amount','total_fine','single_price','fine','user','grouprent'];
 
     public function item(){
         return $this->belongsTo('App\Item');

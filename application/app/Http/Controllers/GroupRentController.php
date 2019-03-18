@@ -28,8 +28,8 @@ class GroupRentController extends Controller
         $validator = Validator::make($data->all(),$this->rules);
         if ($validator->fails()) return $this->fail();
         if (student::where('id',$data->only('student_id')['student_id'])->exists()){
-            student::where('id',$data->only('student_id')['student_id'])
-                   ->update('phone_no',$data->only('phone_no')['phone_no']);
+                    student::where('id',$data->only('student_id')['student_id'])
+                   ->update(['phone_no' => $data->only('phone_no')['phone_no']]);
         }
         $data->request->remove('phone_no');
         $data->request->add(['item_out' => date('Y-m-d H:i:s')]); 
@@ -64,26 +64,27 @@ class GroupRentController extends Controller
         return response($grouprent->toJson(),200);
     }
 
-    public function update_returned($id)
-    {
-        $amount = grouprent::where('id',$id)->pluck('amount')->first();
-        grouprent::where('id', $id)
-                 ->update(["status"   => "0",
-                           "item_in"  => date('Y-m-d H:i:s'),
-                           "returned" => $amount]);
-        return $this->ok();
-    }
-
-    public function update_lost(Request $data,$id)
+    public function update_return(Request $data,$id)
     {
         $lost     = $data->lost;
         $amount   = grouprent::where('id',$id)->pluck('amount')->first();
         $returned = $amount - $lost;
-        grouprent::where('id', $id)
-                 ->update(["status"   => "3",
-                           "item_in"  => date('Y-m-d H:i:s'),
-                           "lost"     => $lost,
-                           "returned" => $returned]);
+        if($lost>0){
+            grouprent::where('id', $id)
+                     ->update(["status"   => "3",
+                               "item_in"  => date('Y-m-d H:i:s'),
+                               "lost"     => $lost,
+                               "returned" => $returned]);
+            $this->create_receipt($id); 
+        }
+        else if($lost=0){
+            grouprent::where('id', $id)
+            ->update(["status"   => "0",
+                      "item_in"  => date('Y-m-d H:i:s'),
+                      "lost"     => $lost,
+                      "returned" => $returned]);
+
+        }
         return $this->ok();
     }
 

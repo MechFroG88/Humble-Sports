@@ -56,8 +56,7 @@ Route::middleware('auth')->get('fine','FineController@get');
 Route::middleware('auth')->post('rent/personal','PersonalRentController@create');
 Route::middleware('auth')->get('rent/personal','PersonalRentController@get');
 Route::middleware('auth')->put('rent/personal/expired','PersonalRentController@update_expired');
-Route::middleware('auth')->put('rent/personal/{id}/return','PersonalRentController@update_returned');
-Route::middleware('auth')->put('rent/personal/{id}/lost','PersonalRentController@update_lost');
+Route::middleware('auth')->put('rent/personal/{id}/return','PersonalRentController@update_return');
 
 /**
  * GroupRent Route
@@ -65,21 +64,18 @@ Route::middleware('auth')->put('rent/personal/{id}/lost','PersonalRentController
 Route::middleware('auth')->post('rent/group','GroupRentController@create');
 Route::middleware('auth')->get('rent/group','GroupRentController@get');
 Route::middleware('auth')->put('rent/group/expired','PersonalRentController@update_expired');
-Route::middleware('auth')->put('rent/group/{id}/return','GroupRentController@update_returned');
-Route::middleware('auth')->put('rent/group/{id}/lost','GroupRentController@update_lost');
+Route::middleware('auth')->put('rent/group/{id}/return','GroupRentController@update_return');
 
 /**
  * PersonalReceipt Route
  */
-Route::middleware('auth')->post('receipt/personal/fine/{id}','PersonalReceiptController@create_fine');
-Route::middleware('auth')->post('receipt/personal/lost/{id}','PersonalReceiptController@create_lost');
+Route::middleware('auth')->post('receipt/personal/{id}','PersonalReceiptController@create_receipt');
 Route::middleware('auth')->get('receipt/personal/{id}','PersonalReceiptController@get_receipt');
 
 /**
  * GroupReceipt Route
  */
-Route::middleware('auth')->post('receipt/group/fine/{id}','GroupReceiptController@create_fine');
-Route::middleware('auth')->post('receipt/group/lost/{id}','GroupReceiptController@create_lost');
+Route::middleware('auth')->post('receipt/group/{id}','GroupReceiptController@create_receipt');
 Route::middleware('auth')->get('receipt/group/{id}','GroupReceiptController@get_receipt');
 
 /**
