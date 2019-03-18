@@ -69,45 +69,11 @@ paths:
                 cn_name:
                   type: "string"
                   example: "陈科锦"
-                username:
-                  type: "string"
-                  example: "asd"
                 type:
                   type: "integer"
                   description: "User type\n
                   0 : administrator\n
                   1 : user"
-        401:
-          description: "Unauthorized"
-        400:
-          description: "Validation Error"
-          
-  /user/current:
-    get:
-      tags:
-      - "Users"
-      summary: "Return current user data"
-
-      responses:
-        200:
-          description: "Successful operation"
-          schema:
-            type: "object"
-            properties:
-              id:
-                type: "integer"
-                example: "1"
-              cn_name:
-                type: "string"
-                example: "陈科锦"
-              username:
-                type: "string"
-                example: "asd"
-              type:
-                type: "integer"
-                description: "User type\n
-                0 : administrator\n
-                1 : user"
         401:
           description: "Unauthorized"
         400:
@@ -136,7 +102,7 @@ paths:
           description: "Unauthorized"
         400:
           description: "Validation Error"
-        
+
   /user/username:
     put:
       tags:
@@ -145,13 +111,13 @@ paths:
       parameters:
       - in: "body"
         name: "Body"
-        description: "Update pusername"
+        description: "Update username"
         schema:
           type: "object"
           properties:
             username:
               type: "string"
-              example: "asdasd"
+              example: "kelzinpoop"
 
       responses:
         200:
@@ -160,6 +126,7 @@ paths:
           description: "Unauthorized"
         400:
           description: "Validation Error"
+
   /user/login:
     post:
       tags:
@@ -224,9 +191,6 @@ paths:
               cn_name:
                 type: "string"
                 example: "陈科锦"
-              username:
-                type: "string"
-                example: "asd"
               type:
                 type: "integer"
                 description: "User type\n
@@ -385,26 +349,60 @@ paths:
         200:
           description: "Successful operation"
           schema:
-            type: "array"
-            items:
-              type: "object"
-              properties:
-                id:
-                  type: "integer"
-                  example: "1"
-                type:
-                  type: "string"
-                  example: "ball"
-                start_id:
-                  type: "integer"
-                  example: "1"
-                end_id:
-                  type: "integer"
-                  example: "12"
-                price:
-                  type: "number"
-                  example: "13"
-                           
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              type:
+                type: "string"
+                example: "ball"
+              start:
+                type: "integer"
+                example: "1"
+              end:
+                type: "integer"
+                example: "12"
+              price:
+                type: "number"
+                example: "13"                           
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error" 
+  
+  /item/{itemId}:
+    get:
+      tags:
+      - "Items"
+      summary: "Returns single item data"
+      parameters:
+      - name: "itemId"
+        in: "path"
+        description: "Id of item data to return"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              type:
+                type: "string"
+                example: "ball"
+              start:
+                type: "integer"
+                example: "1"
+              end:
+                type: "integer"
+                example: "12"
+              price:
+                type: "number"
+                example: "13"                           
         401:
           description: "Unauthorized"
         400:
@@ -428,21 +426,15 @@ paths:
           schema:
             type: "object"
             properties:
-              id:
+              rent_id:
                 type: "integer"
                 example: "1"
-              teacher:
-                type: "string"
-                example: "kelzin tan"
-              group_name:
-                type: "string"
-                example: "lanqiuxuehui"
               student_id:
                 type: "integer"
                 example: "140123"
-              item_id:
-                type: "integer"
-                example: "1"
+              group_name:
+                type: "string"
+                example: "lanqiuxuehui"
               item_out:
                 type: "string"
                 format: "date-time"
@@ -451,6 +443,9 @@ paths:
                 type: "string"
                 format: "date-time"
                 example: "2019-02-02 00:00:00"
+              teacher:
+                type: "string"
+                example: "kelzin tan"
               status:
                 type: "integer"
                 example: "1"
@@ -480,7 +475,7 @@ paths:
           description: "Unauthorized"
         400:
           description: "Validation Error"
-
+  /fine/new:
     post:
       tags:
       - "Fines"
@@ -519,9 +514,9 @@ paths:
             student_id:
               type: "integer"
               example: "140048"
-            item_id:
-              type: "integer"
-              example: "2"
+            item_type:
+              type: "string"
+              example: "banqiu"
             item_tag:
               type: "integer"
               example: "1"
@@ -546,66 +541,69 @@ paths:
         200:
           description: "Successful operation"
           schema:
-            type: "array"
-            items:
-              type: "object"
-              properties:
-                id:
-                  type: "integer"
-                  example: "1"
-                student_id:
-                  type: "integer"
-                  example: "140123"        
-                student:
-                  type: "object"
-                  properties:
-                    name:
-                      type: "string"
-                      example: "陈科锦"
-                    class:
-                      type: "string"
-                      example: "高二李忠"
-                    picture:
-                      type: "string"
-                      example: "asfcdasfcda"
-                item_id:
-                  type: "integer"
-                  example: "1"
-                item_in:
-                  type: "string"
-                  format: "date-time"
-                  example: "2019-01-31 10:27:13"
-                item_out:
-                  type: "string"
-                  format: "date-time"
-                  example: "2019-01-31 10:37:13"
-                item_tag:
-                  type:  "integer"
-                  example: "1"
-                item:
-                  type: "object"
-                  properties:
-                    id:
-                      type: "integer"
-                      example: "1"
-                    type:
-                      type: "integer"
-                      example: "1"
-                due_date:
-                  type: "string"
-                  format: "date-time"
-                  example: "2019-02-01 12:25:10"
-                teacher:
-                  type: "string"
-                  example: "陈恪尽"
-                status:
-                  type: "integer"
-                  description: "Status\n
-                  0 : returned\n
-                  1 : unreturned\n
-                  2 : expired\n
-                  3 : lost"
-            
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              teacher:
+                type: "string"
+                example: "陈恪尽"              
+              student_id:
+                type: "integer"
+                example: "140123"              
+              item_id:
+                type: "integer"
+                example: "1"
+              item_tag:
+                type:  "integer"
+                example: "1"
+              item_out:
+                type: "string"
+                format: "date-time"
+                example: "2019-01-31 10:37:13"              
+              item_in:
+                type: "string"
+                format: "date-time"
+                example: "2019-01-31 10:27:13"
+              due_date:
+                type: "string"
+                format: "date-time"
+                example: "2019-02-01 12:25:10"
+              status:
+                type: "integer"
+                description: "Status\n
+                0 : returned\n
+                1 : unreturned\n
+                2 : expired\n
+                3 : paid"
+              student:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "140048"
+                  cn_name:
+                    type: "string"
+                    example: "陈科锦"
+                  class:
+                    type: "string"
+                    example: "高三李忠"
+                  picture:
+                    type: "string"
+                    example: ""
+                  phone_no:
+                    type: "string"
+                    example: "0129102932"
+              item:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  type: 
+                    type: "string"
+                    example: "basketball"
         401:
           description: "Unauthorized"
         400:
@@ -622,6 +620,23 @@ paths:
             description: "Id of personal rent to update"
             required: true
             type: "integer"
+          - in: "body"
+            name: "Body"
+            description: "Update personal rent returned or paid"
+            schema: 
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                status:
+                  type: "integer"
+                  example: "0"
+                  description: "Status\n
+                  0 : returned\n
+                  1 : unreturned\n
+                  2 : expired\n
+                  3 : paid"
 
         responses:
           200:
@@ -629,33 +644,31 @@ paths:
           401:
             description: "Unauthorized"
           400:
-            description: "Validation Error"
-            
-  /rent/personal/{rentId}/lost:  
-      put:
-        tags:
-        - "PersonalRents"
-        summary: "Update personal rent lost"
-        parameters:
-          - name: "rentId"
-            in: "path"
-            description: "Id of personal rent to update"
-            required: true
-            type: "integer"
-
-        responses:
-          200:
-            description: "Successful operation"
-          401:
-            description: "Unauthorized"
-          400:
-            description: "Validation Error"       
+            description: "Validation Error"      
 
   /rent/personal/expired:  
       put:
         tags:
         - "PersonalRents"
         summary: "Update personal rent expired"
+        parameters:
+          - in: "body"
+            name: "Body"
+            description: "Update personal rent expired"
+            schema: 
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                status:
+                  type: "integer"
+                  example: "2"
+                  description: "Status\n
+                  0 : returned\n
+                  1 : unreturned\n
+                  2 : expired\n
+                  3 : paid"
 
         responses:
           200:
@@ -683,10 +696,10 @@ paths:
             student_id:
               type: "integer"
               example: "140048"
-            phone_no:
+            phone:
               type: "integer"
               example: "0123456789"
-            item_id:
+            item_type:
               type: "string"
               example: "lanqiu"
             item_tag:
@@ -714,77 +727,82 @@ paths:
         200:
           description: "Successful operation"
           schema:
-            type: "array"
-            items:
-              type: "object"
-              properties:
-                id:
-                  type: "integer"
-                  example: "1"
-                group_name:
-                  type : "string"
-                  example: "asd"
-                student_id:
-                  type: "integer"
-                  example: "140123"        
-                student:
-                  type: "object"
-                  properties:
-                    name:
-                      type: "string"
-                      example: "陈科锦"
-                    class:
-                      type: "string"
-                      example: "高二李忠"
-                    phone_no:
-                      type: "string"
-                      example: "012345678"
-                item_id:
-                  type: "integer"
-                  example: "1"
-                item_in:
-                  type: "string"
-                  format: "date-time"
-                  example: "2019-01-31 10:27:13"
-                item_out:
-                  type: "string"
-                  format: "date-time"
-                  example: "2019-01-31 10:37:13"
-                item_tag:
-                  type:  "integer"
-                  example: "1"
-                item:
-                  type: "object"
-                  properties:
-                    id:
-                      type: "integer"
-                      example: "1"
-                    type:
-                      type: "integer"
-                      example: "1"
-                amount:
-                  type: "integer"
-                  example: "3"
-                lost:
-                  type: "integer"
-                  example: "0"
-                returned:
-                  type: "integer"
-                  example: "0"
-                due_date:
-                  type: "string"
-                  format: "date-time"
-                  example: "2019-02-01 12:25:10"
-                teacher:
-                  type: "string"
-                  example: "陈恪尽"
-                status:
-                  type: "integer"
-                  description: "Status\n
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              group_name:
+                type: "string"
+                example: "Humble-Dog"
+              student_id:
+                type: "integer"
+                example: "140048"
+              teacher:
+                type: "string"
+                example: "陈恪尽"
+              item_id:
+                type: "integer"
+                example: "1"
+              item_tag:
+                type: "integer"
+                example: "1"
+              amount:
+                type: "integer"
+                example: "10"
+              lost:
+                type: "integer"
+                example: "3"
+              returned:
+                type: "integer"
+                example: "7"
+              item_out:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"              
+              item_in:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"
+              due_date:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"
+              status:
+                type: "integer"
+                example: "0"
+                description: "Status\n
                   0 : returned\n
                   1 : unreturned\n
                   2 : expired\n
-                  3 : lost"
+                  3 : paid"
+              item:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  type:
+                    type: "string"
+                    example: "Basketball"
+              student:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "140048"
+                  cn_name:
+                    type: "string"
+                    example: "陈科锦"
+                  class:
+                    type: "string"
+                    example: "高三李忠"
+                  picture:
+                    type: "string"
+                    example: ""
+                  phone_no:
+                    type: "string"
+                    example: "0129102932"
         401:
           description: "Unauthorized"
         400:
@@ -794,13 +812,29 @@ paths:
       put:
         tags:
         - "GroupRents"
-        summary: "Update group rent returned"
+        summary: "Update group rent returned or paid"
         parameters:
           - name: "rentId"
             in: "path"
             description: "Id of group rent to update"
             required: true
             type: "integer"
+          - in: "body"
+            name: "Body"
+            description: "Update group rent returned"
+            schema: 
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                status:
+                  type: "integer"
+                  description: "Status\n
+                  0 : returned\n
+                  1 : unreturned\n
+                  2 : expired\n
+                  3 : paid"
 
         responses:
           200:
@@ -808,33 +842,32 @@ paths:
           401:
             description: "Unauthorized"
           400:
-            description: "Validation Error"
-            
-  /rent/group/{rentId}/lost:  
-      put:
-        tags:
-        - "GroupRents"
-        summary: "Update group rent lost"
-        parameters:
-          - name: "rentId"
-            in: "path"
-            description: "Id of group rent to update"
-            required: true
-            type: "integer"
-
-        responses:
-          200:
-            description: "Successful operation"
-          401:
-            description: "Unauthorized"
-          400:
-            description: "Validation Error"       
+            description: "Validation Error"  
 
   /rent/group/expired:  
       put:
         tags:
         - "GroupRents"
         summary: "Update group rent expired"
+        parameters:
+          - in: "body"
+            name: "Body"
+            description: "Update group rent expired"
+            schema: 
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                status:
+                  type: "integer"
+                  example: "2"
+                  description: "Status\n
+                  0 : returned\n
+                  1 : unreturned\n
+                  2 : expired\n
+                  3 : lost"
+
         responses:
           200:
             description: "Successful operation"
@@ -843,33 +876,13 @@ paths:
           400:
             description: "Validation Error" 
 
-  /receipt/personal/fine/{rentId}:
+  /receipt/personal/{Id}:    
     post:
       tags:
       - "PersonalReceipts"
-      summary: "Create new personal receipt for fine"
+      summary: "Create new personal receipt"
       parameters:
-        - name: "rentId"
-          in: "path"
-          description: "ID of personal rent to create receipt"
-          required: true
-          type: "integer"
-      
-      responses:
-        200: 
-          description: "Successful operation"
-        401:
-          description: "Unauthorized"
-        400:
-          description: "Validation Error"
-  
-  /receipt/personal/lost/{rentId}:    
-    post:
-      tags:
-      - "PersonalReceipts"
-      summary: "Create new personal receipt for lost"
-      parameters:
-        - name: "rentId"
+        - name: "Id"
           in: "path"
           description: "ID of personal rent to create receipt"
           required: true
@@ -883,13 +896,12 @@ paths:
         400:
           description: "Validation Error"    
   
-  /receipt/personal/{receiptId}:
     get:
       tags:
       - "PersonalReceipts"
       summary: "Returns single receipt data"
       parameters:
-        - name: "receiptId"
+        - name: "Id"
           in: "path"
           description: "ID of receipt to return"
           required: true
@@ -904,43 +916,87 @@ paths:
               id:
                 type: "integer"
                 example: "1"
-              student_id:
-                type: "integer"
-                example: "130047"
-              cn_name:
-                type: "string"
-                example: "黄咏志"
-              item_out:
-                type: "string"
-                format: "date-time"
-                example: "2018-01-29 00:41:00"
-              item_in:
-                type: "string"
-                format: "date-time"
-                example: "2018-01-29 00:41:00"
-              days:
-                type: "integer"
-                example: "1"
               fine:
                 type: "integer"
-                example: "10"
-              total:
+                example: "1"
+              days:
+                type: "integer"
+                example: "2"
+              total_fine:
+                type: "integer"
+                example: "2"
+              price:
                 type: "integer"
                 example: "10"
-              item_type:
-                type: "string"
-                example: "lanqiu"
-              teacher:
-                type: "string"
-                example: "ahdong"
-            
-  /receipt/group/fine/{rentId}:
+              amount:
+                type: "integer"
+                example: "3"
+              total_price:
+                type: "integer"
+                example: "30"
+              user:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  cn_name:
+                    type: "string"
+                    example: "管理员"
+              personalrent:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  student_id:
+                    type: "integer"
+                    example: "140048"
+                  item_id:
+                    type: "integer"
+                    example: "1"
+                  item_out: 
+                    type: "string"
+                    format: "date-time"
+                    example: "2019-03-17 17:27:42"
+                  item_in:
+                    type: "string"
+                    format: "date-time"
+                    example: "2019-03-17 17:27:42"
+                  student:
+                    type: "object"
+                    properties:
+                      id: 
+                        type: "integer"
+                        example: "140048"
+                      cn_name:
+                        type: "string"
+                        example: "陈科锦"
+                      class:
+                        type: "string"
+                        example: "高三李忠"
+                      picture:
+                        type: "string"
+                        example: ""
+                      phone_no:
+                        type: "string"
+                        example: "0129102932"
+                  item:
+                    type: "object"
+                    properties:
+                      id: 
+                        type: "integer"
+                        example: "1"
+                      type: 
+                        type: "string"
+                        example: "Basketball"
+  /receipt/group/{Id}:
     post:
       tags:
       - "GroupReceipts"
-      summary: "Create new group receipt for fine"
+      summary: "Create new group receipt"
       parameters:
-        - name: "rentId"
+        - name: "Id"
           in: "path"
           description: "ID of group rent to create receipt"
           required: true
@@ -954,33 +1010,12 @@ paths:
         400:
           description: "Validation Error"
   
-  /receipt/group/lost/{rentId}:    
-    post:
-      tags:
-      - "GroupReceipts"
-      summary: "Create new group receipt for lost"
-      parameters:
-        - name: "rentId"
-          in: "path"
-          description: "ID of group rent to create receipt"
-          required: true
-          type: "integer"
-      
-      responses:
-        200: 
-          description: "Successful operation"
-        401:
-          description: "Unauthorized"
-        400:
-          description: "Validation Error"    
-  
-  /receipt/group/{receiptId}:
     get:
       tags:
       - "GroupReceipts"
       summary: "Returns single receipt data"
       parameters:
-        - name: "receiptId"
+        - name: "Id"
           in: "path"
           description: "ID of receipt to return"
           required: true
@@ -995,37 +1030,88 @@ paths:
               id:
                 type: "integer"
                 example: "1"
-              student_id:
-                type: "integer"
-                example: "130047"
-              cn_name:
-                type: "string"
-                example: "黄咏志"
-              item_out:
-                type: "string"
-                format: "date-time"
-                example: "2018-01-29 00:41:00"
-              item_in:
-                type: "string"
-                format: "date-time"
-                example: "2018-01-29 00:41:00"
-              days:
+              single_fine:
                 type: "integer"
                 example: "1"
-              fine:
+              days:
+                type: "integer"
+                example: "2"
+              total_fine:
+                type: "integer"
+                example: "2"
+              single_price: 
                 type: "integer"
                 example: "10"
-              total:
+              amount:
                 type: "integer"
-                example: "10"
-              item_type:
-                type: "string"
-                example: "lanqiu"
-              teacher:
-                type: "string"
-                example: "ahdong"                
-  
-  /report:
+                example: "3"
+              total_price: 
+                type: "integer"
+                example: "30"
+              user:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  cn_name:
+                    type: "string"
+                    example: "管理员"
+              grouprent:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  group_name:
+                    type: "string"
+                    example: "Humble-Dog"
+                  student_id:
+                    type: "integer"
+                    example: "140048"
+                  teacher:
+                    type: "integer"
+                    example: "管理员"
+                  item_id:
+                    type: "integer"
+                    example: "1"
+                  item_tag:
+                    type: "integer"
+                    example: "3"
+                  amount:
+                    type: "integer"
+                    example: "10"
+                  lost: 
+                    type: "integer"
+                    example: "3"
+                  returned:
+                    type: "integer"
+                    example: "7"
+                  item_out:
+                    type: "string"
+                    format: "date-time"
+                    example: "2018-01-29 00:41:00"
+                  item_in:
+                    type: "string"
+                    format: "date-time"
+                    example: "2018-01-29 00:41:00"
+                  due_date:
+                    type: "string"
+                    format: "date-time"
+                    example: "2018-01-29 00:41:00"
+                  status:
+                    type: "integer"
+                    example: "3"
+                  item:
+                    type: "object"
+                    properties:
+                      id:
+                        type: "integer"
+                        example: "1"
+                      type: 
+                        type: "string"
+                        example: "basketball"
+  /report:      
     get:
       tags:
       - "Report"
@@ -1040,54 +1126,45 @@ paths:
               unreturned:
                 type: "integer"
                 example: "21"
-              lost:
-                type: "integer"
-                example: "10"
               expired:
                 type: "integer"
                 example: "30"
-              paid_fine_count:
+              paid_count:
                 type: "integer"
                 example: "50"
-              paid_fine:
+              total_paid:
                 type: "integer"
-                example: "12000"
-              paid_lost_count:
-                type: "integer"
-                example: "20"
-              paid_lost:
-                type: "integer"
-                example: "20000"
-                          
+                example: "20000"                         
         401:
           description: "Unauthorized"
         400:
           description: "Validation Error"
-          
+
   /report/month:
     get:
       tags:
       - "Report"
-      summary: "Returns report monthly data"
+      summary: "Returns monthly report data"
+      
       responses:
         200:
           description: "Successful operation"
           schema:
-            type: "array"
-            items:
-              type: "object"
-              properties:
-                id:
-                  type: "integer"
-                  example: "1"
-                year:
-                  type: "integer"
-                  example: "2019"
-                month:
-                  type: "integer"
-                  example: "1"
-                total:
-                  type: "integer"
-                  example: "4"
-                        
-                        
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              year:
+                type: "integer"
+                example: "2019"
+              month:                        
+                type: "integer"
+                example: "12"
+              total: 
+                type: "integer"
+                example: "20"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
