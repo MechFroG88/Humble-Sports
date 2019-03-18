@@ -19,6 +19,7 @@ class PersonalRents extends Migration
             $table->integer('student_id');
             $table->integer('item_id');
             $table->integer('item_tag');
+            $table->integer('lost')->default(0);
             $table->datetime('item_out');
             $table->datetime('item_in')->nullable();
             $table->datetime('due_date');

@@ -17,11 +17,12 @@ class GroupReceipts extends Migration
             $table->increments('id');
             $table->integer('grouprent_id');
             $table->integer('user_id');
-            $table->integer('single_price')->nullable();
-            $table->integer('single_fine')->nullable();
+            $table->integer('single_price');
             $table->integer('amount');
-            $table->integer('total')->default(0);
-            $table->tinyInteger('type');
+            $table->integer('total_price')->default(0);
+            $table->integer('single_fine');
+            $table->integer('days');
+            $table->integer('total_fine')->default(0);
             $table->timestamps();
         });    //
     }
