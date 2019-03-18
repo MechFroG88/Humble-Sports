@@ -613,7 +613,7 @@ paths:
       put:
         tags:
         - "PersonalRents"
-        summary: "Update personal rent returned"
+        summary: "Update personal rent returned or paid"
         parameters:
           - name: "rentId"
             in: "path"
@@ -821,7 +821,7 @@ paths:
             type: "integer"
           - in: "body"
             name: "Body"
-            description: "Update group rent returned"
+            description: "Update group rent returned or paid"
             schema: 
               type: "object"
               properties:
