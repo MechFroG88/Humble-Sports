@@ -63,7 +63,7 @@ Route::middleware('auth')->put('rent/personal/{id}/return','PersonalRentControll
  */
 Route::middleware('auth')->post('rent/group','GroupRentController@create');
 Route::middleware('auth')->get('rent/group','GroupRentController@get');
-Route::middleware('auth')->put('rent/group/expired','PersonalRentController@update_expired');
+Route::middleware('auth')->put('rent/group/expired','GroupRentController@update_expired');
 Route::middleware('auth')->put('rent/group/{id}/return','GroupRentController@update_return');
 
 /**

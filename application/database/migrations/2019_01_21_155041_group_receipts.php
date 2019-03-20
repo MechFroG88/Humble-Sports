@@ -18,7 +18,7 @@ class GroupReceipts extends Migration
             $table->integer('grouprent_id');
             $table->integer('user_id');
             $table->integer('single_price');
-            $table->integer('amount');
+            $table->integer('lost');
             $table->integer('total_price')->default(0);
             $table->integer('single_fine');
             $table->integer('days');

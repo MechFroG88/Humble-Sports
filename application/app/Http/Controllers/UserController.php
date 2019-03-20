@@ -52,13 +52,13 @@ class UserController extends Controller
 
     public function get()
     {
-        $user = user::all();
+        $user = user::all()->makeHidden('username');
         return response($user->toJson(),200);
     }
 
     public function get_current()
     {
-        $user = Auth::user();
+        $user = Auth::user()->makeHidden(['id','username','type']);
         return response($user->toJson(),200);
     }
 

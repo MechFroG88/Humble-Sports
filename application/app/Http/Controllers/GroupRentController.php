@@ -66,6 +66,7 @@ class GroupRentController extends GroupReceiptController
 
     public function update_return(Request $data,$id)
     {
+        $status   = grouprent::where('id',$id)->pluck('status')->first();
         $lost     = $data->lost;
         $amount   = grouprent::where('id',$id)->pluck('amount')->first();
         $returned = $amount - $lost;
@@ -77,12 +78,21 @@ class GroupRentController extends GroupReceiptController
                                "returned" => $returned]);
             $this->create_receipt($id); 
         }
-        else if($lost=0){
-            grouprent::where('id', $id)
-            ->update(["status"   => "0",
-                      "item_in"  => date('Y-m-d H:i:s'),
-                      "lost"     => $lost,
-                      "returned" => $returned]);
+        elseif($lost==0){
+            if($status!=2){
+                grouprent::where('id', $id)
+                ->update(["status"   => "0",
+                          "item_in"  => date('Y-m-d H:i:s'),
+                          "lost"     => $lost,
+                          "returned" => $returned]);
+            }elseif($status==2){
+                grouprent::where('id', $id)
+                ->update(["status"   => "3",
+                          "item_in"  => date('Y-m-d H:i:s'),
+                          "lost"     => $lost,
+                          "returned" => $returned]);
+                $this->create_receipt($id);       
+            }          
 
         }
         return $this->ok();
@@ -90,8 +100,8 @@ class GroupRentController extends GroupReceiptController
 
     public function update_expired()
     {   
-        grouprent::whereDate('due_date','<=', date('Y-m-d H:i:s'))
-                 ->where('status','=','1')
+        grouprent::where('status','=','1')
+                 ->whereDate('due_date','<=', date('Y-m-d H:i:s'))
                  ->update(["status" => "2"]);
         return $this->ok();
     }

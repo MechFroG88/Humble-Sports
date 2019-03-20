@@ -7,7 +7,7 @@ use App\PersonalReceipt;
 
 class Fine extends Model
 {
-    protected $visible = ['fine','id'];
+    protected $visible = ['fine'];
 
     public function receipt(){
         return $this->hasMany('App\PersonalReceipt');

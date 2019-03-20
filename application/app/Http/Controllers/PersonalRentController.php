@@ -58,17 +58,26 @@ class PersonalRentController extends PersonalReceiptController
     public function update_return(Request $data,$id)
     {
         $lost     = $data->lost;
+        $status   = personalrent::where('id',$id)->pluck('status')->first();
         if($lost>0){
             personalrent::where('id', $id)
-                     ->update(["status"   => "3",
-                               "item_in"  => date('Y-m-d H:i:s'),
-                               "lost"     => $lost,]);
+                        ->update(["status"   => "3",
+                                  "item_in"  => date('Y-m-d H:i:s'),
+                                  "lost"     => $lost]);
             $this->create_receipt($id);               
-        }
-        else if($lost=0){
-            personal::where('id', $id)
-            ->update(["status"   => "0",
-                      "item_in"  => date('Y-m-d H:i:s')]);
+        }elseif($lost==0){
+            if($status!=2){
+                personalrent::where('id', $id)
+                            ->update(["status"   => "0",
+                                      "item_in"  => date('Y-m-d H:i:s'),
+                                      "lost"     => $lost]);
+            }elseif($status==2){
+                personalrent::where('id', $id)
+                            ->update(["status"   => "3",
+                                      "item_in"  => date('Y-m-d H:i:s'),
+                                      "lost"     => $lost]);
+                $this->create_receipt($id); 
+            }
         }
         return $this->ok();
     }

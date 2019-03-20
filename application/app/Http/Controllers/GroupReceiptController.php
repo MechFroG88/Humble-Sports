@@ -24,14 +24,14 @@ class GroupReceiptController extends Controller
         $single_fine           = fine::where('id',$fine_id)->select('fine')->first();
         $receipt->single_fine  = $single_fine->fine;
         $date                  = Carbon::parse(grouprent::where('id',$id)->pluck('due_date')->first());
-        $now                   = Carbon::now();
-        $days                  = $date->diffInDays($now);
+        $item_in               = Carbon::parse(grouprent::where('id',$id)->pluck('item_in')->first());
+        $days                  = $date->diffInDays($item_in);
         $receipt->total_fine   = $single_fine->fine*$days;
         $receipt->days         = $days;
         $item_id               = grouprent::where('id',$id)->pluck('item_id');
         $single_price          = item::where('id',$item_id)->select('price')->first();
         $receipt->single_price = $single_price->price;
-        $receipt->amount       = grouprent::where('id',$id)->pluck('lost')->first();
+        $receipt->lost         = grouprent::where('id',$id)->pluck('lost')->first();
         $receipt->total_price  = $single_price->price * $receipt->amount; 
         $receipt->user_id      = Auth::user()->id;
         $receipt->save();

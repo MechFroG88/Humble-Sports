@@ -11,7 +11,7 @@ use App\Fine;
 
 class PersonalReceipt extends Model
 {
-    protected $visible = ['id','total_fine','fine','price','days','user','personalrent'];
+    protected $visible = ['id','total_fine','fine','price','days','user','personalrent','lost','total_price'];
 
     public function item(){
         return $this->belongsTo('App\Item','price');
