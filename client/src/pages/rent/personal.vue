@@ -88,8 +88,8 @@ export default {
   },
   methods: {
     getAll() {
-      expire('personal');
       getPersonalRent().then(({ data }) => {
+        expire('personal');
         this.data = data;
         for (let i = 0; i < data.length; i++) {
           this.data[i].item_type = data[i].item.type;
@@ -112,7 +112,8 @@ export default {
       return `${time}${parseInt(times[0])}：${times[1]}`;
     },
     returnItem(id) {
-      returnPersonal(id).then(() => {
+      returnPersonal(id).then((msg) => {
+        console.log(msg);
         this.notification('成功更新物品状态：归还', 'success');
         this.getAll();
       }).catch((err) => {
