@@ -88,15 +88,16 @@ export default {
   },
   methods: {
     getAll() {
-      getPersonalRent().then(({ data }) => {
-        expire('personal');
-        this.data = data;
-        for (let i = 0; i < data.length; i++) {
-          this.data[i].item_type = data[i].item.type;
-        }
-        this.$refs.table.is_loading = false;
-      }).catch((err) => {
-        console.log(err);
+      expire('personal').then(() => {
+        getPersonalRent().then(({ data }) => {
+          this.data = data;
+          for (let i = 0; i < data.length; i++) {
+            this.data[i].item_type = data[i].item.type;
+          }
+          this.$refs.table.is_loading = false;
+        }).catch((err) => {
+          console.log(err);
+        });
       });
     },
     toDate(date) {
