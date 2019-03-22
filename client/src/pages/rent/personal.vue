@@ -15,46 +15,46 @@
     :columns="personal_columns" :tableData="data" title navbar="搜寻学号或名字">
       <template slot="title">租借记录（个人）</template>
 
-      <!-- <template slot="student" slot-scope="{ data }">
+      <!-- <template slot="student" slot-scope="{ tableData }">
         <div class="student_data">
-          <div class="cn_name">{{data.student_id}}</div>
+          <div class="cn_name">{{tableData.student_id}}</div>
         </div>
       </template> -->
 
-      <template slot="item_type" slot-scope="{ data }">
-        {{data.item_type}} -- {{data.item_tag}}
+      <template slot="item_type" slot-scope="{ tableData }">
+        {{tableData.item_type}} -- {{tableData.item_tag}}
       </template>
 
-      <template slot="item_out" slot-scope="{ data }">
-        <div class="date">{{toDate(data.item_out)}}</div>
-        <div class="time">{{toTime(data.item_out)}}</div>
+      <template slot="item_out" slot-scope="{ tableData }">
+        <div class="date">{{toDate(tableData.item_out)}}</div>
+        <div class="time">{{toTime(tableData.item_out)}}</div>
       </template>
 
       <template slot="item_in" slot-scope="{ data }">
         <div v-if="data.item_in">
-          <div class="date">{{toDate(data.item_in)}}</div>
-          <div class="time">{{toTime(data.item_in)}}</div>
+          <div class="date">{{toDate(tableData.item_in)}}</div>tableData
+          <div class="time">{{toTime(tableData.item_in)}}</div>
         </div>
         <div v-else>
           <div class="expired">逾期时间：</div>
-          <div class="date">{{toDate(data.due_date)}}</div>
-          <div class="time">{{toTime(data.due_date)}}</div>
+          <div class="date">{{toDate(tableData.due_date)}}</div>
+          <div class="time">{{toTime(tableData.due_date)}}</div>
         </div>
       </template>
 
       <template slot="status" slot-scope="{ data }">
-        <span v-if="data.status == 0" class="label label-success">已归还</span>
-        <div v-if="data.status == 1">
+        <span v-if="tableData.status == 0" class="label label-success">已归还</span>
+        <div v-if="tableData.status == 1">
           <span class="label label-primary">未归还</span> 
-          <div class="action return" @click="returnItem(data.id)">归还物品</div>
-          <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
+          <div class="action return" @click="returnItem(tableData.id)">归还物品</div>
+          <div class="action loss" @click="loseItem(tableData.id)">遗失物品</div>
         </div>
-        <div v-if="data.status == 2">
+        <div v-if="tableData.status == 2">
           <span class="label label-expired">已逾期</span>
           <div class="action fine" @click="fineItem(data.id)">进行罚款</div>
           <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
         </div>
-        <div v-if="data.status == 3">
+        <div v-if="tableData.status == 3">
           <span class="label label-error">已丢失</span> 
           <div class="action">索取赔偿</div>
         </div>
@@ -80,7 +80,9 @@ export default {
   },
   data: () => ({
     personal_columns: personal_column,
-    data: [],
+    tableData:[],
+    fineData:[],
+    compData:[],
     receipt_data: {},
   }),
   mounted() {
@@ -98,6 +100,11 @@ export default {
         }).catch((err) => {
           console.log(err);
         });
+      });
+      getPersonalReceipt().then(({ data }) => {
+        this.fineData = data;
+      }).catch((err) => {
+        console.log(err);
       });
     },
     toDate(date) {
