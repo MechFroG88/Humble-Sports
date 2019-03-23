@@ -32,10 +32,13 @@ export function postGroupRent(data) {
   });
 }
 
-export function returnPersonal(rentId) {
+export function returnPersonal(rentId, amount) {
   return request({
     url: `/rent/personal/${rentId}/return`,
-    method: 'PUT'
+    method: 'PUT',
+    data: {
+      lost: amount,
+    }
   })
 }
 
@@ -46,10 +49,13 @@ export function lostPersonal(rentId) {
   })
 }
 
-export function returnGroup(rentId) {
+export function returnGroup(rentId, amount) {
   return request({
     url: `/rent/group/${rentId}/return`,
-    method: 'PUT'
+    method: 'PUT',
+    data: {
+      lost: amount,
+    }
   })
 }
 
