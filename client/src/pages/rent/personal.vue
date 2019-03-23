@@ -100,28 +100,14 @@ export default {
     getAll() {
       expire('personal').then(() => {
         getPersonalRent().then(({ data }) => {
-<<<<<<< HEAD
           this.tableData = data;
           for (let i = 0; i < data.length; i++) {
             this.tableData[i].item_type = data[i].item.type;
-=======
-          this.data = data;
-          for (let i = 0; i < data.length; i++) {
-            this.data[i].item_type = data[i].item.type;
->>>>>>> c7de4366bfb16d10917c3ad1a8bb44ec9dfbe998
           }
           this.$refs.table.is_loading = false;
         }).catch((err) => {
           console.log(err);
         });
-<<<<<<< HEAD
-=======
-      });
-      getPersonalReceipt().then(({ data }) => {
-        this.fineData = data;
-      }).catch((err) => {
-        console.log(err);
->>>>>>> c7de4366bfb16d10917c3ad1a8bb44ec9dfbe998
       });
     },
     toDate(date) {
@@ -137,12 +123,7 @@ export default {
       return `${time}${parseInt(times[0])}：${times[1]}`;
     },
     returnItem(id) {
-<<<<<<< HEAD
       returnPersonal(id, 0).then(() => {
-=======
-      returnPersonal(id).then((msg) => {
-        console.log(msg);
->>>>>>> c7de4366bfb16d10917c3ad1a8bb44ec9dfbe998
         this.notification('成功更新物品状态：归还', 'success');
         this.getAll();
       }).catch((err) => {
