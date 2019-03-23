@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Report;
 use Validator;
 use App\Item;
+use App\Fine;
 use Auth;
 
 class PersonalRentController extends PersonalReceiptController
@@ -55,10 +56,17 @@ class PersonalRentController extends PersonalReceiptController
         return response($personalrent->toJson(),200); 
     }
 
+    public function get_sorted()
+    {       
+        $personalrent = personalrent::with('student','item')->get()->sortByDesc('status');
+        return response($personalrent->toJson(),200); 
+    }
+
     public function update_return(Request $data,$id)
     {
         $lost     = $data->lost;
         $status   = personalrent::where('id',$id)->pluck('status')->first();
+        if (fine::max('id') <= 0) return $this->fail();
         if($lost>0){
             personalrent::where('id', $id)
                         ->update(["status"   => "3",

@@ -24,7 +24,7 @@ class PersonalReceiptController extends Controller
         $receipt->fine            = $fine->fine;
         $date                     = Carbon::parse(personalrent::where('id',$id)->pluck('due_date')->first());
         $item_in                  = Carbon::parse(personalrent::where('id',$id)->pluck('item_in')->first());
-        $receipt->days            = $date->diffInDays($item_in);
+        $receipt->days            = ($date >= $item_in) ? 0 : $date->diffInDays($item_in);
         $receipt->total_fine      = $fine->fine*$receipt->days;
         $item_id                  = personalrent::where('id',$id)->pluck('item_id');
         $price                    = item::where('id',$item_id)->select('price')->first();

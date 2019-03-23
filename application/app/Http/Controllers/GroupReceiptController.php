@@ -25,7 +25,7 @@ class GroupReceiptController extends Controller
         $receipt->single_fine  = $single_fine->fine;
         $date                  = Carbon::parse(grouprent::where('id',$id)->pluck('due_date')->first());
         $item_in               = Carbon::parse(grouprent::where('id',$id)->pluck('item_in')->first());
-        $days                  = $date->diffInDays($item_in);
+        $days                  = ($date >= $item_in) ? 0 : $date->diffInDays($item_in);
         $receipt->total_fine   = $single_fine->fine*$days;
         $receipt->days         = $days;
         $item_id               = grouprent::where('id',$id)->pluck('item_id');

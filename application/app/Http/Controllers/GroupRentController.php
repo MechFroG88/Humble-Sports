@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\GroupRent;
 use App\Report;
 use App\Student;
+use App\Fine;
 use Validator;
 use Auth;
 
@@ -63,6 +64,12 @@ class GroupRentController extends GroupReceiptController
         $grouprent = grouprent::with('item','student')->get();
         return response($grouprent->toJson(),200);
     }
+    
+    public function get_sorted()
+    {
+        $grouprent = grouprent::with('item','student')->get()->sortByDesc('status');
+        return response($grouprent->toJson(),200);
+    }
 
     public function update_return(Request $data,$id)
     {
@@ -70,6 +77,7 @@ class GroupRentController extends GroupReceiptController
         $lost     = $data->lost;
         $amount   = grouprent::where('id',$id)->pluck('amount')->first();
         $returned = $amount - $lost;
+        if (fine::max('id') <= 0) return $this->fail();
         if($lost>0){
             grouprent::where('id', $id)
                      ->update(["status"   => "3",

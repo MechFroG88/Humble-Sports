@@ -55,6 +55,7 @@ Route::middleware('auth')->get('fine','FineController@get');
  */
 Route::middleware('auth')->post('rent/personal','PersonalRentController@create');
 Route::middleware('auth')->get('rent/personal','PersonalRentController@get');
+Route::middleware('auth')->get('rent/personal/sort','PersonalRentController@get_sorted');
 Route::middleware('auth')->put('rent/personal/expired','PersonalRentController@update_expired');
 Route::middleware('auth')->put('rent/personal/{id}/return','PersonalRentController@update_return');
 
@@ -63,6 +64,7 @@ Route::middleware('auth')->put('rent/personal/{id}/return','PersonalRentControll
  */
 Route::middleware('auth')->post('rent/group','GroupRentController@create');
 Route::middleware('auth')->get('rent/group','GroupRentController@get');
+Route::middleware('auth')->get('rent/group/sort','GroupRentController@get_sorted');
 Route::middleware('auth')->put('rent/group/expired','GroupRentController@update_expired');
 Route::middleware('auth')->put('rent/group/{id}/return','GroupRentController@update_return');
 
