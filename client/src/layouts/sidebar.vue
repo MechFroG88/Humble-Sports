@@ -48,7 +48,7 @@ export default {
     username: '',
     loading: true,
   }),
-  beforeMount() {
+  mounted() {
     this.active = this.data[0].list[0].target.name;
     getCurrentUser().then(({ data }) => {
       this.loading = false;

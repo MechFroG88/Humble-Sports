@@ -41,43 +41,46 @@
     </div>
 
     <cpModal ref="add" title="新增器材" closable>
-      <div slot="body">
-        <form class="form-horizontal">
-          <div class="item h5 mb-2">器材资料</div>
-          <div class="form-group type">
-            <div class="col-3 col-sm-12">
-              <label class="form-label" for="type">种类：</label>
+      <form @submit="add">
+        <div slot="body">
+          <div class="form-horizontal">
+            <div class="item h5 mb-2">器材资料</div>
+            <div class="form-group type">
+              <div class="col-3 col-sm-12">
+                <label class="form-label" for="type">种类：</label>
+              </div>
+              <div class="col-9 col-sm-12">
+                <input class="form-input input-sm" type="text" id="type" 
+                v-model="item.type">
+              </div>
             </div>
-            <div class="col-9 col-sm-12">
-              <input class="form-input input-sm" type="text" id="type" 
-              v-model="item.type">
+            <div class="form-group serial">
+              <div class="col-3 col-sm-12">
+                <label class="form-label" for="serial">编号：</label>
+              </div>
+              <div class="col-9 col-sm-12">
+                <input class="form-input input-sm mr-2" type="number" id="serial"
+                v-model="item.start_id">
+                至
+                <input class="form-input input-sm ml-2" type="number" id="serial"
+                v-model="item.end_id">
+              </div>
+            </div>
+            <div class="form-group price">
+              <div class="col-3 col-sm-12">
+                <label class="form-label" for="price">价钱：</label>
+              </div>
+              <div class="col-9 col-sm-12">
+                <input class="form-input input-sm" type="number" id="price"
+                v-model="item.price">
+              </div>
             </div>
           </div>
-          <div class="form-group serial">
-            <div class="col-3 col-sm-12">
-              <label class="form-label" for="serial">编号：</label>
-            </div>
-            <div class="col-9 col-sm-12">
-              <input class="form-input input-sm mr-2" type="number" id="serial"
-              v-model="item.start_id">
-              至
-              <input class="form-input input-sm ml-2" type="number" id="serial"
-              v-model="item.end_id">
-            </div>
-          </div>
-          <div class="form-group price">
-            <div class="col-3 col-sm-12">
-              <label class="form-label" for="price">价钱：</label>
-            </div>
-            <div class="col-9 col-sm-12">
-              <input class="form-input input-sm" type="number" id="price"
-              v-model="item.price">
-            </div>
-          </div>
-        </form>
-      </div>
-      <div slot="footer" class="btn btn-lg btn-primary" :class="{'loading': is_loading}"
-      @click="add">新增</div>
+        </div>
+        <div slot="footer" type="submit"
+        class="btn btn-lg btn-primary" :class="{'loading': is_loading}"
+        @click="add">新增</div>
+      </form>
     </cpModal>
   </div>
 </template>
@@ -134,7 +137,8 @@ export default {
       postItem(this.item).then((msg) => {
         this.is_loading = false;
         this.$refs.add.active = false;
-        for (let i in Object.keys(this.item)) {
+        for (let i of Object.keys(this.item)) {
+          console.log(i);
           this.item[i] = '';
         }
         this.$refs.table.is_loading = true;
