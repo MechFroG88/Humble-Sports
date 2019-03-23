@@ -639,6 +639,85 @@ paths:
         400:
           description: "Validation Error"
 
+  /rent/personal/sort:
+    get:
+      tags: 
+      - "PersonalRents"
+      summary: "Returns all personal rents data sorted with status"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              teacher:
+                type: "string"
+                example: "陈恪尽"              
+              student_id:
+                type: "integer"
+                example: "140123"              
+              item_id:
+                type: "integer"
+                example: "1"
+              item_tag:
+                type:  "integer"
+                example: "1"
+              lost:
+                type: "integer"
+                example: "0"
+              item_out:
+                type: "string"
+                format: "date-time"
+                example: "2019-01-31 10:37:13"              
+              item_in:
+                type: "string"
+                format: "date-time"
+                example: "2019-01-31 10:27:13"
+              due_date:
+                type: "string"
+                format: "date-time"
+                example: "2019-02-01 12:25:10"
+              status:
+                type: "integer"
+                description: "Status\n
+                0 : returned\n
+                1 : unreturned\n
+                2 : expired\n
+                3 : paid"
+              student:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "140048"
+                  cn_name:
+                    type: "string"
+                    example: "陈科锦"
+                  class:
+                    type: "string"
+                    example: "高三李忠"
+                  picture:
+                    type: "string"
+                    example: ""
+                  phone_no:
+                    type: "string"
+                    example: "0129102932"
+              item:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  type: 
+                    type: "string"
+                    example: "basketball"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
   /rent/personal/{rentId}/return:  
       put:
         tags:
@@ -729,6 +808,97 @@ paths:
       tags:
       - "GroupRents"
       summary: "Returns all group rents data"
+        
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              group_name:
+                type: "string"
+                example: "Humble-Dog"
+              student_id:
+                type: "integer"
+                example: "140048"
+              teacher:
+                type: "string"
+                example: "陈恪尽"
+              item_id:
+                type: "integer"
+                example: "1"
+              item_tag:
+                type: "integer"
+                example: "1"
+              amount:
+                type: "integer"
+                example: "10"
+              lost:
+                type: "integer"
+                example: "3"
+              returned:
+                type: "integer"
+                example: "7"
+              item_out:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"              
+              item_in:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"
+              due_date:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"
+              status:
+                type: "integer"
+                example: "0"
+                description: "Status\n
+                  0 : returned\n
+                  1 : unreturned\n
+                  2 : expired\n
+                  3 : paid"
+              item:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  type:
+                    type: "string"
+                    example: "Basketball"
+              student:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "140048"
+                  cn_name:
+                    type: "string"
+                    example: "陈科锦"
+                  class:
+                    type: "string"
+                    example: "高三李忠"
+                  picture:
+                    type: "string"
+                    example: ""
+                  phone_no:
+                    type: "string"
+                    example: "0129102932"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /rent/group/sort:
+    get:
+      tags:
+      - "GroupRents"
+      summary: "Returns all group rents data sorted with status"
         
       responses:
         200:
