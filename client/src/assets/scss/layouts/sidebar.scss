@@ -1,6 +1,7 @@
 #_sidebar {
   display: flex;
   .side {
+    position: fixed;
     padding-top: 1.5rem;
     display: flex;
     flex-direction: column;
@@ -105,6 +106,8 @@
 
   .main {
     padding: 1.8rem 5rem;
+    position: absolute;
+    left: 16.666667%;
     background-color: #fbfbfb;
   }
 }
