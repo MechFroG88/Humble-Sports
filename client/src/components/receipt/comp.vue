@@ -19,9 +19,7 @@
       </div>
       <div class="modal-body">
         <div class="content">
-          <cpTable width="100" class="mt-2" ref="table" :columns="comp_columns">
-
-          </cpTable>
+          <cpTable width="100" class="mt-2" ref="table" :columns="columns" />
           <div class="detailsContainer mt-2">
             <div class="payerContainer columns">
               <div class="payer column col-2">支付者：</div>
@@ -118,7 +116,7 @@ export default {
     cpTable
   },
   data: () => ({
-    comp_columns: comp_column,
+    columns: comp_column,
     active: false,
   }),
 };

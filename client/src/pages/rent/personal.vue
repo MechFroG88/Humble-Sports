@@ -8,8 +8,8 @@
       }
     })">新增</div>
 
-    <!-- <fine ref="add"></fine>
-    <comp ref="add2"></comp> -->
+    <fine ref="receipt"></fine>
+    <!-- <comp ref="add2"></comp> -->
 
     <cp-table width="100" class="mt-2" ref="table"
     :columns="personal_columns" :tableData="tableData" title navbar="搜寻学号或名字">
@@ -88,7 +88,7 @@ export default {
   },
   data: () => ({
     personal_columns: personal_column,
-    receipt_data: {},
+    receiptData: {},
     tableData: [],
     lostAmount: null,
     lostId: null,
@@ -137,7 +137,11 @@ export default {
           postPersonalReceipt(id).then(() => {
             getPersonalReceipt(id).then(({ inner_data }) => console.log(inner_data));
           });
-        } else this.receipt_data = data;
+        } else {
+          this.receiptData = data;
+          this.$refs.receipt.active = true;
+          console.log(this.receiptData);
+        }
       })
     },
     loseItem(id) {

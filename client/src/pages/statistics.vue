@@ -94,6 +94,7 @@ export default {
     getReport().then(({ data }) => {
       this.loading = false;
       this.data = data;
+      console.log(data);
     }).catch((err) => {
       console.log(err)
     })
