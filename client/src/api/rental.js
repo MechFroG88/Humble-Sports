@@ -7,6 +7,13 @@ export function getPersonalRent() {
   });
 }
 
+export function getPersonalRentSort() {
+  return request({
+    url: '/rent/personal/sort',
+    method: 'GET',
+  })
+}
+
 export function postPersonalRent({student_id, item_id, item_tag, due_date}) {
   return request({
     url: '/rent/personal',
@@ -22,6 +29,13 @@ export function getGroupRent() {
     url: '/rent/group',
     method: 'GET',
   });
+}
+
+export function getGroupRentSort() {
+  return request({
+    url: '/rent/group/sort',
+    method: 'GET',
+  })
 }
 
 export function postGroupRent(data) {
