@@ -7,91 +7,92 @@
       </router-link>
       <div class="modal-title h2">新增租借记录</div>
     </div>
-    <div class="modal-body">
-      <div class="content">
-        <form class="form-horizontal">
-          <div class="group h5 mb-2" v-if="$route.params.state === 'group'">团体资料</div>
-          <div class="form-group" v-if="$route.params.state === 'group'">
-            <div class="col-2 col-sm-12">
-              <label class="form-label" for="group_name">名称：</label>
+    <form @submit.prevent="createRent">
+      <div class="modal-body">
+        <div class="content">
+          <div class="form-horizontal">
+            <div class="group h5 mb-2" v-if="$route.params.state === 'group'">团体资料</div>
+            <div class="form-group" v-if="$route.params.state === 'group'">
+              <div class="col-2 col-sm-12">
+                <label class="form-label" for="group_name">名称：</label>
+              </div>
+              <div class="col-10 col-sm-12">
+                <input class="form-input" placeholder="名称"
+                type="text" id="group_name" v-model="data.group_name">
+              </div>
             </div>
-            <div class="col-10 col-sm-12">
-              <input class="form-input" placeholder="名称"
-              type="text" id="group_name" v-model="data.group_name">
+            <div class="info h5 mb-2">
+              {{$route.params.state === 'personal' ? '学生资料' : '负责人资料'}}
+            </div>
+            <div class="form-group">
+              <div class="col-2 col-sm-12">
+                <label class="form-label" for="student_id">学号：</label>
+              </div>
+              <div class="col-10 col-sm-12">
+                <input class="form-input" placeholder="学号"
+                type="number" id="student_id" v-model="data.student_id">
+              </div>
+            </div>
+            <div class="form-group" v-if="$route.params.state === 'group'">
+              <div class="col-2 col-sm-12">
+                <label class="form-label" for="phone_no">联络号码：</label>
+              </div>
+              <div class="col-10 col-sm-12">
+                <input class="form-input" placeholder="联络号码"
+                type="text" id="phone_no" v-model="data.phone_no">
+              </div>
+            </div>
+            <div class="item h5 mb-2">器材管理</div>
+            <div class="form-group">
+              <div class="col-2 col-sm-12">
+                <label class="form-label" for="item_id">种类：</label>
+              </div>
+              <div class="col-10 col-sm-12">
+                <select class="form-select" name="item_id" id="item_id" 
+                v-model="selected_item">
+                  <option v-for="item in items" :key="item.id"
+                  :value="item">{{ item.type }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-2 col-sm-12">
+                <label class="form-label" for="item_tag">编号：</label>
+              </div>
+              <div class="col-10 col-sm-12">
+                <select class="form-select" name="item_tag" id="item_tag" 
+                v-model="data.item_tag">
+                  <option v-for="index in id_range"
+                  :key="index">{{ index }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group" v-if="$route.params.state === 'group'">
+              <div class="col-2 col-sm-12">
+                <label class="form-label" for="amount">数量：</label>
+              </div>
+              <div class="col-10 col-sm-12">
+                <input class="form-input" placeholder="数量"
+                type="number" id="amount" v-model="data.amount">
+              </div>
+            </div>
+            <div class="time h5 mb-2">时间</div>
+            <div class="form-group">
+              <div class="col-2 col-sm-12">
+                <label class="form-label" for="due_date">逾期时间：</label>
+              </div>
+              <div class="col-10 col-sm-12">
+                <input class="form-input" type="datetime-local" 
+                name="due_date" id="due_date" v-model="date">
+              </div>
             </div>
           </div>
-          <div class="info h5 mb-2">
-            {{$route.params.state === 'personal' ? '学生资料' : '负责人资料'}}
-          </div>
-          <div class="form-group">
-            <div class="col-2 col-sm-12">
-              <label class="form-label" for="student_id">学号：</label>
-            </div>
-            <div class="col-10 col-sm-12">
-              <input class="form-input" placeholder="学号"
-              type="number" id="student_id" v-model="data.student_id">
-            </div>
-          </div>
-          <div class="form-group" v-if="$route.params.state === 'group'">
-            <div class="col-2 col-sm-12">
-              <label class="form-label" for="phone_no">联络号码：</label>
-            </div>
-            <div class="col-10 col-sm-12">
-              <input class="form-input" placeholder="联络号码"
-              type="text" id="phone_no" v-model="data.phone_no">
-            </div>
-          </div>
-          <div class="item h5 mb-2">器材管理</div>
-          <div class="form-group">
-            <div class="col-2 col-sm-12">
-              <label class="form-label" for="item_id">种类：</label>
-            </div>
-            <div class="col-10 col-sm-12">
-              <select class="form-select" name="item_id" id="item_id" 
-              v-model="selected_item">
-                <option v-for="item in items" :key="item.id"
-                :value="item">{{ item.type }}</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-2 col-sm-12">
-              <label class="form-label" for="item_tag">编号：</label>
-            </div>
-            <div class="col-10 col-sm-12">
-              <select class="form-select" name="item_tag" id="item_tag" 
-              v-model="data.item_tag">
-                <option v-for="index in id_range"
-                :key="index">{{ index }}</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group" v-if="$route.params.state === 'group'">
-            <div class="col-2 col-sm-12">
-              <label class="form-label" for="amount">数量：</label>
-            </div>
-            <div class="col-10 col-sm-12">
-              <input class="form-input" placeholder="数量"
-              type="number" id="amount" v-model="data.amount">
-            </div>
-          </div>
-          <div class="time h5 mb-2">时间</div>
-          <div class="form-group">
-            <div class="col-2 col-sm-12">
-              <label class="form-label" for="due_date">逾期时间：</label>
-            </div>
-            <div class="col-10 col-sm-12">
-              <input class="form-input" type="datetime-local" 
-              name="due_date" id="due_date" v-model="date">
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
-    </div>
-    <div class="modal-footer">
-      <div class="btn btn-lg btn-primary" :class="{'loading': is_loading}"
-      @click="createRent">借出</div>
-    </div>
+      <div class="modal-footer">
+        <button class="btn btn-lg btn-primary" :class="{'loading': is_loading}" type="submit">借出</button>
+      </div>
+    </form>
   </div>
 </template>
 
