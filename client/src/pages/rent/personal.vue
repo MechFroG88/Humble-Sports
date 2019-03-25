@@ -9,7 +9,6 @@
     })">新增</div>
 
     <fine ref="receipt" v-if="Object.keys(receiptData).length" :data="receiptData"></fine>
-    <!-- <comp ref="add2"></comp> -->
 
     <cp-table width="100" class="mt-2" ref="table"
     :columns="personal_columns" :tableData="tableData" title navbar="搜寻学号或名字">
@@ -75,7 +74,6 @@ import { getPersonalReceipt, postPersonalReceipt } from '@/api/receipt';
 import { personal_column } from '@/api/tableColumns';
 
 import fine    from '@/components/receipt/fine';
-import comp    from '@/components/receipt/comp';
 import cpTable from '@/components/tables';
 import modal   from '@/components/modal';
 
@@ -83,7 +81,6 @@ export default {
   components: {
     cpTable,
     fine,
-    comp,
     modal,
   },
   data: () => ({
@@ -135,7 +132,7 @@ export default {
       getPersonalReceipt(id).then(({ data }) => {
         if (data.length == 0) {
           postPersonalReceipt(id).then(() => {
-            getPersonalReceipt(id).then(({ inner_data }) => console.log(inner_data));
+            getPersonalReceipt(id).then(({ inner_data }) => this.receiptData = inner_data);
           });
         } else {
           this.receiptData = data;
@@ -145,13 +142,13 @@ export default {
       })
     },
     loseItem(id) {
+      this.lostAmount = null;
       this.$refs.submitLose.active = true;
       this.lostId = id;
     },
     submitLose() {
       returnPersonal(this.lostId, this.lostAmount).then((msg) => {
         this.$refs.submitLose.active = false;
-        this.lostAmount = null;
         postPersonalReceipt(this.lostId);
         this.notification('成功更新物品状态：遗失', 'success');
         this.getAll();

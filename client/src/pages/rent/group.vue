@@ -45,16 +45,16 @@
         <div v-if="data.status == 1">
           <span class="label label-primary">未归还</span> 
           <div class="action return" @click="returnItem(data.id)">归还物品</div>
-          <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
+          <!-- <div class="action loss" @click="loseItem(data.id)">遗失物品</div> -->
         </div>
         <div v-if="data.status == 2">
           <span class="label label-expired">已逾期</span>
-          <div class="action">进行罚款</div>
-          <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
+          <div class="action return" @click="returnItem(data.id)">归还物品</div>
+          <!-- <div class="action loss" @click="loseItem(data.id)">遗失物品</div> -->
         </div>
         <div v-if="data.status == 3">
-          <span class="label label-error">已丢失</span> 
-          <div class="action">索取赔偿</div>
+          <span class="label label-error">已归还</span> 
+          <!-- <div class="action" @click="showReceipt(data.id)">索取赔偿</div> -->
         </div>
       </template>
     </gpTable>
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { getGroupRent } from '@/api/rental';
+import { getGroupRent, returnGroup, expire } from '@/api/rental';
 
 import gpTable from '@/components/tables';
 import { group_column } from '@/api/tableColumns';
@@ -76,15 +76,7 @@ export default {
     data: [],
   }),
   mounted() {
-    getGroupRent().then(({ data }) => {
-      this.data = data;
-      for (let i = 0; i < data.length; i++) {
-        this.data[i].item_type = data[i].item.type;
-      }
-      this.$refs.table.is_loading = false;
-    }).catch((err) => {
-      console.log(err);
-    })
+    this.getAll();
   },
   methods: {
     toDate(date) {
@@ -99,8 +91,21 @@ export default {
       }
       return `${time}${times[0]}：${times[1]}`;
     },
+    getAll() {
+      expire('group').then(() => {
+        getGroupRent().then(({ data }) => {
+          this.data = data;
+          for (let i = 0; i < data.length; i++) {
+            this.data[i].item_type = data[i].item.type;
+          }
+          this.$refs.table.is_loading = false;
+        }).catch((err) => {
+          console.log(err);
+        })
+      })
+    },
     returnItem(id) {
-      returnPersonal(id).then(() => {
+      returnGroup(id, 0).then(() => {
         this.notification('成功归还物品！', 'success');
         this.getAll();
       }).catch((err) => {
