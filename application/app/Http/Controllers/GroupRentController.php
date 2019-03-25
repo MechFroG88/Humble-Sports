@@ -77,14 +77,13 @@ class GroupRentController extends GroupReceiptController
         $lost     = $data->lost;
         $amount   = grouprent::where('id',$id)->pluck('amount')->first();
         $returned = $amount - $lost;
-        if (fine::max('id') <= 0) return $this->fail();
         if($lost>0){
+            $this->create_receipt($id); 
             grouprent::where('id', $id)
                      ->update(["status"   => "3",
                                "item_in"  => date('Y-m-d H:i:s'),
                                "lost"     => $lost,
                                "returned" => $returned]);
-            $this->create_receipt($id); 
         }
         elseif($lost==0){
             if($status!=2){
@@ -94,12 +93,12 @@ class GroupRentController extends GroupReceiptController
                           "lost"     => $lost,
                           "returned" => $returned]);
             }elseif($status==2){
+                $this->create_receipt($id);
                 grouprent::where('id', $id)
                 ->update(["status"   => "3",
                           "item_in"  => date('Y-m-d H:i:s'),
                           "lost"     => $lost,
-                          "returned" => $returned]);
-                $this->create_receipt($id);       
+                          "returned" => $returned]);       
             }          
 
         }

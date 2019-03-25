@@ -66,13 +66,13 @@ class PersonalRentController extends PersonalReceiptController
     {
         $lost     = $data->lost;
         $status   = personalrent::where('id',$id)->pluck('status')->first();
-        if (fine::max('id') <= 0) return $this->fail();
+        if ($status != 1 && $lost > 0 && fine::max('id') <= 0) return $this->fail();
         if($lost>0){
+            $this->create_receipt($id);
             personalrent::where('id', $id)
                         ->update(["status"   => "3",
                                   "item_in"  => date('Y-m-d H:i:s'),
-                                  "lost"     => $lost]);
-            $this->create_receipt($id);               
+                                  "lost"     => $lost]);         
         }elseif($lost==0){
             if($status!=2){
                 personalrent::where('id', $id)
@@ -80,11 +80,11 @@ class PersonalRentController extends PersonalReceiptController
                                       "item_in"  => date('Y-m-d H:i:s'),
                                       "lost"     => $lost]);
             }elseif($status==2){
+                $this->create_receipt($id); 
                 personalrent::where('id', $id)
                             ->update(["status"   => "3",
                                       "item_in"  => date('Y-m-d H:i:s'),
                                       "lost"     => $lost]);
-                $this->create_receipt($id); 
             }
         }
         return $this->ok();

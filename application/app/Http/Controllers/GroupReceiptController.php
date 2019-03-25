@@ -18,11 +18,12 @@ class GroupReceiptController extends Controller
 {
     public function create_receipt($id)
     {
-        $fine_id               = fine::max('id');
-        $single_fine           = fine::where('id',$fine_id)->select('fine')->first();
         $date                  = Carbon::parse(grouprent::where('id',$id)->pluck('due_date')->first());
         $item_in               = Carbon::parse(grouprent::where('id',$id)->pluck('item_in')->first());
         $days                  = ($date >= $item_in) ? 0 : $date->diffInDays($item_in);
+        if ($days != 0 && fine::max('id') <= 0) return $this->fail();
+        $fine_id               = fine::max('id');
+        $single_fine           = fine::where('id',$fine_id)->select('fine')->first();    
         $item_id               = grouprent::where('id',$id)->pluck('item_id');
         $single_price          = item::where('id',$item_id)->select('price')->first();
         if (groupreceipt::where('grouprent_id',$id)->exists()){

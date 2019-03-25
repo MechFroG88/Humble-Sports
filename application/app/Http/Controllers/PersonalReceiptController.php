@@ -17,10 +17,12 @@ class PersonalReceiptController extends Controller
 {
     public function create_receipt($id)
     {
-        $fine_id                  = fine::max('id');
-        $fine                     = fine::where('id',$fine_id)->select('fine')->first();
         $date                     = Carbon::parse(personalrent::where('id',$id)->pluck('due_date')->first());
         $item_in                  = Carbon::parse(personalrent::where('id',$id)->pluck('item_in')->first());
+        $days                     = ($date >= $item_in) ? 0 : $date->diffInDays($item_in);
+        if ($days != 0 && fine::max('id') <= 0) return $this->fail();
+        $fine_id                  = fine::max('id');
+        $fine                     = fine::where('id',$fine_id)->select('fine')->first();  
         $item_id                  = personalrent::where('id',$id)->pluck('item_id');
         $price                    = item::where('id',$item_id)->select('price')->first();
         if (personalreceipt::where('personalrent_id',$id)->exists()){
@@ -28,7 +30,7 @@ class PersonalReceiptController extends Controller
                            ->update([
                                "personal_rent_id" => $id,
                                "fine" => $fine->fine,
-                               "days" => ($date >= $item_in) ? 0 : $date->diffInDays($item_in),
+                               "days" => $days,
                                "total_fine" => $fine->fine*$receipt->days,
                                "price" => $price->price,
                                "lost" => personalrent::where('id',$id)->pluck('lost')->first(),
@@ -43,7 +45,7 @@ class PersonalReceiptController extends Controller
         $receipt                  = new personalreceipt;
         $receipt->personalrent_id = $id;
         $receipt->fine            = $fine->fine;
-        $receipt->days            = ($date >= $item_in) ? 0 : $date->diffInDays($item_in);
+        $receipt->days            = $days;
         $receipt->total_fine      = $fine->fine*$receipt->days;
         $receipt->price           = $price->price;
         $receipt->lost            = personalrent::where('id',$id)->pluck('lost')->first();
