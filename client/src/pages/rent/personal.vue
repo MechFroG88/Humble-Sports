@@ -8,7 +8,7 @@
       }
     })">新增</div>
 
-    <fine ref="receipt"></fine>
+    <fine ref="receipt" v-if="Object.keys(receiptData).length" :data="receiptData"></fine>
     <!-- <comp ref="add2"></comp> -->
 
     <cp-table width="100" class="mt-2" ref="table"
@@ -151,6 +151,7 @@ export default {
     submitLose() {
       returnPersonal(this.lostId, this.lostAmount).then((msg) => {
         this.$refs.submitLose.active = false;
+        this.lostAmount = null;
         postPersonalReceipt(this.lostId);
         this.notification('成功更新物品状态：遗失', 'success');
         this.getAll();
