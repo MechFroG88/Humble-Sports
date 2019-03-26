@@ -120,8 +120,9 @@ export default {
   methods: {
     changeFine() {
       this.add_loading = true;
-      postFine({fine: this.fine_price}).then((msg) => {
-        this.notification('成功更改罚款金额', 'success');
+      let fine = this.fine_price;
+      postFine({ fine }).then((msg) => {
+        this.notification(`成功更改罚款金额：RM${parseInt(this.fine_price).toFixed(2)}`, 'success');
         this.fine_price = null;
         this.add_loading = false;
       }).catch((err) => {

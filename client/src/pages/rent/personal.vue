@@ -79,9 +79,9 @@ import { getPersonalRent, returnPersonal, expire } from '@/api/rental';
 import { getPersonalReceipt, postPersonalReceipt } from '@/api/receipt';
 import { personal_column } from '@/api/tableColumns';
 
-import receipt    from '@/components/receipt';
 import cpTable from '@/components/tables';
-import { personal_column } from '@/api/tableColumns';
+import receipt from '@/components/receipt';
+import modal   from '@/components/modal';
 
 export default {
   components: {
