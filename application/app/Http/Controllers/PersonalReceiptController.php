@@ -64,6 +64,6 @@ class PersonalReceiptController extends Controller
         if (!isset($receipt)){
             $receipt = collect();
         }
-        return response($groupreceipt->toJson(),200);
+        return response($personalreceipt->toJson(),200);
     }
 }
