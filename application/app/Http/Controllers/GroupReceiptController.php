@@ -61,7 +61,7 @@ class GroupReceiptController extends Controller
     public function get_receipt($id)
     {
         $groupreceipt = groupreceipt::with('user','grouprent','grouprent.item')
-                                    ->where('grouprent_id',$id);
+                                    ->where('grouprent_id',$id)->get();
         return response($groupreceipt->toJson(),200);
     }
 

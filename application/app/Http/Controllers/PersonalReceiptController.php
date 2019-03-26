@@ -60,10 +60,10 @@ class PersonalReceiptController extends Controller
     public function get_receipt($id)
     {
         $receipt = personalreceipt::with('user','personalrent','personalrent.student','personalrent.item')
-                                  ->where('personalrent_id',$id);
+                                  ->where('personalrent_id',$id)->get();
         if (!isset($receipt)){
             $receipt = collect();
         }
-        return response($receipt->toJson(),200);
+        return $receipt;
     }
 }
