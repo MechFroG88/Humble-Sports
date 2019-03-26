@@ -1,6 +1,9 @@
 #_personal, #_group {
   .btn {
     @extend .addBtn;
+    &.submitLoseBtn {
+      margin-bottom: 0;
+    }
   }
 }
 

@@ -69,9 +69,8 @@ export default {
   },
   methods: {
     logout() {
-      userLogout().then(() => {
-        this.$router.push('/login');
-      }).catch((err) => {
+      this.$router.push('/login');
+      userLogout().catch((err) => {
         console.log('Error with logging out');
         console.log(err);
       });
