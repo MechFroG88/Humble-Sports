@@ -8,12 +8,7 @@ export function getPersonalReceipt(receiptId) {
   });
 }
 
-export function postPersonalReceipt(receiptId) {
-  return request({
-    url: `/receipt/personal/${receiptId}`,
-    method: 'POST'
-  })
-}
+
 
 // Group
 export function getGroupReceipt(receiptId) {
@@ -23,9 +18,3 @@ export function getGroupReceipt(receiptId) {
   });
 }
 
-export function postGroupReceipt(receiptId) {
-  return request({
-    url: `/receipt/group/${receiptId}`,
-    method: 'POST'
-  })
-}
