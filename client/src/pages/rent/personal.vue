@@ -12,6 +12,12 @@
     :columns="personal_columns" :tableData="tableData" title navbar="搜寻学号或名字">
       <template slot="title">租借记录（个人）</template>
 
+      <!-- <template slot="student" slot-scope="{ tableData }">
+        <div class="student_data">
+          <div class="cn_name">{{tableData.student_id}}</div>
+        </div>
+      </template> -->
+
       <template slot="item_type" slot-scope="{ data }">
         {{ data.item_type }} -- {{ data.item_tag }}
       </template>
@@ -42,7 +48,7 @@
         </div>
         <div v-if="data.status == 2">
           <span class="label label-expired">已逾期</span>
-          <div class="action return" @click="returnItem(data.id)">归还物品</div>
+          <div class="action fine" @click="returnItem(data.id)">归还物品</div>
           <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
         </div>
         <div v-if="data.status == 3">
@@ -75,7 +81,7 @@ import { personal_column } from '@/api/tableColumns';
 
 import receipt    from '@/components/receipt';
 import cpTable from '@/components/tables';
-import modal   from '@/components/modal';
+import { personal_column } from '@/api/tableColumns';
 
 export default {
   components: {
@@ -85,8 +91,8 @@ export default {
   },
   data: () => ({
     personal_columns: personal_column,
+    tableData:[],
     receiptData: {},
-    tableData: [],
     lostAmount: null,
     lostId: null,
   }),
@@ -124,7 +130,8 @@ export default {
       return `${time}${parseInt(times[0])}：${times[1]}`;
     },
     returnItem(id) {
-      returnPersonal(id, 0).then(() => {
+      returnPersonal(id).then((msg) => {
+        console.log(msg);
         this.notification('成功更新物品状态：归还', 'success');
         this.getAll();
       }).catch((err) => {
@@ -135,14 +142,9 @@ export default {
     showReceipt(id) {
       getPersonalReceipt(id).then(({ data }) => {
         this.receiptData = data;
-        console.log(this.receiptData);
         this.$refs.receipt.active = true;
+        console.log(this.receiptData);
       })
-    },
-    loseItem(id) {
-      this.lostAmount = null;
-      this.$refs.submitLose.active = true;
-      this.lostId = id;
     },
     submitLose() {
       returnPersonal(this.lostId, this.lostAmount).then((msg) => {
@@ -150,7 +152,14 @@ export default {
         this.notification('成功更新物品状态：遗失', 'success');
         this.getAll();
       })  
-    }
+    },
+    loseItem(id) {
+      this.$refs.add2.active = true;
+      lostPersonal(id).then((msg) => {
+        this.notification('成功更新物品状态：遗失', 'success');
+        this.getAll();
+      })
+    },
   },
 };
 </script>

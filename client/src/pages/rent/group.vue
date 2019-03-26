@@ -7,6 +7,9 @@
         'state': 'group'
       }
     })">新增</div>
+
+    <comp ref="receipt" v-if="Object.keys(receiptData).length" :data="receiptData"></comp>
+
     <gpTable class="mt-2" width="100" ref="table"
     :columns="columns" :tableData="data" title navbar="搜寻学号或名字" >
       <template slot="title">租借记录:(团体)</template>
@@ -45,35 +48,56 @@
         <div v-if="data.status == 1">
           <span class="label label-primary">未归还</span> 
           <div class="action return" @click="returnItem(data.id)">归还物品</div>
-          <!-- <div class="action loss" @click="loseItem(data.id)">遗失物品</div> -->
+          <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
         </div>
         <div v-if="data.status == 2">
           <span class="label label-expired">已逾期</span>
           <div class="action return" @click="returnItem(data.id)">归还物品</div>
-          <!-- <div class="action loss" @click="loseItem(data.id)">遗失物品</div> -->
+          <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
         </div>
         <div v-if="data.status == 3">
           <span class="label label-error">已归还</span> 
-          <!-- <div class="action" @click="showReceipt(data.id)">索取赔偿</div> -->
+          <div class="action" @click="showReceipt(data.id)">索取赔偿</div>
         </div>
       </template>
     </gpTable>
+
+    <modal ref="submitLose" title="损失数量">
+      <div slot="body">
+        <div class="form-group">
+          <input name="amount" id="amount" type="number" class="form-input" 
+          placeholder="请输入物品损失数量" v-model="lostAmount">
+        </div>
+      </div>
+      <div slot="footer">
+        <div class="btn btn-primary submitLoseBtn" @click="submitLose">确认</div>
+      </div>
+    </modal>
+    
   </div>
 </template>
 
 <script>
 import { getGroupRent, returnGroup, expire } from '@/api/rental';
-
+import { getGroupReceipt } from '@/api/receipt' ;
 import gpTable from '@/components/tables';
 import { group_column } from '@/api/tableColumns';
+
+import comp from  '@/components/receipt/comp';
+import modal from '@/components/modal';
 
 export default {
   components: {
     gpTable,
+    modal,
+    comp,
   },
   data: () => ({
     columns: group_column,
+    receiptData: {},
     data: [],
+    lostAmount: null,
+    lostId: null,
   }),
   mounted() {
     this.getAll();
@@ -104,17 +128,33 @@ export default {
         })
       })
     },
+    loseItem(id) {
+      this.lostAmount = null;
+      this.$refs.submitLose.active = true;
+      this.lostId = id;
+    },
+    showReceipt(id) {
+      getGroupReceipt(id).then(({ data }) => {
+        this.receiptData = data;
+        this.$refs.receipt.active = true;
+        console.log(this.receiptData);
+      })
+    },
     returnItem(id) {
       returnGroup(id, 0).then(() => {
-        this.notification('成功归还物品！', 'success');
+        this.notification('成功更新物品状态：归还', 'success');
         this.getAll();
       }).catch((err) => {
         this.notification('操作失败！请重试！', 'error');
         console.log(err)
       })
     },
-    loseItem(id) {
-      
+    submitLose() {
+      returnGroup(this.lostId, this.lostAmount).then((msg) => {
+        this.$refs.submitLose.active = false;
+        this.notification('成功更新物品状态：遗失', 'success');
+        this.getAll();
+      })  
     }
   }
 };
