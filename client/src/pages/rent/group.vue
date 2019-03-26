@@ -13,30 +13,30 @@
 
       <template slot="student" slot-scope="{ data }">
         <div v-if="data.student || data.student_id">
-          <div class="student" v-if="data.student_id">{{data.student_id}}</div>
-          <div class="name" v-if="data.student">{{data.student.name}}</div>
+          <div class="student" v-if="data.student_id">{{ data.student_id }}</div>
+          <div class="name" v-if="data.student">{{ data.student.name }}</div>
         </div>
         <div v-else>▬ ▬</div>
       </template>
 
       <template slot="item_type" slot-scope="{ data }">
-        {{data.item_type}} -- {{data.item_tag}}
+        {{ data.item_type }} -- {{ data.item_tag }}
       </template>
 
       <template slot="item_out" slot-scope="{ data }">
-        <div class="date">{{toDate(data.item_out)}}</div>
-        <div class="time">{{toTime(data.item_out)}}</div>
+        <div class="date">{{ toDate(data.item_out) }}</div>
+        <div class="time">{{ toTime(data.item_out) }}</div>
       </template>
 
       <template slot="item_in" slot-scope="{ data }">
         <div v-if="data.item_in">
-          <div class="date">{{toDate(data.item_in)}}</div>
-          <div class="time">{{toTime(data.item_in)}}</div>
+          <div class="date">{{ toDate(data.item_in) }}</div>
+          <div class="time">{{ toTime(data.item_in) }}</div>
         </div>
         <div v-else>
           <div class="expired">逾期时间：</div>
-          <div class="date">{{toDate(data.due_date)}}</div>
-          <div class="time">{{toTime(data.due_date)}}</div>
+          <div class="date">{{ toDate(data.due_date) }}</div>
+          <div class="time">{{ toTime(data.due_date) }}</div>
         </div>
       </template>
 

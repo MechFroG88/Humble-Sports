@@ -8,30 +8,28 @@
       }
     })">新增</div>
 
-    <fine ref="receipt" v-if="Object.keys(receiptData).length" :data="receiptData"></fine>
-
     <cp-table width="100" class="mt-2" ref="table"
     :columns="personal_columns" :tableData="tableData" title navbar="搜寻学号或名字">
       <template slot="title">租借记录（个人）</template>
 
       <template slot="item_type" slot-scope="{ data }">
-        {{data.item_type}} -- {{data.item_tag}}
+        {{ data.item_type }} -- {{ data.item_tag }}
       </template>
 
       <template slot="item_out" slot-scope="{ data }">
-        <div class="date">{{toDate(data.item_out)}}</div>
-        <div class="time">{{toTime(data.item_out)}}</div>
+        <div class="date">{{ toDate(data.item_out) }}</div>
+        <div class="time">{{ toTime(data.item_out) }}</div>
       </template>
 
       <template slot="item_in" slot-scope="{ data }">
         <div v-if="data.item_in">
-          <div class="date">{{toDate(data.item_in)}}</div>
-          <div class="time">{{toTime(data.item_in)}}</div>
+          <div class="date">{{ toDate(data.item_in) }}</div>
+          <div class="time">{{ toTime(data.item_in) }}</div>
         </div>
         <div v-else>
           <div class="expired">逾期时间：</div>
-          <div class="date">{{toDate(data.due_date)}}</div>
-          <div class="time">{{toTime(data.due_date)}}</div>
+          <div class="date">{{ toDate(data.due_date) }}</div>
+          <div class="time">{{ toTime(data.due_date) }}</div>
         </div>
       </template>
 
@@ -65,6 +63,8 @@
         <div class="btn btn-primary submitLoseBtn" @click="submitLose">确认</div>
       </div>
     </modal>
+
+    <receipt ref="receipt" :data="receiptData"></receipt>
   </div>
 </template>
 
@@ -73,14 +73,14 @@ import { getPersonalRent, returnPersonal, expire } from '@/api/rental';
 import { getPersonalReceipt, postPersonalReceipt } from '@/api/receipt';
 import { personal_column } from '@/api/tableColumns';
 
-import fine    from '@/components/receipt/fine';
+import receipt    from '@/components/receipt';
 import cpTable from '@/components/tables';
 import modal   from '@/components/modal';
 
 export default {
   components: {
     cpTable,
-    fine,
+    receipt,
     modal,
   },
   data: () => ({
@@ -108,7 +108,11 @@ export default {
       });
     },
     toDate(date) {
-      return `${date.split(' ')[0].split('-')[0]} 年 ${parseInt(date.split(' ')[0].split('-')[1])} 月 ${parseInt(date.split(' ')[0].split('-')[2])} 日`;
+      return `
+        ${date.split(' ')[0].split('-')[0]} 年 
+        ${parseInt(date.split(' ')[0].split('-')[1])} 月 
+        ${parseInt(date.split(' ')[0].split('-')[2])} 日
+      `;
     },
     toTime(date) {
       const times = date.split(' ')[1].split(':');
@@ -130,15 +134,9 @@ export default {
     },
     showReceipt(id) {
       getPersonalReceipt(id).then(({ data }) => {
-        if (data.length == 0) {
-          postPersonalReceipt(id).then(() => {
-            getPersonalReceipt(id).then(({ inner_data }) => this.receiptData = inner_data);
-          });
-        } else {
-          this.receiptData = data;
-          this.$refs.receipt.active = true;
-          console.log(this.receiptData);
-        }
+        this.receiptData = data;
+        console.log(this.receiptData);
+        this.$refs.receipt.active = true;
       })
     },
     loseItem(id) {
@@ -149,7 +147,6 @@ export default {
     submitLose() {
       returnPersonal(this.lostId, this.lostAmount).then((msg) => {
         this.$refs.submitLose.active = false;
-        postPersonalReceipt(this.lostId);
         this.notification('成功更新物品状态：遗失', 'success');
         this.getAll();
       })  
