@@ -56,27 +56,13 @@ export function returnPersonal(rentId, amount) {
   })
 }
 
-export function lostPersonal(rentId) {
-  return request({
-    url: `/rent/personal/${rentId}/lost`,
-    method: 'PUT'
-  })
-}
-
-export function returnGroup(rentId, amount) {
+export function returnGroup(rentId) {
   return request({
     url: `/rent/group/${rentId}/return`,
     method: 'PUT',
     data: {
       lost: amount,
     }
-  })
-}
-
-export function lostGroup(rentId) {
-  return request({
-    url: `/rent/group/${rentId}/lost`,
-    method: 'PUT'
   })
 }
 
