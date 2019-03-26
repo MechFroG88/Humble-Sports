@@ -8,7 +8,7 @@
       }
     })">新增</div>
 
-    <fine ref="receipt" v-if="Object.keys(receiptData).length" :data="receiptData"></fine>
+    <comp ref="receipt" v-if="Object.keys(receiptData).length" :data="receiptData"></comp>
 
     <gpTable class="mt-2" width="100" ref="table"
     :columns="columns" :tableData="data" title navbar="搜寻学号或名字" >
@@ -83,14 +83,14 @@ import { getGroupReceipt } from '@/api/receipt' ;
 import gpTable from '@/components/tables';
 import { group_column } from '@/api/tableColumns';
 
-import fine from  '@/components/receipt/fine';
+import comp from  '@/components/receipt/comp';
 import modal from '@/components/modal';
 
 export default {
   components: {
     gpTable,
     modal,
-    fine,
+    comp,
   },
   data: () => ({
     columns: group_column,
@@ -126,15 +126,6 @@ export default {
         }).catch((err) => {
           console.log(err);
         })
-      })
-    },
-    returnItem(id) {
-      returnGroup(id, 0).then(() => {
-        this.notification('成功归还物品！', 'success');
-        this.getAll();
-      }).catch((err) => {
-        this.notification('操作失败！请重试！', 'error');
-        console.log(err)
       })
     },
     loseItem(id) {

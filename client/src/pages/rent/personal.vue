@@ -7,10 +7,8 @@
         'state': 'personal'
       }
     })">新增</div>
-    <div class="btn btn-lg btn-primary" @click="$refs.add.active = true"></div>
 
-    <fine ref="add" closable></fine>
-    <comp ref="add2" closable></comp>
+    <fine ref="receipt" v-if="Object.keys(receiptData).length" :data="receiptData"></fine>
 
     <cp-table width="100" class="mt-2" ref="table"
     :columns="personal_columns" :tableData="tableData" title navbar="搜寻学号或名字">
@@ -52,24 +50,36 @@
         </div>
         <div v-if="data.status == 2">
           <span class="label label-expired">已逾期</span>
-          <div class="action fine" @click="fineItem(data.id)">进行罚款</div>
+          <div class="action fine" @click="returnItem(data.id)">归还物品</div>
           <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
         </div>
         <div v-if="data.status == 3">
-          <span class="label label-error">已丢失</span> 
-          <div class="action">索取赔偿</div>
+          <span class="label label-error">已归还</span> 
+          <div class="action" @click="showReceipt(data.id)">索取赔偿</div>
         </div>
       </template>
     </cp-table>
+
+    <modal ref="submitLose" title="损失数量">
+      <div slot="body">
+        <div class="form-group">
+          <input name="amount" id="amount" type="number" class="form-input" 
+          placeholder="请输入物品损失数量" v-model="lostAmount">
+        </div>
+      </div>
+      <div slot="footer">
+        <div class="btn btn-primary submitLoseBtn" @click="submitLose">确认</div>
+      </div>
+    </modal>
+
   </div>
 </template>
 
 <script>
 import { getPersonalRent, returnPersonal, lostPersonal, expire } from '@/api/rental';
 import { getPersonalReceipt, postPersonalReceiptFine } from '@/api/receipt';
-
+import modal from '@/components/modal';
 import fine from '@/components/receipt/fine';
-import comp from '@/components/receipt/comp';
 import cpTable from '@/components/tables';
 import { personal_column } from '@/api/tableColumns';
 
@@ -77,14 +87,14 @@ export default {
   components: {
     cpTable,
     fine,
-    comp,
+    modal,
   },
   data: () => ({
     personal_columns: personal_column,
     tableData:[],
-    fineData:[],  
-    compData:[],
-    receipt_data: {},
+    receiptData: {},
+    lostAmount: null,
+    lostId: null,
   }),
   mounted() {
     this.getAll();
@@ -101,12 +111,6 @@ export default {
         }).catch((err) => {
           console.log(err);
         });
-      });
-      getPersonalReceipt().then(({ data }) => {
-        this.fineData = data;
-        // this.compData = data;
-      }).catch((err) => {
-        console.log(err);
       });
     },
     toDate(date) {
@@ -131,17 +135,19 @@ export default {
         console.log(err)
       })
     },
-    fineItem(id) {
-      this.$refs.add.active = true;
+    showReceipt(id) {
       getPersonalReceipt(id).then(({ data }) => {
-        if (data.length == 0) {
-          postPersonalReceiptFine(id).then((msg) => {
-            this.notification('成功进行罚款', 'success');
-          })
-        } else {
-          this.receipt_data = data;
-        }
+        this.receiptData = data;
+        this.$refs.receipt.active = true;
+        console.log(this.receiptData);
       })
+    },
+    submitLose() {
+      returnPersonal(this.lostId, this.lostAmount).then((msg) => {
+        this.$refs.submitLose.active = false;
+        this.notification('成功更新物品状态：遗失', 'success');
+        this.getAll();
+      })  
     },
     loseItem(id) {
       this.$refs.add2.active = true;
