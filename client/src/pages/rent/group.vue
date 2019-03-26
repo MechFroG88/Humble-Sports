@@ -9,7 +9,7 @@
     })">新增</div>
 
     <fine ref="receipt" v-if="Object.keys(receiptData).length" :data="receiptData"></fine>
-    
+
     <gpTable class="mt-2" width="100" ref="table"
     :columns="columns" :tableData="data" title navbar="搜寻学号或名字" >
       <template slot="title">租借记录:(团体)</template>
@@ -148,6 +148,22 @@ export default {
         this.$refs.receipt.active = true;
         console.log(this.receiptData);
       })
+    },
+    returnItem(id) {
+      returnGroup(id, 0).then(() => {
+        this.notification('成功更新物品状态：归还', 'success');
+        this.getAll();
+      }).catch((err) => {
+        this.notification('操作失败！请重试！', 'error');
+        console.log(err)
+      })
+    },
+    submitLose() {
+      returnGroup(this.lostId, this.lostAmount).then((msg) => {
+        this.$refs.submitLose.active = false;
+        this.notification('成功更新物品状态：遗失', 'success');
+        this.getAll();
+      })  
     }
   }
 };

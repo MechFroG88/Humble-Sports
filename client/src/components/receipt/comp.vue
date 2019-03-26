@@ -10,7 +10,7 @@
           <div class="modal-title h3">赔偿</div>
           <div class="header ml-2">
             <div class="comp">总计赔偿金额：</div>
-            <div class="amount">{{data.total}}
+            <div class="amount">{{data.total_fine + data.total_price}}
             </div>
           </div>
         </div>
@@ -23,21 +23,19 @@
           <div class="detailsContainer mt-2">
             <div class="payerContainer columns">
               <div class="payer column col-2">支付者：</div>
-              <div class="payerName"> {{data.student_id}}{{data.cn_name}}</div>
+              <div class="payerName"> {{data.grouprent.student_id}}{{data.group_name}}</div>
             </div>
             <div class="itemContainer columns">
               <div class="item column col-2">项目：</div>
               <div class="itemGroup">
-                <div class="itemType">{{data.item_type}}逾期{{data.days}}天
-              {{calTime(date.item_in,date.item_out)}}
+                <div class="itemType">{{data.item.type}}逾期{{data.days}}天
+              {{calTime(date.grouprent.item_in,date.grouprent.item_out)}}
                 </div>
-                <div class="code">追踪代码：
-                  {{data.code}}</div>
               </div>
             </div>
             <div class="moneyContainer columns">
               <div class="money column col-2">来银：</div>
-              <div class="amount">{{data.total}}
+              <div class="amount">{{data.total_fine + data.total_price}}
               </div>
             </div>
             <div class="cashierContainer columns">
@@ -71,16 +69,16 @@ export default {
     data: {
       type: Object,
       validator: function(obj) {
-        return (obj.id)
-        && (obj.student_id)
-        && (obj.cn_name)
-        && (obj.item_out)
-        && (obj.item_in)
-        && (obj.days)
-        && (obj.fine)
-        && (obj.total)
-        && (obj.item_type)
-        && (obj.teacher)
+        return obj.id
+            && obj.personalrent.student_id
+            && obj.personalrent.item_out
+            && obj.personalrent.item_in
+            && obj.days
+            && obj.fine
+            && obj.total_fine
+            && obj.total_price
+            && obj.personalrent.item.type
+            && obj.user.cn_name;
       }
     }
   },

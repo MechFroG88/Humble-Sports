@@ -7,12 +7,20 @@
         'state': 'personal'
       }
     })">新增</div>
+    <div class="btn btn-lg btn-primary" @click="$refs.add.active = true"></div>
 
-    <fine ref="receipt" v-if="Object.keys(receiptData).length" :data="receiptData"></fine>
+    <fine ref="add" closable></fine>
+    <comp ref="add2" closable></comp>
 
     <cp-table width="100" class="mt-2" ref="table"
     :columns="personal_columns" :tableData="tableData" title navbar="搜寻学号或名字">
       <template slot="title">租借记录（个人）</template>
+
+      <!-- <template slot="student" slot-scope="{ tableData }">
+        <div class="student_data">
+          <div class="cn_name">{{tableData.student_id}}</div>
+        </div>
+      </template> -->
 
       <template slot="item_type" slot-scope="{ data }">
         {{data.item_type}} -- {{data.item_tag}}
@@ -25,7 +33,7 @@
 
       <template slot="item_in" slot-scope="{ data }">
         <div v-if="data.item_in">
-          <div class="date">{{toDate(data.item_in)}}</div>
+          <div class="date">{{toDate(data.item_in)}}</div>data
           <div class="time">{{toTime(data.item_in)}}</div>
         </div>
         <div v-else>
@@ -44,51 +52,39 @@
         </div>
         <div v-if="data.status == 2">
           <span class="label label-expired">已逾期</span>
-          <div class="action return" @click="returnItem(data.id)">归还物品</div>
+          <div class="action fine" @click="fineItem(data.id)">进行罚款</div>
           <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
         </div>
         <div v-if="data.status == 3">
-          <span class="label label-error">已归还</span> 
-          <div class="action" @click="showReceipt(data.id)">索取赔偿</div>
+          <span class="label label-error">已丢失</span> 
+          <div class="action">索取赔偿</div>
         </div>
       </template>
     </cp-table>
-
-    <modal ref="submitLose" title="损失数量">
-      <div slot="body">
-        <div class="form-group">
-          <input name="amount" id="amount" type="number" class="form-input" 
-          placeholder="请输入物品损失数量" v-model="lostAmount">
-        </div>
-      </div>
-      <div slot="footer">
-        <div class="btn btn-primary submitLoseBtn" @click="submitLose">确认</div>
-      </div>
-    </modal>
   </div>
 </template>
 
 <script>
-import { getPersonalRent, returnPersonal, expire } from '@/api/rental';
-import { getPersonalReceipt, postPersonalReceipt } from '@/api/receipt';
-import { personal_column } from '@/api/tableColumns';
+import { getPersonalRent, returnPersonal, lostPersonal, expire } from '@/api/rental';
+import { getPersonalReceipt, postPersonalReceiptFine } from '@/api/receipt';
 
-import fine    from '@/components/receipt/fine';
+import fine from '@/components/receipt/fine';
+import comp from '@/components/receipt/comp';
 import cpTable from '@/components/tables';
-import modal   from '@/components/modal';
+import { personal_column } from '@/api/tableColumns';
 
 export default {
   components: {
     cpTable,
     fine,
-    modal,
+    comp,
   },
   data: () => ({
     personal_columns: personal_column,
-    receiptData: {},
-    tableData: [],
-    lostAmount: null,
-    lostId: null,
+    tableData:[],
+    fineData:[],  
+    compData:[],
+    receipt_data: {},
   }),
   mounted() {
     this.getAll();
@@ -106,6 +102,12 @@ export default {
           console.log(err);
         });
       });
+      getPersonalReceipt().then(({ data }) => {
+        this.fineData = data;
+        // this.compData = data;
+      }).catch((err) => {
+        console.log(err);
+      });
     },
     toDate(date) {
       return `${date.split(' ')[0].split('-')[0]} 年 ${parseInt(date.split(' ')[0].split('-')[1])} 月 ${parseInt(date.split(' ')[0].split('-')[2])} 日`;
@@ -120,7 +122,8 @@ export default {
       return `${time}${parseInt(times[0])}：${times[1]}`;
     },
     returnItem(id) {
-      returnPersonal(id, 0).then(() => {
+      returnPersonal(id).then((msg) => {
+        console.log(msg);
         this.notification('成功更新物品状态：归还', 'success');
         this.getAll();
       }).catch((err) => {
@@ -128,32 +131,25 @@ export default {
         console.log(err)
       })
     },
-    showReceipt(id) {
+    fineItem(id) {
+      this.$refs.add.active = true;
       getPersonalReceipt(id).then(({ data }) => {
         if (data.length == 0) {
-          postPersonalReceipt(id).then(() => {
-            getPersonalReceipt(id).then(({ inner_data }) => this.receiptData = inner_data);
-          });
+          postPersonalReceiptFine(id).then((msg) => {
+            this.notification('成功进行罚款', 'success');
+          })
         } else {
-          this.receiptData = data;
-          this.$refs.receipt.active = true;
-          console.log(this.receiptData);
+          this.receipt_data = data;
         }
       })
     },
     loseItem(id) {
-      this.lostAmount = null;
-      this.$refs.submitLose.active = true;
-      this.lostId = id;
-    },
-    submitLose() {
-      returnPersonal(this.lostId, this.lostAmount).then((msg) => {
-        this.$refs.submitLose.active = false;
-        postPersonalReceipt(this.lostId);
+      this.$refs.add2.active = true;
+      lostPersonal(id).then((msg) => {
         this.notification('成功更新物品状态：遗失', 'success');
         this.getAll();
-      })  
-    }
+      })
+    },
   },
 };
 </script>
