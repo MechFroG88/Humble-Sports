@@ -12,7 +12,7 @@
     <comp ref="add2"></comp> -->
 
     <cp-table width="100" class="mt-2" ref="table"
-    :columns="personal_columns" :tableData="data" title navbar="搜寻学号或名字">
+    :columns="personal_columns" :tableData="tableData" title navbar="搜寻学号或名字">
       <template slot="title">租借记录（个人）</template>
 
       <!-- <template slot="student" slot-scope="{ tableData }">
@@ -21,40 +21,40 @@
         </div>
       </template> -->
 
-      <template slot="item_type" slot-scope="{ tableData }">
-        {{tableData.item_type}} -- {{tableData.item_tag}}
+      <template slot="item_type" slot-scope="{ data }">
+        {{data.item_type}} -- {{data.item_tag}}
       </template>
 
-      <template slot="item_out" slot-scope="{ tableData }">
-        <div class="date">{{toDate(tableData.item_out)}}</div>
-        <div class="time">{{toTime(tableData.item_out)}}</div>
+      <template slot="item_out" slot-scope="{ data }">
+        <div class="date">{{toDate(data.item_out)}}</div>
+        <div class="time">{{toTime(data.item_out)}}</div>
       </template>
 
       <template slot="item_in" slot-scope="{ data }">
         <div v-if="data.item_in">
-          <div class="date">{{toDate(tableData.item_in)}}</div>tableData
-          <div class="time">{{toTime(tableData.item_in)}}</div>
+          <div class="date">{{toDate(data.item_in)}}</div>
+          <div class="time">{{toTime(data.item_in)}}</div>
         </div>
         <div v-else>
           <div class="expired">逾期时间：</div>
-          <div class="date">{{toDate(tableData.due_date)}}</div>
-          <div class="time">{{toTime(tableData.due_date)}}</div>
+          <div class="date">{{toDate(data.due_date)}}</div>
+          <div class="time">{{toTime(data.due_date)}}</div>
         </div>
       </template>
 
       <template slot="status" slot-scope="{ data }">
-        <span v-if="tableData.status == 0" class="label label-success">已归还</span>
-        <div v-if="tableData.status == 1">
+        <span v-if="data.status == 0" class="label label-success">已归还</span>
+        <div v-if="data.status == 1">
           <span class="label label-primary">未归还</span> 
-          <div class="action return" @click="returnItem(tableData.id)">归还物品</div>
-          <div class="action loss" @click="loseItem(tableData.id)">遗失物品</div>
+          <div class="action return" @click="returnItem(data.id)">归还物品</div>
+          <div class="action loss">遗失物品</div>
         </div>
-        <div v-if="tableData.status == 2">
+        <div v-if="data.status == 2">
           <span class="label label-expired">已逾期</span>
           <div class="action fine" @click="fineItem(data.id)">进行罚款</div>
-          <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
+          <div class="action loss">遗失物品</div>
         </div>
-        <div v-if="tableData.status == 3">
+        <div v-if="data.status == 3">
           <span class="label label-error">已丢失</span> 
           <div class="action">索取赔偿</div>
         </div>
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { getPersonalRent, returnPersonal, lostPersonal, expire } from '@/api/rental';
+import { getPersonalRent, returnPersonal, expire } from '@/api/rental';
 import { getPersonalReceipt, postPersonalReceiptFine } from '@/api/receipt';
 
 import fine from '@/components/receipt/fine';
@@ -92,9 +92,9 @@ export default {
     getAll() {
       expire('personal').then(() => {
         getPersonalRent().then(({ data }) => {
-          this.data = data;
+          this.tableData = data;
           for (let i = 0; i < data.length; i++) {
-            this.data[i].item_type = data[i].item.type;
+            this.tableData[i].item_type = data[i].item.type;
           }
           this.$refs.table.is_loading = false;
         }).catch((err) => {
@@ -121,7 +121,6 @@ export default {
     },
     returnItem(id) {
       returnPersonal(id).then((msg) => {
-        console.log(msg);
         this.notification('成功更新物品状态：归还', 'success');
         this.getAll();
       }).catch((err) => {
@@ -130,22 +129,24 @@ export default {
       })
     },
     fineItem(id) {
+      console.log(id);
       getPersonalReceipt(id).then(({ data }) => {
         if (data.length == 0) {
           postPersonalReceiptFine(id).then((msg) => {
             this.notification('成功进行罚款', 'success');
+            this.getAll();
           })
         } else {
           this.receipt_data = data;
         }
       })
     },
-    loseItem(id) {
-      lostPersonal(id).then((msg) => {
-        this.notification('成功更新物品状态：遗失', 'success');
-        this.getAll();
-      })
-    }
+    // loseItem(id) {
+    //   lostPersonal(id).then((msg) => {
+    //     this.notification('成功更新物品状态：遗失', 'success');
+    //     this.getAll();
+    //   })
+    // }
   },
 };
 </script>

@@ -39,23 +39,9 @@ export function returnPersonal(rentId) {
   })
 }
 
-export function lostPersonal(rentId) {
-  return request({
-    url: `/rent/personal/${rentId}/lost`,
-    method: 'PUT'
-  })
-}
-
 export function returnGroup(rentId) {
   return request({
     url: `/rent/group/${rentId}/return`,
-    method: 'PUT'
-  })
-}
-
-export function lostGroup(rentId) {
-  return request({
-    url: `/rent/group/${rentId}/lost`,
     method: 'PUT'
   })
 }
