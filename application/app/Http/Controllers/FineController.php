@@ -9,7 +9,7 @@ use App\Fine;
 class FineController extends Controller
 {
     private $rules = [
-        "fine" => "required|integer"
+        "fine" => "required|numeric"
     ];
 
     public function change_fine(request $data)

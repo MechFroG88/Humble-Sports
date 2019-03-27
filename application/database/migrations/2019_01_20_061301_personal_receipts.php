@@ -17,12 +17,12 @@ class PersonalReceipts extends Migration
             $table->increments('id');
             $table->integer('personalrent_id');
             $table->integer('user_id');
-            $table->integer('total_fine')->default(0);
+            $table->float('total_fine',8,2)->default(0);
             $table->integer('days')->default(0);
-            $table->integer('fine');
-            $table->integer('price');
+            $table->float('fine',8,2);
+            $table->float('price',8,2);
             $table->integer('lost')->default(0);
-            $table->integer('total_price')->default(0);
+            $table->float('total_price',8,2)->default(0);
             $table->timestamps();
         });
     }

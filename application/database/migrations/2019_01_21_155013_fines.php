@@ -15,7 +15,7 @@ class Fines extends Migration
     {
         Schema::create('fines', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('fine');
+            $table->float('fine',8,2);
             $table->timestamps();
         });    //
     }

@@ -14,7 +14,7 @@ class ItemController extends Controller
         "type"     => ["required"],
         "start_id" => "required|integer",
         "end_id"   => "required|integer",
-        "price"    => "required|integer",
+        "price"    => "required|numeric",
     ];
 
     public function create(Request $data)

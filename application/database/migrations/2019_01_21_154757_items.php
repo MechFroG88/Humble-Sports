@@ -18,7 +18,7 @@ class Items extends Migration
             $table->string('type');
             $table->integer('start_id');
             $table->integer('end_id');
-            $table->integer('price');
+            $table->float('price',8,2);
             $table->timestamps();
         }); //
     }
