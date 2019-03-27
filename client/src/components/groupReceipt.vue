@@ -93,20 +93,20 @@ export default {
     title: String,
     data: {
       type: Object,
-      // validator: function(obj) {
-      //   return obj.id
-      //       && obj.grouprent.group_name
-      //       && obj.grouprent.student_id
-      //       && obj.grouprent.item_out
-      //       && obj.grouprent.item_in
-      //       && obj.days
-      //       && obj.single_fine
-      //       && obj.single_price
-      //       && obj.total_fine
-      //       && obj.total_price
-      //       && obj.grouprent.item.type
-      //       && obj.user.cn_name;
-      // }
+      validator: function(obj) {
+        return obj.id
+            && obj.grouprent.group_name
+            && obj.grouprent.student_id
+            && obj.grouprent.item_out
+            && obj.grouprent.item_in
+            && obj.days
+            && obj.single_fine
+            && obj.single_price
+            && obj.total_fine
+            && obj.total_price
+            && obj.grouprent.item.type
+            && obj.user.cn_name;
+      }
     }
   },
   methods: {
