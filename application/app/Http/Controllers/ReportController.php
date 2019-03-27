@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\PersonalReceipt;
 use App\PersonalRent;
 use App\GroupReceipt;
-use App\Grouprent;
+use App\GroupRent;
 use Carbon\Carbon;
 use App\Report;
 
