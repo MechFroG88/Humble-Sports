@@ -23,7 +23,7 @@
           <div class="detailsContainer mt-2">
             <div class="payerContainer columns">
               <div class="payer column col-2">支付者：</div>
-              <div class="payerName"> {{data.grouprent.student_id}}{{data.group_name}}</div>
+              <div class="payerName"> {{data.student_id}}{{data.group_name}}</div>
             </div>
             <div class="itemContainer columns">
               <div class="item column col-2">项目：</div>

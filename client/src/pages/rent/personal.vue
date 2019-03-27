@@ -79,7 +79,7 @@
 import { getPersonalRent, returnPersonal, lostPersonal, expire } from '@/api/rental';
 import { getPersonalReceipt, postPersonalReceiptFine } from '@/api/receipt';
 import modal from '@/components/modal';
-import fine from '@/components/receipt/fine';
+import fine from '@/components/receipt/personalFine';
 import cpTable from '@/components/tables';
 import { personal_column } from '@/api/tableColumns';
 
