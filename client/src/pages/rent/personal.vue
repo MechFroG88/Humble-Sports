@@ -126,8 +126,8 @@ export default {
       return `${time}${parseInt(times[0])}：${times[1]}`;
     },
     returnItem(id) {
-      returnPersonal(id).then((msg) => {
-        console.log(msg);
+      returnPersonal(id, 0).then(() => {
+        console.log();
         this.notification('成功更新物品状态：归还', 'success');
         this.getAll();
       }).catch((err) => {
@@ -149,12 +149,10 @@ export default {
         this.getAll();
       })  
     },
-    loseItem(id) {
-      this.$refs.add2.active = true;
-      lostPersonal(id).then((msg) => {
-        this.notification('成功更新物品状态：遗失', 'success');
-        this.getAll();
-      })
+   loseItem(id) {
+      this.lostAmount = null;
+      this.$refs.submitLose.active = true;
+      this.lostId = id;
     },
   },
 };
