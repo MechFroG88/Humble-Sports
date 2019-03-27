@@ -71,13 +71,11 @@ Route::middleware('auth')->put('rent/group/{id}/return','GroupRentController@upd
 /**
  * PersonalReceipt Route
  */
-Route::middleware('auth')->post('receipt/personal/{id}','PersonalReceiptController@create_receipt');
 Route::middleware('auth')->get('receipt/personal/{id}','PersonalReceiptController@get_receipt');
 
 /**
  * GroupReceipt Route
  */
-Route::middleware('auth')->post('receipt/group/{id}','GroupReceiptController@create_receipt');
 Route::middleware('auth')->get('receipt/group/{id}','GroupReceiptController@get_receipt');
 
 /**
