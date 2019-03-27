@@ -6,3 +6,10 @@ export function getReport() {
     method: 'GET'
   });
 }
+
+export function getReportGraph() {
+  return request({
+    url: '/report/month',
+    method: 'GET'
+  })
+}
