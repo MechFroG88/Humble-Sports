@@ -8,8 +8,6 @@
       }
     })">新增</div>
 
-    <fine ref="receipt" v-if="Object.keys(receiptData).length" :data="receiptData"></fine>
-
     <cp-table width="100" class="mt-2" ref="table"
     :columns="personal_columns" :tableData="tableData" title navbar="搜寻学号或名字">
       <template slot="title">租借记录（个人）</template>
@@ -21,23 +19,23 @@
       </template> -->
 
       <template slot="item_type" slot-scope="{ data }">
-        {{data.item_type}} -- {{data.item_tag}}
+        {{ data.item_type }} -- {{ data.item_tag }}
       </template>
 
       <template slot="item_out" slot-scope="{ data }">
-        <div class="date">{{toDate(data.item_out)}}</div>
-        <div class="time">{{toTime(data.item_out)}}</div>
+        <div class="date">{{ toDate(data.item_out) }}</div>
+        <div class="time">{{ toTime(data.item_out) }}</div>
       </template>
 
       <template slot="item_in" slot-scope="{ data }">
         <div v-if="data.item_in">
-          <div class="date">{{toDate(data.item_in)}}</div>data
-          <div class="time">{{toTime(data.item_in)}}</div>
+          <div class="date">{{ toDate(data.item_in) }}</div>
+          <div class="time">{{ toTime(data.item_in) }}</div>
         </div>
         <div v-else>
           <div class="expired">逾期时间：</div>
-          <div class="date">{{toDate(data.due_date)}}</div>
-          <div class="time">{{toTime(data.due_date)}}</div>
+          <div class="date">{{ toDate(data.due_date) }}</div>
+          <div class="time">{{ toTime(data.due_date) }}</div>
         </div>
       </template>
 
@@ -72,21 +70,31 @@
       </div>
     </modal>
 
+    <receipt ref="receipt" :data="receiptData"></receipt>
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import { getPersonalRent, returnPersonal, lostPersonal, expire } from '@/api/rental';
 import { getPersonalReceipt, postPersonalReceiptFine } from '@/api/receipt';
 import modal from '@/components/modal';
 import fine from '@/components/receipt/personalFine';
 import cpTable from '@/components/tables';
+=======
+import { getPersonalRent, returnPersonal, expire } from '@/api/rental';
+import { getPersonalReceipt, postPersonalReceipt } from '@/api/receipt';
+>>>>>>> 6f095049fe059748da3cf31345d60c9a254aac84
 import { personal_column } from '@/api/tableColumns';
+
+import cpTable from '@/components/tables';
+import receipt from '@/components/receipt';
+import modal   from '@/components/modal';
 
 export default {
   components: {
     cpTable,
-    fine,
+    receipt,
     modal,
   },
   data: () => ({
@@ -114,7 +122,11 @@ export default {
       });
     },
     toDate(date) {
-      return `${date.split(' ')[0].split('-')[0]} 年 ${parseInt(date.split(' ')[0].split('-')[1])} 月 ${parseInt(date.split(' ')[0].split('-')[2])} 日`;
+      return `
+        ${date.split(' ')[0].split('-')[0]} 年 
+        ${parseInt(date.split(' ')[0].split('-')[1])} 月 
+        ${parseInt(date.split(' ')[0].split('-')[2])} 日
+      `;
     },
     toTime(date) {
       const times = date.split(' ')[1].split(':');
