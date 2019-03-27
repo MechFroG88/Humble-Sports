@@ -131,7 +131,6 @@ export default {
     },
     returnItem(id) {
       returnPersonal(id, 0).then(() => {
-        console.log();
         this.notification('成功更新物品状态：归还', 'success');
         this.getAll();
       }).catch((err) => {
@@ -141,19 +140,20 @@ export default {
     },
     showReceipt(id) {
       getPersonalReceipt(id).then(({ data }) => {
+        console.log(data);
         this.receiptData = data;
         this.$refs.receipt.active = true;
-        console.log(this.receiptData);
       })
     },
     submitLose() {
       returnPersonal(this.lostId, this.lostAmount).then((msg) => {
         this.$refs.submitLose.active = false;
+        this.$refs.submitLose.reduce = false;
         this.notification('成功更新物品状态：遗失', 'success');
         this.getAll();
       })  
     },
-   loseItem(id) {
+    loseItem(id) {
       this.lostAmount = null;
       this.$refs.submitLose.active = true;
       this.lostId = id;

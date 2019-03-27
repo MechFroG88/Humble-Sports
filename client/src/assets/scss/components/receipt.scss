@@ -59,7 +59,9 @@
         }
       }
       .detailsContainer {
-        margin-top: 4rem;
+        &.late {
+          margin-top: 4rem;
+        }
         font-size: .85rem;
         & > div {
           display: flex;

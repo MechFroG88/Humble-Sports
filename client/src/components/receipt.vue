@@ -18,12 +18,11 @@
       </div>
       <div class="modal-body">
         <div class="content">
-          <!-- <cpTable width="100" class="mt-2" ref="table" :columns="columns" /> -->
-          <div class="container">
+          <div class="container" v-if="data.days">
             <div class="left-container">
               <div class="title">借出时间</div>
-              <div class="date">{{ toDate(data.personalrent.item_out ||data.grouprent.item_out) }}</div>
-              <div class="time">{{ toTime(data.personalrent.item_out ||data.grouprent.item_out) }}</div>
+              <div class="date">{{ toDate(data.personalrent.item_out || data.grouprent.item_out) }}</div>
+              <div class="time">{{ toTime(data.personalrent.item_out || data.grouprent.item_out) }}</div>
             </div>
             <div class="box1">
               <div class="dottedLine"></div>
@@ -38,16 +37,14 @@
               <div class="time">{{ toTime(data.personalrent.item_in || data.grouprent.item_in) }}</div>
             </div>
           </div>
-          <div class="lateContainer">
+          <div class="lateContainer" v-if="data.days">
             <span class="late">已逾期 </span>
-            <span class="lateTime">
-              {{ data.days }} 天 {{ calTime(data.personalrent.item_in || data.grouprent.item_in, data.personalrent.item_out || data.grouprent.item_out) }}
-            </span>
+            <span class="lateTime">{{ data.days }} 天</span>
             <div class="lateFine">
               {{ data.days }} x RM {{ (data.fine).toFixed(2) }} = RM {{ (data.total_fine).toFixed(2) }}
             </div>
           </div>
-          <div class="detailsContainer">
+          <div class="detailsContainer" :class="{'late': data.days}">
             <div class="payerContainer columns">
               <div class="payer column col-2">支付者：</div>
               <div class="payerName">
@@ -58,7 +55,9 @@
               <div class="item column col-2">项目：</div>
               <div class="itemGroup">
                 <div class="itemType">
-                  {{ data.personalrent.item.type || data.grouprent.item_type}} 逾期 {{ data.days }} 天 {{ calTime(data.personalrent.item_in || data.grouprent.item_in, data.personalrent.item_out ||data.grouprent.item_out) }}
+                  {{data.days != 0 ? `${data.personalrent.item.type || data.grouprent.item_type} 逾期 ${data.days} 天` : '' }}
+                  <br v-if="data.days && data.fine">
+                  {{data.lost != 0 ? `${data.personalrent.item.type || data.grouprent.item_type} 遗失 ${data.lost} 个` : '' }}
                 </div>
               </div>
             </div>
@@ -123,27 +122,21 @@ export default {
       }
       return `${time}${parseInt(times[0])}：${times[1]}`;
     },
-    calTime(dateIn, dateOut) {
-      const timeIn = dateIn.split(' ')[1].split(':');
-      const timeOut = dateOut.split(' ')[1].split(':');
-      let lateHour = (timeIn[0] - timeOut[0]);
-      if (lateHour < 0) lateHour += 24;
-      let lateMinutes = (timeIn[1] - timeOut[1]);
-      if (lateMinutes < 0) {
-        lateMinutes += 60;
-        lateHour -= 1;
-      }
-      return `${
-        (() => {
-          if (lateHour) return `${lateHour} 小时`;
-          else return '';
-        }) 
-        (() => {
-          if (lateMinutes) return `${lateMinutes} 分钟`;
-          else return '';
-        })
-      }`;
-    }
+    // calTime(dateIn, dateOut) {
+    //   const timeIn = dateIn.split(' ')[1].split(':');
+    //   const timeOut = dateOut.split(' ')[1].split(':');
+    //   let lateHour = timeIn[0] - timeOut[0];
+    //   let lateMinutes = timeIn[1] - timeOut[1];
+
+    //   if (lateMinutes < 0) {
+    //     lateMinutes += 60;
+    //     lateHour--;
+    //   }
+    //   if (lateHour < 0) {
+    //     lateHour += 24;
+    //   }
+    //   return `${lateHour} 小时 ${lateMinutes} 分钟`;
+    // },
   },
   components: {
     cpTable
