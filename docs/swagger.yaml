@@ -1027,26 +1027,7 @@ paths:
           400:
             description: "Validation Error" 
 
-  /receipt/personal/{Id}:    
-    post:
-      tags:
-      - "PersonalReceipts"
-      summary: "Create new personal receipt"
-      parameters:
-        - name: "Id"
-          in: "path"
-          description: "ID of personal rent to create receipt"
-          required: true
-          type: "integer"
-      
-      responses:
-        200: 
-          description: "Successful operation"
-        401:
-          description: "Unauthorized"
-        400:
-          description: "Validation Error"    
-  
+  /receipt/personal/{Id}:
     get:
       tags:
       - "PersonalReceipts"
@@ -1114,10 +1095,14 @@ paths:
                     type: "string"
                     format: "date-time"
                     example: "2019-03-17 17:27:42"
+                  due_date:
+                    type: "string"
+                    format: "date-time"
+                    example: "2019-03-17 17:27:42"
                   student:
                     type: "object"
                     properties:
-                      id: 
+                      id:
                         type: "integer"
                         example: "140048"
                       cn_name:
@@ -1142,25 +1127,6 @@ paths:
                         type: "string"
                         example: "Basketball"
   /receipt/group/{Id}:
-    post:
-      tags:
-      - "GroupReceipts"
-      summary: "Create new group receipt"
-      parameters:
-        - name: "Id"
-          in: "path"
-          description: "ID of group rent to create receipt"
-          required: true
-          type: "integer"
-      
-      responses:
-        200: 
-          description: "Successful operation"
-        401:
-          description: "Unauthorized"
-        400:
-          description: "Validation Error"
-  
     get:
       tags:
       - "GroupReceipts"
