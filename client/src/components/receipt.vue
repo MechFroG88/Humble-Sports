@@ -22,8 +22,8 @@
           <div class="container">
             <div class="left-container">
               <div class="title">借出时间</div>
-              <div class="date">{{ toDate(data.personalrent.item_out) }}</div>
-              <div class="time">{{ toTime(data.personalrent.item_out) }}</div>
+              <div class="date">{{ toDate(data.personalrent.item_out ||data.grouprent.item_out) }}</div>
+              <div class="time">{{ toTime(data.personalrent.item_out ||data.grouprent.item_out) }}</div>
             </div>
             <div class="box1">
               <div class="dottedLine"></div>
@@ -34,14 +34,14 @@
             </div>
             <div class="right-container">
               <div class="title">归还时间</div>
-              <div class="date">{{ toDate(data.personalrent.item_in) }}</div>
-              <div class="time">{{ toTime(data.personalrent.item_in) }}</div>
+              <div class="date">{{ toDate(data.personalrent.item_in || data.grouprent.item_in) }}</div>
+              <div class="time">{{ toTime(data.personalrent.item_in || data.grouprent.item_in) }}</div>
             </div>
           </div>
           <div class="lateContainer">
             <span class="late">已逾期 </span>
             <span class="lateTime">
-              {{ data.days }} 天 {{ calTime(data.personalrent.item_in, data.personalrent.item_out) }}
+              {{ data.days }} 天 {{ calTime(data.personalrent.item_in || data.grouprent.item_in, data.personalrent.item_out || data.grouprent.item_out) }}
             </span>
             <div class="lateFine">
               {{ data.days }} x RM {{ (data.fine).toFixed(2) }} = RM {{ (data.total_fine).toFixed(2) }}
@@ -51,14 +51,14 @@
             <div class="payerContainer columns">
               <div class="payer column col-2">支付者：</div>
               <div class="payerName">
-                {{ data.personalrent.student_id }} {{ data.user.cn_name }}
+                {{ data.personalrent.student_id || data.grouprent.student_id}} {{ data.user.cn_name }}
               </div>
             </div>
             <div class="itemContainer columns">
               <div class="item column col-2">项目：</div>
               <div class="itemGroup">
                 <div class="itemType">
-                  {{ data.personalrent.item.type }} 逾期 {{ data.days }} 天 {{ calTime(data.personalrent.item_in, data.personalrent.item_out) }}
+                  {{ data.personalrent.item.type || data.grouprent.item_type}} 逾期 {{ data.days }} 天 {{ calTime(data.personalrent.item_in || data.grouprent.item_in, data.personalrent.item_out ||data.grouprent.item_out) }}
                 </div>
               </div>
             </div>
