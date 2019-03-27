@@ -75,16 +75,8 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-import { getPersonalRent, returnPersonal, lostPersonal, expire } from '@/api/rental';
-import { getPersonalReceipt, postPersonalReceiptFine } from '@/api/receipt';
-import modal from '@/components/modal';
-import fine from '@/components/receipt/personalFine';
-import cpTable from '@/components/tables';
-=======
 import { getPersonalRent, returnPersonal, expire } from '@/api/rental';
 import { getPersonalReceipt, postPersonalReceipt } from '@/api/receipt';
->>>>>>> 6f095049fe059748da3cf31345d60c9a254aac84
 import { personal_column } from '@/api/tableColumns';
 
 import cpTable from '@/components/tables';

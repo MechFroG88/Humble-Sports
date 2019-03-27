@@ -8,11 +8,7 @@
       }
     })">新增</div>
 
-<<<<<<< HEAD
-    <fine ref="receipt" v-if="Object.keys(receiptData).length" :data="receiptData"></fine>
-=======
     <receipt ref="receipt" v-if="Object.keys(receiptData).length" :data="receiptData"></receipt>
->>>>>>> 6f095049fe059748da3cf31345d60c9a254aac84
 
     <gpTable class="mt-2" width="100" ref="table"
     :columns="columns" :tableData="data" title navbar="搜寻学号或名字" >
@@ -87,23 +83,14 @@ import { getGroupReceipt } from '@/api/receipt' ;
 import gpTable from '@/components/tables';
 import { group_column } from '@/api/tableColumns';
 
-<<<<<<< HEAD
-import fine from  '@/components/receipt/groupFine';
-import modal from '@/components/modal';
-=======
 import receipt from '@/components/receipt';
 import modal   from '@/components/modal';
->>>>>>> 6f095049fe059748da3cf31345d60c9a254aac84
 
 export default {
   components: {
     gpTable,
     receipt,
     modal,
-<<<<<<< HEAD
-    fine,
-=======
->>>>>>> 6f095049fe059748da3cf31345d60c9a254aac84
   },
   data: () => ({
     columns: group_column,
