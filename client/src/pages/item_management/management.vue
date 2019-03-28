@@ -133,7 +133,7 @@ export default {
     },
     add() {
       this.is_loading = true;
-      this.item.price = this.item.price/toFixed(2);
+      this.item.price = parseInt(this.item.price).toFixed(2);
       postItem(this.item).then((msg) => {
         this.is_loading = false;
         this.$refs.add.active = false;
