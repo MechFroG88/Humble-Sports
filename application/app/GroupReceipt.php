@@ -20,7 +20,7 @@ class GroupReceipt extends Model
         return $this->belongsTo('App\User')->select(array('id','cn_name'));
     }
     public function grouprent(){
-        return $this->belongsTo('App\GroupRent');
+        return $this->belongsTo('App\GroupRent','id');
     }
     public function fine(){
         return $this->belongsTo('App\Fine');

@@ -20,7 +20,7 @@ class PersonalReceipt extends Model
         return $this->belongsTo('App\User')->select(array('id','cn_name'));
     }
     public function personalrent(){
-        return $this->belongsTo('App\PersonalRent')->select(array('id','student_id','item_id','item_out','item_in','due_date'));
+        return $this->belongsTo('App\PersonalRent','id')->select(array('id','student_id','item_id','item_out','item_in','due_date'));
     }
     public function fine(){
         return $this->belongsTo('App\Fine');
