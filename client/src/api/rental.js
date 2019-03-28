@@ -56,7 +56,7 @@ export function returnPersonal(rentId, amount) {
   })
 }
 
-export function returnGroup(rentId) {
+export function returnGroup(rentId, amount) {
   return request({
     url: `/rent/group/${rentId}/return`,
     method: 'PUT',

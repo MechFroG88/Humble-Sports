@@ -1,6 +1,6 @@
 <template>
   <div id="_personal">
-    <div class="btn btn-lg btn-primary"
+    <div class="btn btn-lg btn-primary addBtn"
     @click="$router.push({
       'name': 'addNew',
       'params': {
@@ -76,7 +76,7 @@
 
 <script>
 import { getPersonalRent, returnPersonal, expire } from '@/api/rental';
-import { getPersonalReceipt, postPersonalReceipt } from '@/api/receipt';
+import { getPersonalReceipt } from '@/api/receipt';
 import { personal_column } from '@/api/tableColumns';
 
 import cpTable from '@/components/tables';
@@ -148,7 +148,6 @@ export default {
     submitLose() {
       returnPersonal(this.lostId, this.lostAmount).then((msg) => {
         this.$refs.submitLose.active = false;
-        this.$refs.submitLose.reduce = false;
         this.notification('成功更新物品状态：遗失', 'success');
         this.getAll();
       })  

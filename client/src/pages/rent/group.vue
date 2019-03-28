@@ -8,10 +8,8 @@
       }
     })">新增</div>
 
-    <receipt ref="receipt" v-if="Object.keys(receiptData).length" :data="receiptData"></receipt>
-
     <gpTable class="mt-2" width="100" ref="table"
-    :columns="columns" :tableData="data" title navbar="搜寻学号或名字" >
+    :columns="columns" :tableData="tableData" title navbar="搜寻学号或名字" >
       <template slot="title">租借记录:(团体)</template>
 
       <template slot="student" slot-scope="{ data }">
@@ -74,15 +72,16 @@
       </div>
     </modal>
     
+    <receipt ref="receipt" :data="receiptData"></receipt>
   </div>
 </template>
 
 <script>
 import { getGroupRent, returnGroup, expire } from '@/api/rental';
 import { getGroupReceipt } from '@/api/receipt' ;
-import gpTable from '@/components/tables';
 import { group_column } from '@/api/tableColumns';
 
+import gpTable from '@/components/tables';
 import receipt from '@/components/receipt';
 import modal   from '@/components/modal';
 
@@ -94,8 +93,8 @@ export default {
   },
   data: () => ({
     columns: group_column,
+    tableData: [],
     receiptData: {},
-    data: [],
     lostAmount: null,
     lostId: null,
   }),
@@ -118,9 +117,9 @@ export default {
     getAll() {
       expire('group').then(() => {
         getGroupRent().then(({ data }) => {
-          this.data = data;
+          this.tableData = data;
           for (let i = 0; i < data.length; i++) {
-            this.data[i].item_type = data[i].item.type;
+            this.tableData[i].item_type = data[i].item.type;
           }
           this.$refs.table.is_loading = false;
         }).catch((err) => {
@@ -136,8 +135,8 @@ export default {
     showReceipt(id) {
       getGroupReceipt(id).then(({ data }) => {
         this.receiptData = data;
+        this.receiptData.personalrent = data.grouprent;
         this.$refs.receipt.active = true;
-        console.log(this.receiptData);
       })
     },
     returnItem(id) {

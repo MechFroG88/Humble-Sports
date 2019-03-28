@@ -4,6 +4,7 @@
   ]">
     <a class="modal-overlay" aria-label="Close"
     @click="active = false"/>
+      {{data.grouprent.item_out}}
     <div class="modal-container" v-if="Object.keys(data).length">
       <div class="modal-header">
         <div class="modal-title-group">
@@ -21,8 +22,8 @@
           <div class="container" v-if="data.days">
             <div class="left-container">
               <div class="title">借出时间</div>
-              <div class="date">{{ toDate(data.personalrent.item_out || data.grouprent.item_out) }}</div>
-              <div class="time">{{ toTime(data.personalrent.item_out || data.grouprent.item_out) }}</div>
+              <div class="date">{{ toDate(data.personalrent.item_out) }}</div>
+              <div class="time">{{ toTime(data.personalrent.item_out) }}</div>
             </div>
             <div class="box1">
               <div class="dottedLine"></div>
@@ -33,31 +34,32 @@
             </div>
             <div class="right-container">
               <div class="title">归还时间</div>
-              <div class="date">{{ toDate(data.personalrent.item_in || data.grouprent.item_in) }}</div>
-              <div class="time">{{ toTime(data.personalrent.item_in || data.grouprent.item_in) }}</div>
+              <div class="date">{{ toDate(data.personalrent.item_in) }}</div>
+              <div class="time">{{ toTime(data.personalrent.item_in) }}</div>
             </div>
           </div>
           <div class="lateContainer" v-if="data.days">
             <span class="late">已逾期 </span>
             <span class="lateTime">{{ data.days }} 天</span>
             <div class="lateFine">
-              {{ data.days }} x RM {{ (data.fine).toFixed(2) }} = RM {{ (data.total_fine).toFixed(2) }}
+              {{ data.days }} x RM {{ parseFloat(data.fine).toFixed(2) }} = RM {{ parseFloat(data.total_fine).toFixed(2) }}
             </div>
           </div>
           <div class="detailsContainer" :class="{'late': data.days}">
             <div class="payerContainer columns">
               <div class="payer column col-2">支付者：</div>
               <div class="payerName">
-                {{ data.personalrent.student_id || data.grouprent.student_id}} {{ data.user.cn_name }}
+                {{ data.personalrent ? data.personalrent.student_id : data.grouprent.student_id }} {{ data.user.cn_name }}
               </div>
             </div>
             <div class="itemContainer columns">
               <div class="item column col-2">项目：</div>
               <div class="itemGroup">
                 <div class="itemType">
-                  {{data.days != 0 ? `${data.personalrent.item.type || data.grouprent.item_type} 逾期 ${data.days} 天` : '' }}
+                  {{ data.days != 0 ? `${data.personal ? data.personalrent.item.type : data.grouprent.item.type} 逾期 ${data.days} 天` : '' }}
                   <br v-if="data.days && data.fine">
-                  {{data.lost != 0 ? `${data.personalrent.item.type || data.grouprent.item_type} 遗失 ${data.lost} 个` : '' }}
+                  {{ data.lost != 0 ? `${data.personal ? data.personalrent.item.type : data.grouprent.item.type} 遗失 ${data.lost} 个` : '' }}
+                  {{ data.days == 0 && data.lost == 0 ? '逾期' : '' }}
                 </div>
               </div>
             </div>
@@ -80,7 +82,6 @@
 </template>
 
 <script>
-import cpTable from '@/components/tables';
 import { comp_column } from '@/api/tableColumns';
 
 export default {
@@ -137,9 +138,6 @@ export default {
     //   }
     //   return `${lateHour} 小时 ${lateMinutes} 分钟`;
     // },
-  },
-  components: {
-    cpTable
   },
   data: () => ({
     columns: comp_column,
