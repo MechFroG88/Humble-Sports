@@ -14,8 +14,7 @@ class GroupReceipts extends Migration
     public function up()
     {
         Schema::create('group_receipts', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('grouprent_id');
+            $table->integer('id');
             $table->integer('user_id');
             $table->float('single_price',8,2);
             $table->integer('lost');
@@ -24,6 +23,7 @@ class GroupReceipts extends Migration
             $table->integer('days');
             $table->float('total_fine',8,2)->default(0);
             $table->timestamps();
+            $table->primary('id');
         });    //
     }
 

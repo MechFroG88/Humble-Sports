@@ -25,10 +25,9 @@ class PersonalReceiptController extends Controller
         $fine                     = fine::where('id',$fine_id)->select('fine')->first();  
         $item_id                  = personalrent::where('id',$id)->pluck('item_id');
         $price                    = item::where('id',$item_id)->select('price')->first();
-        if (personalreceipt::where('personalrent_id',$id)->exists()){
-            personalreceipt::where('personalrent_id',$id)
+        if (personalreceipt::where('id',$id)->exists()){
+            personalreceipt::where('id',$id)
                            ->update([
-                               "personal_rent_id" => $id,
                                "fine" => $fine->fine,
                                "days" => $days,
                                "total_fine" => $fine->fine*$receipt->days,
@@ -43,7 +42,7 @@ class PersonalReceiptController extends Controller
             return $this->ok();
         }
         $receipt                  = new personalreceipt;
-        $receipt->personalrent_id = $id;
+        $receipt->id = $id;
         $receipt->fine            = $fine->fine;
         $receipt->days            = $days;
         $receipt->total_fine      = $fine->fine*$receipt->days;
@@ -60,7 +59,7 @@ class PersonalReceiptController extends Controller
     public function get_receipt($id)
     {
         $receipt = personalreceipt::with('user','personalrent','personalrent.student','personalrent.item')
-                                  ->where('personalrent_id',$id)->get()->first();
+                                  ->where('id',$id)->get()->first();
         if (!isset($receipt)){
             $receipt = collect();
         }

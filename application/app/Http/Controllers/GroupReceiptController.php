@@ -26,10 +26,9 @@ class GroupReceiptController extends Controller
         $single_fine           = fine::where('id',$fine_id)->select('fine')->first();    
         $item_id               = grouprent::where('id',$id)->pluck('item_id');
         $single_price          = item::where('id',$item_id)->select('price')->first();
-        if (groupreceipt::where('grouprent_id',$id)->exists()){
-            groupreceipt::where('grouprent_id',$id)
+        if (groupreceipt::where('id',$id)->exists()){
+            groupreceipt::where('id',$id)
                            ->update([
-                               "grouprent_id" => $id,
                                "fine" => $fine->fine,
                                "days" => ($date >= $item_in) ? 0 : $date->diffInDays($item_in),
                                "total_fine" => $fine->fine*$receipt->days,
@@ -44,7 +43,7 @@ class GroupReceiptController extends Controller
             return $this->ok();
         }
         $receipt               = new groupreceipt;
-        $receipt->grouprent_id = $id;
+        $receipt->id           = $id;
         $receipt->single_fine  = $single_fine->fine;  
         $receipt->total_fine   = $single_fine->fine*$days;
         $receipt->days         = $days;
@@ -61,7 +60,7 @@ class GroupReceiptController extends Controller
     public function get_receipt($id)
     {
         $groupreceipt = groupreceipt::with('user','grouprent','grouprent.item')
-                                    ->where('grouprent_id',$id)->get()->first();
+                                    ->where('id',$id)->get()->first();
         return response($groupreceipt->toJson(),200);
     }
 

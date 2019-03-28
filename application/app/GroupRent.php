@@ -22,9 +22,6 @@ class GroupRent extends Model
     public function item(){
         return $this->belongsTo('App\Item')->select(array('id', 'type'));;
     }
-    public function groupreceipt(){
-        return $this->hasOne('App\GroupReceipt');
-    }
     public function report(){
         return $this->belongsTo('App\Report');
     }
