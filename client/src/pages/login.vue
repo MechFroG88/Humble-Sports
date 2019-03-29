@@ -5,13 +5,25 @@
       <div class="slogan">用科技贯穿校园</div>
       <div class="slogan">创造一个数据驱动化的系统</div>
       <form @submit.prevent="login()">
-        <div class="input-group">
+        <div class="input-group username-input" 
+        :class="{'error-input': errors.first('用户名')}">
+          <span class="error" v-if="errors.first('用户名')">
+            <i class="icon icon-alert-triangle"></i>
+            <span class="toast toast-error">{{errors.first('用户名')}}</span>
+          </span>
           <label class="input-label" for="username">用户名</label>
-          <input class="username" type="text" id="username"
-          placeholder="请输入用户名" v-model="username">
+          <input class="username" type="text" id="username" name="用户名"
+          placeholder="请输入用户名" v-model="username" v-validate="'required'">
+        </div>
+        <div class="input-group password-input"
+        :class="{'error-input': errors.first('密码')}">
+        <span class="error" v-if="errors.first('密码')">
+            <i class="icon icon-alert-triangle"></i>
+            <span class="toast toast-error">{{errors.first('密码')}}</span>
+          </span>
           <label class="input-label" for="password">密码</label>
-          <input class="password" type="password" id="password"
-          placeholder="请输入密码" v-model="password">
+          <input class="password" type="password" id="password" name="密码"
+          placeholder="请输入密码" v-model="password" v-validate="'required'">
         </div>
         <div class="form-group">
           <label class="form-checkbox">

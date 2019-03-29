@@ -30,6 +30,11 @@
   box-shadow: 0 .1rem .5rem .05rem rgba($primary-color, .5);
 }
 
+// error
+.error-input {
+  border: 0.12rem solid mix($error-color, $warning-color) !important;
+}
+
 // remove spinners for input[type=number]
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button,
