@@ -7,77 +7,101 @@
         'state': 'group'
       }
     })">新增</div>
+
     <gpTable class="mt-2" width="100" ref="table"
-    :columns="columns" :tableData="data" title navbar="搜寻学号或名字" >
+    :columns="columns" :tableData="tableData" title navbar="搜寻学号或名字" >
       <template slot="title">租借记录:(团体)</template>
 
       <template slot="student" slot-scope="{ data }">
         <div v-if="data.student || data.student_id">
-          <div class="student" v-if="data.student_id">{{data.student_id}}</div>
-          <div class="name" v-if="data.student">{{data.student.name}}</div>
+          <div class="student" v-if="data.student_id">{{ data.student_id }}</div>
+          <div class="name" v-if="data.student">{{ data.student.name }}</div>
         </div>
         <div v-else>▬ ▬</div>
       </template>
 
       <template slot="item_type" slot-scope="{ data }">
-        {{data.item_type}} -- {{data.item_tag}}
+        {{ data.item_type }}--{{ data.item_tag }}（{{ data.amount }}个）
       </template>
 
       <template slot="item_out" slot-scope="{ data }">
-        <div class="date">{{toDate(data.item_out)}}</div>
-        <div class="time">{{toTime(data.item_out)}}</div>
+        <div class="date">{{ toDate(data.item_out) }}</div>
+        <div class="time">{{ toTime(data.item_out) }}</div>
       </template>
 
       <template slot="item_in" slot-scope="{ data }">
         <div v-if="data.item_in">
-          <div class="date">{{toDate(data.item_in)}}</div>
-          <div class="time">{{toTime(data.item_in)}}</div>
+          <div class="date">{{ toDate(data.item_in) }}</div>
+          <div class="time">{{ toTime(data.item_in) }}</div>
         </div>
         <div v-else>
           <div class="expired">逾期时间：</div>
-          <div class="date">{{toDate(data.due_date)}}</div>
-          <div class="time">{{toTime(data.due_date)}}</div>
+          <div class="date">{{ toDate(data.due_date) }}</div>
+          <div class="time">{{ toTime(data.due_date) }}</div>
         </div>
       </template>
 
       <template slot="status" slot-scope="{ data }">
         <span v-if="data.status == 0" class="label label-success">已归还</span>
-        <span v-if="data.status == 1" class="label label-primary">未归还</span>
-        <span v-if="data.status == 2" class="label label-expired">
-          已逾期 <div class="fine"><a href="">进行罚款</a></div>
-        </span>
-        <span v-if="data.status == 3" class="label label-error">
-          已丢失 <div class="fine"><a href="">索取赔偿</a></div>
-        </span>
+        <div v-if="data.status == 1">
+          <span class="label label-primary">未归还</span> 
+          <div class="action return" @click="returnItem(data.id)">归还物品</div>
+          <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
+        </div>
+        <div v-if="data.status == 2">
+          <span class="label label-expired">已逾期</span>
+          <div class="action return" @click="returnItem(data.id)">归还物品</div>
+          <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
+        </div>
+        <div v-if="data.status == 3">
+          <span class="label label-error">已归还</span> 
+          <div class="action" @click="showReceipt(data.id)">索取赔偿</div>
+        </div>
       </template>
     </gpTable>
+
+    <modal ref="submitLose" title="损失数量">
+      <div slot="body">
+        <div class="form-group">
+          <input name="损失数量" id="amount" type="text" class="form-input" :class="{'error-input': errors.first('损失数量')}"
+          placeholder="请输入物品损失数量" v-model="lostAmount" v-validate="'required|numeric'"
+          @keyup.enter="submitLose">
+          <p class="form-input-hint text-error">{{ errors.first('损失数量') }}</p>
+        </div>
+      </div>
+      <div slot="footer">
+        <div class="btn btn-primary submitLoseBtn" @click="submitLose">确认</div>
+      </div>
+    </modal>
+    
+    <receipt ref="receipt" :data="receiptData"></receipt>
   </div>
 </template>
 
 <script>
-import { getGroupRent } from '@/api/rental';
+import { getGroupRent, returnGroup, expire } from '@/api/rental';
+import { getGroupReceipt } from '@/api/receipt' ;
+import { group_column } from '@/api/tableColumns';
 
 import gpTable from '@/components/tables';
-import { group_column } from '@/api/tableColumns';
+import receipt from '@/components/receipt';
+import modal   from '@/components/modal';
 
 export default {
   components: {
     gpTable,
+    receipt,
+    modal,
   },
   data: () => ({
     columns: group_column,
-    data: [],
+    tableData: [],
+    receiptData: {},
+    lostAmount: null,
+    lostId: null,
   }),
   mounted() {
-    getGroupRent().then(({ data }) => {
-      this.data = data;
-      for (let i = 0; i < data.length; i++) {
-        this.data[i].item_type = data[i].item.type;
-      }
-      this.$refs.table.is_loading = false;
-    }).catch((err) => {
-      console.log(err);
-    })
+    this.getAll();
   },
   methods: {
     toDate(date) {
@@ -92,6 +116,50 @@ export default {
       }
       return `${time}${times[0]}：${times[1]}`;
     },
+    getAll() {
+      expire('group').then(() => {
+        getGroupRent().then(({ data }) => {
+          this.tableData = data;
+          for (let i = 0; i < data.length; i++) {
+            this.tableData[i].item_type = data[i].item.type;
+          }
+          console.log(this.tableData);
+          
+          this.$refs.table.is_loading = false;
+        }).catch((err) => {
+          console.log(err);
+        })
+      })
+    },
+    loseItem(id) {
+      this.lostAmount = null;
+      this.$refs.submitLose.active = true;
+      this.lostId = id;
+    },
+    showReceipt(id) {
+      getGroupReceipt(id).then(({ data }) => {
+        this.receiptData = data;
+        this.receiptData.rent = data.grouprent;
+        console.log(this.receiptData);
+        this.$refs.receipt.active = true;
+      })
+    },
+    returnItem(id) {
+      returnGroup(id, 0).then(() => {
+        this.notification('成功更新物品状态：归还', 'success');
+        this.getAll();
+      }).catch((err) => {
+        this.notification('操作失败！请重试！', 'error');
+        console.log(err)
+      })
+    },
+    submitLose() {
+      returnGroup(this.lostId, this.lostAmount).then((msg) => {
+        this.$refs.submitLose.active = false;
+        this.notification('成功更新物品状态：遗失', 'success');
+        this.getAll();
+      })  
+    }
   }
 };
 </script>

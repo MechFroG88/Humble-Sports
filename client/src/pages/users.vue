@@ -2,7 +2,7 @@
   <div id="_users">
     <div class="btn btn-lg btn-primary addBtn"
     style="margin-bottom: 3.8rem;"
-    @click="$refs.add.active = true">新增</div>
+    @click="open">新增</div>
 
     <userTable title ref="table" :columns="users" :tableData="data" width="40">
       <template slot="title">用户管理</template>
@@ -20,24 +20,35 @@
 
     <modal ref="add" title="添加用户">
       <div slot="body">
-        <div class="form-group">
-          <label class="form-label" for="cn_name">名字</label>
-          <input class="form-input" type="text" id="cn_name" 
-          placeholder="中文名字" v-model="user.cn_name">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="username">用户名</label>
-          <input class="form-input" type="text" id="username" 
-          placeholder="用户名" v-model="user.username">
-        </div>
-        <div class="form-group col-7">
-          <label class="form-label" for="privilege">权限</label>
-          <select class="form-select" name="privilege" v-model="user.type">
-            <option disabled>请选择权限</option>
-            <option :value="0">管理员</option>
-            <option :value="1">使用者</option>
-          </select>
-        </div>
+        <form ref="form">
+          <div class="form-group">
+            <label class="form-label" for="cn_name">名字</label>
+            <input class="form-input" :class="{'error-input': errors.first('中文姓名')}"
+            type="text" id="cn_name" name="中文姓名"
+            placeholder="中文名字" v-model="user.cn_name" v-validate="{
+              'required': true,
+              'regex': /[\u4e00-\u9fa5]/
+            }">
+            <p class="form-input-hint text-error">{{ errors.first('中文姓名') }}</p>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="username">用户名</label>
+            <input class="form-input" :class="{'error-input': errors.first('使用者权限')}"
+            type="text" id="username" name="用户名" placeholder="用户名" 
+            v-model="user.username" v-validate="'required'">
+            <p class="form-input-hint text-error">{{ errors.first('用户名') }}</p>
+          </div>
+          <div class="form-group col-7">
+            <label class="form-label" for="privilege">权限</label>
+            <select class="form-select" :class="{'error-input': errors.first('使用者权限')}"
+            id="privilege" name="使用者权限" v-model="user.type" v-validate="'required'">
+              <option disabled>请选择权限</option>
+              <option :value="0">管理员</option>
+              <option :value="1">使用者</option>
+            </select>
+            <p class="form-input-hint text-error">{{ errors.first('使用者权限') }}</p>
+          </div>
+        </form>
       </div>
 
       <div slot="footer">
@@ -98,6 +109,13 @@ export default {
       }).catch(() => {
         this.notification('您没有权限进行此项操作', 'error');
       });
+    },
+    open() {
+      this.errors.clear();
+      this.$nextTick(() => {
+        this.$refs.form.reset();
+        this.$refs.add.active = true;
+      })
     },
     addUser() {
       this.loading = true;

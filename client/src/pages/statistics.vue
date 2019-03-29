@@ -29,50 +29,22 @@
             <i class="icon icon-users centered"></i>
           </div>
           <div class="tile-content">
-            <p class="tile-title mb-2">{{data.lost}}</p>
-            <p class="tile-subtitle">本月丢失数量</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="columns">
-      <div class="column col-6">
-        <div class="tile tile-centered fine" :class="{'loading loading-lg': loading}">
-          <div class="tile-icon mr-2">
-            <i class="icon icon-users centered"></i>
-          </div>
-          <div class="tile-content">
-            <p class="tile-title mb-2">{{data.paid_fine_count}}</p>
-            <p class="tile-subtitle">未归还数量</p>
+            <p class="tile-title mb-2">{{data.paid_count}}</p>
+            <p class="tile-subtitle">本月罚款数量</p>
           </div>
           <div class="tile-action">
-            <p class="tile-title mb-2">RM{{data.paid_fine}}</p>
-            <p class="tile-subtitle">总额</p>
-          </div>
-        </div>
-      </div>
-      <div class="column col-6">
-        <div class="tile tile-centered payment" :class="{'loading loading-lg': loading}">
-          <div class="tile-icon mr-2">
-            <i class="icon icon-users centered"></i>
-          </div>
-          <div class="tile-content">
-            <p class="tile-title mb-2">{{data.paid_lost_count}}</p>
-            <p class="tile-subtitle">本月逾期数量</p>
-          </div>
-          <div class="tile-action">
-            <p class="tile-title mb-2">RM{{data.paid_lost}}</p>
+            <p class="tile-title mb-2">RM{{data.total_paid}}</p>
             <p class="tile-subtitle">总额</p>
           </div>
         </div>
       </div>
     </div>
-    <div class="chart" v-if="data.year" :class="{'loading loading-lg': loading}">
+    <div class="chart" v-if="tableData" :class="{'loading loading-lg': loading}">
       <h4 class="chart-title">年月度统计表</h4>
       <GChart
       align="center"
       :settings="{packages: ['bar']}"    
-      :data="chartData"
+      :data="tableData"
       :options="chartOptions"
       :createChart="(el, google) => new google.charts.Bar(el)"
       @ready="onChartReady"
@@ -82,7 +54,7 @@
 </template>
 
 <script>
-import { getReport } from '@/api/report'
+import { getReport, getReportGraph } from '@/api/report'
 
 import { GChart } from 'vue-google-charts'
 
@@ -95,22 +67,21 @@ export default {
       this.loading = false;
       this.data = data;
     }).catch((err) => {
-      console.log(err)
+      console.log(err);
+    })
+    getReportGraph().then(({ data }) => {
+      data.forEach(element => {
+        this.tableData.push([`${element.month}月`, element.total]);
+      });
+    }).catch((err) => {
+      console.log(err);
     })
   },
   data: () => ({
     loading: true,
     data: {},
+    tableData: [['', '总借出量']],
     chartsLib: null,
-    chartData: [
-      ['', '总借出量'],
-      ['12月', 70],
-      ['1月', 80],
-      ['2月', 42],
-      ['3月', 97],
-      ['4月', 67],
-      ['5月', 73]
-    ]
   }),
   computed: {
     chartOptions () {
@@ -118,14 +89,9 @@ export default {
       return this.chartsLib.charts.Bar.convertOptions({
         bars: 'vertical',
         hAxis: { format: 'short' },
-        vAxis: {
-          gridlines: {
-            color: 'transparent'
-          }
-        },
         height: 300,
-        width: 900,
-        bar: { groupWidth: '30%'},
+        width: 1100,
+        bar: { groupWidth: '25%' },
         legend: { position: 'none' },
         colors: ['#17B9B2']
       })
@@ -133,7 +99,7 @@ export default {
   },
   methods: {
     onChartReady (chart, google) {
-      this.chartsLib = google
+      this.chartsLib = google;
     }
   }
 }

@@ -14,7 +14,6 @@
 // pages
 @import 'pages/login';
 @import 'pages/settings';
-@import 'pages/homepage';
 @import 'pages/rent/main';
 @import 'pages/rent/addNew';
 @import 'pages/item_management/management';
@@ -30,6 +29,29 @@
   margin-bottom: 1.8rem;
   box-shadow: 0 .1rem .5rem .05rem rgba($primary-color, .5);
 }
+
+// error
+.error-input {
+  border: 0.12rem solid mix($error-color, $warning-color) !important;
+}
+
+// datetime picker
+.datetime {
+  .vdatetime-input {
+    border: .05rem solid #bcc3ce;
+  }
+  .vdatetime-popup__header,
+  .vdatetime-calendar__month__day--selected > span > span,
+  .vdatetime-calendar__month__day--selected:hover > span > span {
+    background: $primary-color;
+  }
+  .vdatetime-year-picker__item--selected,
+  .vdatetime-time-picker__item--selected,
+  .vdatetime-popup__actions__button {
+    color: $primary-color;
+  }
+}
+
 
 // remove spinners for input[type=number]
 input[type=number]::-webkit-inner-spin-button, 

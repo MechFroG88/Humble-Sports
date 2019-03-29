@@ -8,19 +8,7 @@ export function getPersonalReceipt(receiptId) {
   });
 }
 
-export function postPersonalReceiptFine(rentId) {
-  return request({
-    url: `/receipt/personal/fine/${rentId}`,
-    method: 'POST',
-  });
-}
 
-export function postPersonalReceiptLost(rentId) {
-  return request({
-    url: `/receipt/personal/lost/${rentId}`,
-    method: 'POST',
-  });
-}
 
 // Group
 export function getGroupReceipt(receiptId) {
@@ -30,16 +18,3 @@ export function getGroupReceipt(receiptId) {
   });
 }
 
-export function postGroupReceiptFine(rentId) {
-  return request({
-    url: `/receipt/group/fine/${rentId}`,
-    method: 'POST',
-  });
-}
-
-export function postGroupReceiptLost(rentId) {
-  return request({
-    url: `/receipt/group/lost/${rentId}`,
-    method: 'POST',
-  });
-}

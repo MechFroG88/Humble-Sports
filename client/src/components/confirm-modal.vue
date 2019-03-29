@@ -4,9 +4,9 @@
     @click="active = false"/>
     <div class="modal-container">
       <div class="modal-header">
+        <div class="modal-title h3">{{title}}</div>
         <i class="icon icon-x-circle float-right close-button" @click="active = false"
         v-if="closable"/>
-        <div class="modal-title h3">{{title}}</div>
       </div>
       <div class="modal-body">
         此项操作将无法挽回。
