@@ -1,7 +1,7 @@
 <template>
   <div id="_statistics">
     <div class="columns">
-      <div class="column col-4">
+      <div class="column col-4 col-xl-6">
         <div class="tile tile-centered unreturned" :class="{'loading loading-lg': loading}">
           <div class="tile-icon mr-2">
             <i class="icon icon-users centered"></i>
@@ -12,7 +12,7 @@
           </div>
         </div>
       </div>
-      <div class="column col-4">
+      <div class="column col-4 col-xl-6">
         <div class="tile tile-centered expired" :class="{'loading loading-lg': loading}">
           <div class="tile-icon mr-2">
             <i class="icon icon-users centered"></i>
@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-      <div class="column col-4">
+      <div class="column col-4 col-xl-6">
         <div class="tile tile-centered loss" :class="{'loading loading-lg': loading}">
           <div class="tile-icon mr-2">
             <i class="icon icon-users centered"></i>
@@ -39,6 +39,19 @@
         </div>
       </div>
     </div>
+    <!-- <div class="columns">
+      <div class="column col-4 col-ml-auto">
+        <div class="tile tile-centered total" :class="{'loading loading-lg': loading}">
+          <div class="tile-icon mr-2">
+            <i class="icon icon-users centered"></i>
+          </div>
+          <div class="tile-content">
+            <p class="tile-title mb-2">RM{{data.total_paid}}</p>
+            <p class="tile-subtitle">总额</p>
+          </div>
+        </div>
+      </div>
+    </div> -->
     <div class="chart" v-if="tableData.length > 1" :class="{'loading loading-lg': loading}">
       <h4 class="chart-title">年月度统计表</h4>
       <GChart
@@ -73,7 +86,6 @@ export default {
       data.forEach(element => {
         this.tableData.push([`${element.month}月`, element.total]);
       });
-      console.log(this.tableData);
     }).catch((err) => {
       console.log(err);
     })

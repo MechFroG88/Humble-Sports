@@ -18,8 +18,13 @@
       </div>
       <div class="footer">
         <div class="user c-hand" :class="{'loading loading-lg': loading}">
-          <i class="icon icon-user mr-2"></i>
-          {{username}}
+          <div class="popover popover-top">
+            <i class="icon icon-user mr-2"></i>
+            <span class="popover-container">
+              {{username}}
+            </span>
+          </div>
+          <span class="username">{{username}}</span>
         </div>
         <div>
           <i class="icon icon-settings mr-2 c-hand"

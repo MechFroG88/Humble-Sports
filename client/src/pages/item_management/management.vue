@@ -28,10 +28,10 @@
       <h5 style="font-weight: 400;">器材逾期</h5>
       <form class="form-horizontal" @submit.prevent="changeFine()">
         <div class="form-group">
-          <div class="col-3 col-sm-12">
+          <div class="col-3 col-xl-4 col-sm-12">
             <label class="form-label" for="price">罚款金额：</label>
           </div>
-          <div class="col-9 col-sm-12">
+          <div class="col-9 col-xl-8 col-sm-12">
             <div>
               <input class="form-input mr-2" :class="{'error-input': errors.first('罚款价钱')}"
               type="number" step="0.01" id="price" name="罚款价钱" ref="input"
