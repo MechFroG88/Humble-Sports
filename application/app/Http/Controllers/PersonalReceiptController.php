@@ -21,22 +21,20 @@ class PersonalReceiptController extends Controller
         $item_in                  = Carbon::parse(personalrent::where('id',$id)->pluck('item_in')->first());
         $days                     = ($date >= $item_in) ? 0 : $date->diffInDays($item_in);
         $fine_id                  = fine::max('id');
-        $fine                     = fine::where('id',$fine_id)->select('fine')->first();  
-        $item_id                  = personalrent::where('id',$id)->pluck('item_id');
-        $price                    = item::where('id',$item_id)->select('price')->first();
+        $fine                     = fine::where('id',$fine_id)->pluck('fine')->first();  
+        $item_id                  = personalrent::where('id',$id)->pluck('item_id')->first();
+        $price                    = item::where('id',$item_id)->pluck('price')->first();
         $lost                     = personalrent::where('id',$id)->pluck('lost')->first();
         $receipt                  = new personalreceipt;
-        $receipt->id = $id;
-        $receipt->fine            = $fine->fine;
+        $receipt->id              = $id;
+        $receipt->fine            = $fine;
         $receipt->days            = $days;
-        $receipt->total_fine      = $fine->fine*$receipt->days;
-        $receipt->price           = $price->price;
+        $receipt->total_fine      = $fine*$days;
+        $receipt->price           = $price;
         $receipt->lost            = $lost;
-        $receipt->total_price     = $price->price * $receipt->lost; 
+        $receipt->total_price     = $price*$lost; 
         $receipt->user_id         = Auth::user()->id;
         $receipt->save();
-        personalrent::where('id', $id)
-                    ->update(["item_in" => date('Y-m-d H:i:s')]);
         return $this->ok();
     }
     

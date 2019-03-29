@@ -22,22 +22,20 @@ class GroupReceiptController extends Controller
         $item_in               = Carbon::parse(grouprent::where('id',$id)->pluck('item_in')->first());
         $days                  = ($date >= $item_in) ? 0 : $date->diffInDays($item_in);
         $fine_id               = fine::max('id');
-        $fine                  = fine::where('id',$fine_id)->select('fine')->first();    
-        $item_id               = grouprent::where('id',$id)->pluck('item_id');
-        $price                 = item::where('id',$item_id)->select('price')->first();
+        $fine                  = fine::where('id',$fine_id)->pluck('fine')->first();    
+        $item_id               = grouprent::where('id',$id)->pluck('item_id')->first();
+        $price                 = item::where('id',$item_id)->pluck('price')->first();
         $lost                  = grouprent::where('id',$id)->pluck('lost')->first();
         $receipt               = new groupreceipt;
         $receipt->id           = $id;
-        $receipt->fine         = $fine->fine;  
-        $receipt->total_fine   = $fine->fine*$days;
+        $receipt->fine         = $fine;  
+        $receipt->total_fine   = $fine*$days;
         $receipt->days         = $days;
-        $receipt->price        = $price->price;
+        $receipt->price        = $price;
         $receipt->lost         = $lost;
-        $receipt->total_price  = $price->price * $lost; 
+        $receipt->total_price  = $price*$lost; 
         $receipt->user_id      = Auth::user()->id;
         $receipt->save();
-        grouprent::where('id', $id)
-                 ->update(["item_in" => date('Y-m-d H:i:s')]);
         return $this->ok();
     }
     
