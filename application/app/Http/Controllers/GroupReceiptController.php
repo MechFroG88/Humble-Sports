@@ -23,9 +23,9 @@ class GroupReceiptController extends Controller
         $days                  = ($date >= $item_in) ? 0 : $date->diffInDays($item_in);
         if ($days != 0 && fine::max('id') <= 0) return $this->fail();
         $fine_id               = fine::max('id');
-        $single_fine           = fine::where('id',$fine_id)->select('fine')->first();    
+        $fine                  = fine::where('id',$fine_id)->select('fine')->first();    
         $item_id               = grouprent::where('id',$id)->pluck('item_id');
-        $single_price          = item::where('id',$item_id)->select('price')->first();
+        $price                 = item::where('id',$item_id)->select('price')->first();
         if (groupreceipt::where('id',$id)->exists()){
             groupreceipt::where('id',$id)
                            ->update([
@@ -44,12 +44,12 @@ class GroupReceiptController extends Controller
         }
         $receipt               = new groupreceipt;
         $receipt->id           = $id;
-        $receipt->single_fine  = $single_fine->fine;  
-        $receipt->total_fine   = $single_fine->fine*$days;
+        $receipt->fine         = $fine->fine;  
+        $receipt->total_fine   = $fine->fine*$days;
         $receipt->days         = $days;
-        $receipt->single_price = $single_price->price;
+        $receipt->price        = $price->price;
         $receipt->lost         = grouprent::where('id',$id)->pluck('lost')->first();
-        $receipt->total_price  = $single_price->price * $receipt->amount; 
+        $receipt->total_price  = $price->price * $receipt->amount; 
         $receipt->user_id      = Auth::user()->id;
         $receipt->save();
         grouprent::where('id', $id)
