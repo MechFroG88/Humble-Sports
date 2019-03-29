@@ -1,4 +1,3 @@
-
 swagger: "2.0"
 
 info:
@@ -26,17 +25,27 @@ paths:
         name: "Body"
         description: "Create new user"
         schema:
-          $ref: "#/definitions/UserPost"
+          type: "object"
+          properties:
+            username:
+              type: "string"
+              example: "admin"
+            cn_name:
+              type: "string"
+              example: "陈科锦"
+            password:
+              type: "string"
+              format: "password"
+              example: "edrtfyuihgfdtser"
+            type:
+              type: "integer"
+              description: "User type\n
+              0 : administrator\n
+              1 : user"
 
       responses:
         200:
           description: "Successful operation"
-          schema:
-            type: "object"
-            properties:
-              password:
-                type : "string"
-                example : "asdasdasd"
         401:
           description: "Unauthorized"
         400:
@@ -45,41 +54,67 @@ paths:
     get:
       tags:
       - "Users"
-      summary: "Get all users data"
+      summary: "Returns all users data"
       responses:
         200:
           description: "Successful operation"
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/UserGet"
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                cn_name:
+                  type: "string"
+                  example: "陈科锦"
+                type:
+                  type: "integer"
+                  description: "User type\n
+                  0 : administrator\n
+                  1 : user"
         401:
           description: "Unauthorized"
         400:
           description: "Validation Error"
-
-  /user/{userId}/password:
+  
+  /user/current:
+    get:
+      tags:
+      - "Users"
+      summary: "Returns current user name"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                cn_name:
+                  type: "string"
+                  example: "陈科锦"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"   
+          
+  /user/password:
     put:
       tags:
       - "Users"
       summary: "Update user password"
       parameters:
-      - name: "userId"
-        in: "path"
-        description: "ID of user to update"
-        required: true
-        type: "integer"
-      - name: "body"
-        in: "body"
+      - in: "body"
+        name: "Body"
+        description: "Update password"
         schema:
           type: "object"
           properties:
-            id:
-              type: "integer"
-              example: "1"
             password:
               type: "string"
-              example: "aerdtfgvb"
+              example: "asdasd"
 
       responses:
         200:
@@ -88,6 +123,31 @@ paths:
           description: "Unauthorized"
         400:
           description: "Validation Error"
+
+  /user/username:
+    put:
+      tags:
+      - "Users"
+      summary: "Update user username"
+      parameters:
+      - in: "body"
+        name: "Body"
+        description: "Update username"
+        schema:
+          type: "object"
+          properties:
+            username:
+              type: "string"
+              example: "kelzinpoop"
+
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
   /user/login:
     post:
       tags:
@@ -120,17 +180,7 @@ paths:
       tags:
       - "Users"
       summary : "Logout"
-      parameters:
-      - in: "body"
-        name: "Body"
-        description: "Login user"
-        schema:
-          type: "object"
-          properties:
-            userid:
-              type: "integer"
-              example: "1"
-
+              
       responses:
         200:
           description: "Successful logged out"
@@ -143,7 +193,7 @@ paths:
     get:
       tags:
       - "Users"
-      summary: "Get single user data"
+      summary: "Returns single user data"
       parameters:
         - name: "userId"
           in: "path"
@@ -154,7 +204,22 @@ paths:
         200:
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/UserGet"
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              cn_name:
+                type: "string"
+                example: "陈科锦"
+              username:
+                type: "string"
+                example: "admin"
+              type:
+                type: "integer"
+                description: "User type\n
+                0 : administrator\n
+                1 : user"
         401:
           description: "Unauthorized"
         400:
@@ -170,14 +235,11 @@ paths:
         description: "ID of user to update"
         required: true
         type: "integer"
-      - name: "body"
+      - name: "Body"
         in: "body"
         schema:
           type: "object"
           properties:
-            id:
-              type: "integer"
-              example: "1"
             type:
               type: "integer"
               description: "User type\n
@@ -186,20 +248,6 @@ paths:
       responses:
         200:
           description: "Successful operation"
-          schema:
-            type: "object"
-            properties:
-              id:
-                type: "integer"
-                example: "1"
-              cnname:
-                type: "string"
-                example: "陈科锦"
-              type:
-                type: "integer"
-                description: "User type\n
-                0 : administrator\n
-                1 : user"
         401:
           description: "Unauthorized"
         400:
@@ -222,39 +270,1018 @@ paths:
           description: "Unauthorized"
         400:
           description: "Validation Error"
-          
-    
-definitions:
-  UserPost:
-    type: "object"
-    properties:
-      username:
-        type: "string"
-        example: "admin"
-      cn_name:
-        type: "string"
-        example: "陈科锦"
-      password:
-        type: "string"
-        example: "edrtfyuihgfdtser"
-      type:
-        type: "integer"
-        description: "User type\n
-        0 : administrator\n
-        1 : user"
-  UserGet:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        example: "1"
-      cn_name:
-        type: "string"
-        example: "陈科锦"
-      type:
-        type: "integer"
-        description: "User type\n
-        0 : administrator\n
-        1 : user"
-    
 
+  /student:
+    post:
+      tags:
+      - "Students"
+      summary: "Create new user"
+      parameters:
+      - in: "body"
+        name: "Body"
+        description: "Create new user"
+        schema:
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+              example: "140048"
+            cn_name:
+              type: "string"
+              example: "陈科锦"
+            class:
+              type: "string"
+              example: "6szhong"
+            phone_no:
+              type: "string"
+              example: "012-5211843"
+            picture:
+              type: "string"
+              example: ""
+
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+    get:
+      tags:
+      - "Students"
+      summary: "Returns all users data"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  example: "1"
+                cn_name:
+                  type: "string"
+                  example: "陈科锦"
+                class:
+                  type: "string"
+                  example: "6szhong"
+                phone_no:
+                  type: "string"
+                  example: "012-5211843"
+                picture:
+                  type: "string"
+                  example: "localhost/background-login.jpg"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+  /item:
+    post:
+      tags:
+      - "Items"
+      summary: "Create new items"
+      parameters:
+      - in: "body"
+        name: "Body"
+        description: "Create new items"
+        schema:
+          type: "object"
+          properties:
+            type:
+              type: "string"
+              example: "lanqiu"
+            start_id:
+              type: "integer"
+              example: "2"
+            end_id:
+              type: "integer"
+              example: "9"
+            price:
+              type: "integer"
+              example: "10"
+           
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+    
+    get:
+      tags:
+      - "Items"
+      summary: "Returns items data"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              type:
+                type: "string"
+                example: "ball"
+              start_id:
+                type: "integer"
+                example: "1"
+              end_id:
+                type: "integer"
+                example: "12"
+              price:
+                type: "number"
+                example: "13"                           
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error" 
+  
+  /item/{itemId}:
+    get:
+      tags:
+      - "Items"
+      summary: "Returns single item data"
+      parameters:
+      - name: "itemId"
+        in: "path"
+        description: "Id of item data to return"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              type:
+                type: "string"
+                example: "ball"
+              start_id:
+                type: "integer"
+                example: "1"
+              end_id:
+                type: "integer"
+                example: "12"
+              price:
+                type: "number"
+                example: "13"                           
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error" 
+
+  /item/record/{itemId}:
+    get:
+      tags:
+      - "Items"
+      summary: "Get item rental record"
+      parameters:
+      - name: "itemId"
+        in: "path"
+        description: "Id of rental record item"
+        required: true
+        type: "integer"
+      
+      responses:
+        200:
+          description: "Successful logged in"
+          schema:
+            type: "object"
+            properties:
+              rent_id:
+                type: "integer"
+                example: "1"
+              student_id:
+                type: "integer"
+                example: "140123"
+              group_name:
+                type: "string"
+                example: "lanqiuxuehui"
+              item_out:
+                type: "string"
+                format: "date-time"
+                example: "2019-02-02 00:00:00"
+              item_in:
+                type: "string"
+                format: "date-time"
+                example: "2019-02-02 00:00:00"
+              teacher:
+                type: "string"
+                example: "kelzin tan"
+              status:
+                type: "integer"
+                example: "1"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+          
+  /fine:
+    post:
+      tags:
+      - "Fines"
+      summary: "Change fine per day"
+      parameters:
+      - in: "body"
+        name: "Body"
+        description: "Change fine per day"
+        schema:
+          type: "object"
+          properties:
+            fine:
+              type: "integer"
+              example: "12"
+      
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+          
+    get:
+      tags: 
+      - "Fines"
+      summary: "Returns fine per day"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              fine:
+                type: "number"
+                example: "12"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /rent/personal:
+    post:
+      tags:
+      - "PersonalRents"
+      summary: "Create personal rent"
+      parameters:
+      - in: "body"
+        name: "Body"
+        description: "Create personal rent"
+        schema:
+          type: "object"
+          properties:
+            student_id:
+              type: "integer"
+              example: "140048"
+            item_id:
+              type: "string"
+              example: "banqiu"
+            item_tag:
+              type: "integer"
+              example: "1"
+            due_date:
+              type: "string"
+              format: "date-time"
+              example: "2018-01-29 00:41:00"
+            
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+          
+    get:
+      tags: 
+      - "PersonalRents"
+      summary: "Returns all personal rents data"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              teacher:
+                type: "string"
+                example: "陈恪尽"              
+              student_id:
+                type: "integer"
+                example: "140123"              
+              item_id:
+                type: "integer"
+                example: "1"
+              item_tag:
+                type:  "integer"
+                example: "1"
+              lost:
+                type: "integer"
+                example: "0"
+              item_out:
+                type: "string"
+                format: "date-time"
+                example: "2019-01-31 10:37:13"              
+              item_in:
+                type: "string"
+                format: "date-time"
+                example: "2019-01-31 10:27:13"
+              due_date:
+                type: "string"
+                format: "date-time"
+                example: "2019-02-01 12:25:10"
+              status:
+                type: "integer"
+                description: "Status\n
+                0 : returned\n
+                1 : unreturned\n
+                2 : expired\n
+                3 : paid"
+              student:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "140048"
+                  cn_name:
+                    type: "string"
+                    example: "陈科锦"
+                  class:
+                    type: "string"
+                    example: "高三李忠"
+                  picture:
+                    type: "string"
+                    example: ""
+                  phone_no:
+                    type: "string"
+                    example: "0129102932"
+              item:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  type: 
+                    type: "string"
+                    example: "basketball"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /rent/personal/sort:
+    get:
+      tags: 
+      - "PersonalRents"
+      summary: "Returns all personal rents data sorted with status"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              teacher:
+                type: "string"
+                example: "陈恪尽"              
+              student_id:
+                type: "integer"
+                example: "140123"              
+              item_id:
+                type: "integer"
+                example: "1"
+              item_tag:
+                type:  "integer"
+                example: "1"
+              lost:
+                type: "integer"
+                example: "0"
+              item_out:
+                type: "string"
+                format: "date-time"
+                example: "2019-01-31 10:37:13"              
+              item_in:
+                type: "string"
+                format: "date-time"
+                example: "2019-01-31 10:27:13"
+              due_date:
+                type: "string"
+                format: "date-time"
+                example: "2019-02-01 12:25:10"
+              status:
+                type: "integer"
+                description: "Status\n
+                0 : returned\n
+                1 : unreturned\n
+                2 : expired\n
+                3 : paid"
+              student:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "140048"
+                  cn_name:
+                    type: "string"
+                    example: "陈科锦"
+                  class:
+                    type: "string"
+                    example: "高三李忠"
+                  picture:
+                    type: "string"
+                    example: ""
+                  phone_no:
+                    type: "string"
+                    example: "0129102932"
+              item:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  type: 
+                    type: "string"
+                    example: "basketball"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+  /rent/personal/{rentId}/return:  
+      put:
+        tags:
+        - "PersonalRents"
+        summary: "Update personal rent returned"
+        parameters:
+          - name: "rentId"
+            in: "path"
+            description: "Id of personal rent to update"
+            required: true
+            type: "integer"
+          - in: "body"
+            name: "Body"
+            description: "Update personal rent returned"
+            schema: 
+              type: "object"
+              properties:
+                lost:
+                  type: "integer"
+                  example: "0"
+
+        responses:
+          200:
+            description: "Successful operation"
+          401:
+            description: "Unauthorized"
+          400:
+            description: "Validation Error"
+
+  /rent/personal/expired:  
+      put:
+        tags:
+        - "PersonalRents"
+        summary: "Update personal rent expired"
+
+        responses:
+          200:
+            description: "Successful operation"
+          401:
+            description: "Unauthorized"
+          400:
+            description: "Validation Error" 
+            
+  /rent/group:
+    post:
+      tags:
+      - "GroupRents"
+      summary: "Create group rent"
+      parameters:
+      - in: "body"
+        name: "Body"
+        description: "Create group rent"
+        schema:
+          type: "object"
+          properties:
+            group_name:
+              type: "string"
+              example: "篮球"
+            student_id:
+              type: "integer"
+              example: "140048"
+            phone_no:
+              type: "string"
+              example: "0123456789"
+            item_id:
+              type: "integer"
+              example: "1"
+            item_tag:
+              type: "integer"
+              example: "1"
+            amount:
+              type: "integer"
+              example: "10"
+            due_date:
+              type: "string"
+              format: "date-time"
+              example: "2018-01-29 00:41:00"
+            
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+    
+    get:
+      tags:
+      - "GroupRents"
+      summary: "Returns all group rents data"
+        
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              group_name:
+                type: "string"
+                example: "Humble-Dog"
+              student_id:
+                type: "integer"
+                example: "140048"
+              teacher:
+                type: "string"
+                example: "陈恪尽"
+              item_id:
+                type: "integer"
+                example: "1"
+              item_tag:
+                type: "integer"
+                example: "1"
+              amount:
+                type: "integer"
+                example: "10"
+              lost:
+                type: "integer"
+                example: "3"
+              returned:
+                type: "integer"
+                example: "7"
+              item_out:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"              
+              item_in:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"
+              due_date:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"
+              status:
+                type: "integer"
+                example: "0"
+                description: "Status\n
+                  0 : returned\n
+                  1 : unreturned\n
+                  2 : expired\n
+                  3 : paid"
+              item:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  type:
+                    type: "string"
+                    example: "Basketball"
+              student:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "140048"
+                  cn_name:
+                    type: "string"
+                    example: "陈科锦"
+                  class:
+                    type: "string"
+                    example: "高三李忠"
+                  picture:
+                    type: "string"
+                    example: ""
+                  phone_no:
+                    type: "string"
+                    example: "0129102932"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /rent/group/sort:
+    get:
+      tags:
+      - "GroupRents"
+      summary: "Returns all group rents data sorted with status"
+        
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              group_name:
+                type: "string"
+                example: "Humble-Dog"
+              student_id:
+                type: "integer"
+                example: "140048"
+              teacher:
+                type: "string"
+                example: "陈恪尽"
+              item_id:
+                type: "integer"
+                example: "1"
+              item_tag:
+                type: "integer"
+                example: "1"
+              amount:
+                type: "integer"
+                example: "10"
+              lost:
+                type: "integer"
+                example: "3"
+              returned:
+                type: "integer"
+                example: "7"
+              item_out:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"              
+              item_in:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"
+              due_date:
+                type: "string"
+                format: "date-time"
+                example: "2018-01-29 00:41:00"
+              status:
+                type: "integer"
+                example: "0"
+                description: "Status\n
+                  0 : returned\n
+                  1 : unreturned\n
+                  2 : expired\n
+                  3 : paid"
+              item:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  type:
+                    type: "string"
+                    example: "Basketball"
+              student:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "140048"
+                  cn_name:
+                    type: "string"
+                    example: "陈科锦"
+                  class:
+                    type: "string"
+                    example: "高三李忠"
+                  picture:
+                    type: "string"
+                    example: ""
+                  phone_no:
+                    type: "string"
+                    example: "0129102932"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /rent/group/{rentId}/return:  
+      put:
+        tags:
+        - "GroupRents"
+        summary: "Update group rent returned"
+        parameters:
+          - name: "rentId"
+            in: "path"
+            description: "Id of group rent to update"
+            required: true
+            type: "integer"
+          - in: "body"
+            name: "Body"
+            description: "Update group rent returned"
+            schema: 
+              type: "object"
+              properties:
+                lost:
+                  type: "integer"
+                  example: "3"
+        responses:
+          200:
+            description: "Successful operation"
+          401:
+            description: "Unauthorized"
+          400:
+            description: "Validation Error"
+            
+  /rent/group/expired:  
+      put:
+        tags:
+        - "GroupRents"
+        summary: "Update group rent expired"
+
+        responses:
+          200:
+            description: "Successful operation"
+          401:
+            description: "Unauthorized"
+          400:
+            description: "Validation Error" 
+
+  /receipt/personal/{Id}:
+    get:
+      tags:
+      - "PersonalReceipts"
+      summary: "Returns single receipt data"
+      parameters:
+        - name: "Id"
+          in: "path"
+          description: "ID of receipt to return"
+          required: true
+          type: "integer"
+      
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              fine:
+                type: "integer"
+                example: "1"
+              days:
+                type: "integer"
+                example: "2"
+              total_fine:
+                type: "integer"
+                example: "2"
+              price:
+                type: "integer"
+                example: "10"
+              lost:
+                type: "integer"
+                example: "3"
+              total_price:
+                type: "integer"
+                example: "30"
+              user:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  cn_name:
+                    type: "string"
+                    example: "管理员"
+              personalrent:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  student_id:
+                    type: "integer"
+                    example: "140048"
+                  item_id:
+                    type: "integer"
+                    example: "1"
+                  item_out: 
+                    type: "string"
+                    format: "date-time"
+                    example: "2019-03-17 17:27:42"
+                  item_in:
+                    type: "string"
+                    format: "date-time"
+                    example: "2019-03-17 17:27:42"
+                  due_date:
+                    type: "string"
+                    format: "date-time"
+                    example: "2019-03-17 17:27:42"
+                  student:
+                    type: "object"
+                    properties:
+                      id:
+                        type: "integer"
+                        example: "140048"
+                      cn_name:
+                        type: "string"
+                        example: "陈科锦"
+                      class:
+                        type: "string"
+                        example: "高三李忠"
+                      picture:
+                        type: "string"
+                        example: ""
+                      phone_no:
+                        type: "string"
+                        example: "0129102932"
+                  item:
+                    type: "object"
+                    properties:
+                      id: 
+                        type: "integer"
+                        example: "1"
+                      type: 
+                        type: "string"
+                        example: "Basketball"
+  /receipt/group/{Id}:
+    get:
+      tags:
+      - "GroupReceipts"
+      summary: "Returns single receipt data"
+      parameters:
+        - name: "Id"
+          in: "path"
+          description: "ID of receipt to return"
+          required: true
+          type: "integer"
+      
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              fine:
+                type: "integer"
+                example: "1"
+              days:
+                type: "integer"
+                example: "2"
+              total_fine:
+                type: "integer"
+                example: "2"
+              price: 
+                type: "integer"
+                example: "10"
+              lost:
+                type: "integer"
+                example: "3"
+              total_price: 
+                type: "integer"
+                example: "30"
+              user:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  cn_name:
+                    type: "string"
+                    example: "管理员"
+              grouprent:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    example: "1"
+                  group_name:
+                    type: "string"
+                    example: "Humble-Dog"
+                  student_id:
+                    type: "integer"
+                    example: "140048"
+                  teacher:
+                    type: "integer"
+                    example: "管理员"
+                  item_id:
+                    type: "integer"
+                    example: "1"
+                  item_tag:
+                    type: "integer"
+                    example: "3"
+                  amount:
+                    type: "integer"
+                    example: "10"
+                  lost: 
+                    type: "integer"
+                    example: "3"
+                  returned:
+                    type: "integer"
+                    example: "7"
+                  item_out:
+                    type: "string"
+                    format: "date-time"
+                    example: "2018-01-29 00:41:00"
+                  item_in:
+                    type: "string"
+                    format: "date-time"
+                    example: "2018-01-29 00:41:00"
+                  due_date:
+                    type: "string"
+                    format: "date-time"
+                    example: "2018-01-29 00:41:00"
+                  status:
+                    type: "integer"
+                    example: "3"
+                  item:
+                    type: "object"
+                    properties:
+                      id:
+                        type: "integer"
+                        example: "1"
+                      type: 
+                        type: "string"
+                        example: "basketball"
+  /report:      
+    get:
+      tags:
+      - "Report"
+      summary: "Returns report data"
+      
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              unreturned:
+                type: "integer"
+                example: "21"
+              expired:
+                type: "integer"
+                example: "30"
+              paid_count:
+                type: "integer"
+                example: "50"
+              total_paid:
+                type: "integer"
+                example: "12000"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
+
+  /report/month:
+    get:
+      tags:
+      - "Report"
+      summary: "Returns monthly report data"
+      
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                example: "1"
+              year:
+                type: "integer"
+                example: "2019"
+              month:                        
+                type: "integer"
+                example: "12"
+              total: 
+                type: "integer"
+                example: "20"
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
