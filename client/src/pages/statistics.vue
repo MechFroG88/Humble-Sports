@@ -39,7 +39,7 @@
         </div>
       </div>
     </div>
-    <div class="chart" v-if="tableData" :class="{'loading loading-lg': loading}">
+    <div class="chart" v-if="tableData.length > 1" :class="{'loading loading-lg': loading}">
       <h4 class="chart-title">年月度统计表</h4>
       <GChart
       align="center"
@@ -73,6 +73,7 @@ export default {
       data.forEach(element => {
         this.tableData.push([`${element.month}月`, element.total]);
       });
+      console.log(this.tableData);
     }).catch((err) => {
       console.log(err);
     })
