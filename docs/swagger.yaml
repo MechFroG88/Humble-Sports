@@ -1147,7 +1147,7 @@ paths:
               id:
                 type: "integer"
                 example: "1"
-              single_fine:
+              fine:
                 type: "integer"
                 example: "1"
               days:
@@ -1156,7 +1156,7 @@ paths:
               total_fine:
                 type: "integer"
                 example: "2"
-              single_price: 
+              price: 
                 type: "integer"
                 example: "10"
               lost:
