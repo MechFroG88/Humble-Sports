@@ -21,20 +21,20 @@ class GroupReceiptController extends Controller
         $date                  = Carbon::parse(grouprent::where('id',$id)->pluck('due_date')->first());
         $item_in               = Carbon::parse(grouprent::where('id',$id)->pluck('item_in')->first());
         $days                  = ($date >= $item_in) ? 0 : $date->diffInDays($item_in);
-        if ($days != 0 && fine::max('id') <= 0) return $this->fail();
         $fine_id               = fine::max('id');
         $fine                  = fine::where('id',$fine_id)->select('fine')->first();    
         $item_id               = grouprent::where('id',$id)->pluck('item_id');
         $price                 = item::where('id',$item_id)->select('price')->first();
+        $lost                  = grouprent::where('id',$id)->pluck('lost')->first();
         if (groupreceipt::where('id',$id)->exists()){
             groupreceipt::where('id',$id)
                            ->update([
                                "fine" => $fine->fine,
-                               "days" => ($date >= $item_in) ? 0 : $date->diffInDays($item_in),
-                               "total_fine" => $fine->fine*$receipt->days,
+                               "days" => $days,
+                               "total_fine" => $fine->fine*$days,
                                "price" => $price->price,
-                               "lost" => grouprent::where('id',$id)->pluck('lost')->first(),
-                               "total_price" => $price->price * $receipt->lost,
+                               "lost" => $lost,
+                               "total_price" => $price->price * $lost,
                                "user_id" => Auth::user()->id,
                            ]);
             grouprent::where('id', $id)
@@ -48,8 +48,8 @@ class GroupReceiptController extends Controller
         $receipt->total_fine   = $fine->fine*$days;
         $receipt->days         = $days;
         $receipt->price        = $price->price;
-        $receipt->lost         = grouprent::where('id',$id)->pluck('lost')->first();
-        $receipt->total_price  = $price->price * $receipt->amount; 
+        $receipt->lost         = $lost;
+        $receipt->total_price  = $price->price * $lost; 
         $receipt->user_id      = Auth::user()->id;
         $receipt->save();
         grouprent::where('id', $id)
@@ -61,6 +61,9 @@ class GroupReceiptController extends Controller
     {
         $groupreceipt = groupreceipt::with('user','grouprent','grouprent.item')
                                     ->where('id',$id)->get()->first();
+        if (!isset($receipt)){
+            $receipt = collect();
+        }
         return response($groupreceipt->toJson(),200);
     }
 
