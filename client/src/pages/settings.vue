@@ -12,7 +12,8 @@
       </div>
       <form v-else @submit.prevent="editUsername">
         <div class="input-group">
-          <input type="text" class="form-input" placeholder="请输入用户名" v-model="username">
+          <input type="text" class="form-input" :class="{'error-input': errors.first('用户名')}" name="用户名" placeholder="请输入用户名" v-model="username" v-validate="'required'">
+          <p class="form-input-hint text-error">{{ errors.first('用户名') }}</p>
           <button class="btn btn-primary confirmbtn input-group-btn" :class="{'loading': username_loading}"
           type="submit">确认</button>
         </div>
@@ -25,13 +26,15 @@
       <div slot="body">
         <div class=form-group>
           <label class="newPw" for="password">新密码</label>
-          <input type="password" class="form-input" placeholder="请输入新密码" 
-          name="password" id="password" v-model="password">
+          <input type="password" class="form-input" :class="{'error-input': errors.first('密码')}" placeholder="请输入新密码" 
+          name="密码" id="password" v-model="password" v-validate="'required'">
+          <p class="form-input-hint text-error">{{ errors.first('密码') }}</p>
         </div>
         <div class=form-group>
           <label class="confirmPw" for="confirm_password">确认新密码</label>
-          <input type="password" class="form-input" placeholder="请再次输入新密码" 
-          name="confirm_password" id="confirm_password" v-model="confirm_password">
+          <input type="password" class="form-input" :class="{'error-input': errors.first('新密码')}" placeholder="请再次输入新密码" 
+          name="新密码" id="confirm_password" v-model="confirm_password" v-validate="'required'">
+          <p class="form-input-hint text-error">{{ errors.first('新密码') }}</p>
         </div>
       </div>
       <div slot="footer">
@@ -57,6 +60,7 @@ export default {
   },
   mounted() {
     getCurrentUser().then(({ data }) => {
+      console.log(data);
       this.name = data.cn_name;
       this.username = data.username;
     })
