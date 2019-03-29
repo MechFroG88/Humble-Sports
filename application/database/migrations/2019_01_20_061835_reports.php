@@ -14,10 +14,10 @@ class Reports extends Migration
     public function up()
     {
         Schema::create('reports', function (Blueprint $table) {
-            $table->increment('year');
+            $table->increments('id');
+            $table->integer('year');
             $table->integer('month');
-            $table->integer('junior');
-            $table->integer('senior');
+            $table->integer('total');
         });
     }
 

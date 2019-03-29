@@ -16,9 +16,14 @@ class PersonalReceipts extends Migration
         Schema::create('personal_receipts', function (Blueprint $table) {
             $table->integer('id');
             $table->integer('user_id');
-            $table->integer('fine');
-            $table->integer('type');
+            $table->float('total_fine',8,2)->default(0);
+            $table->integer('days')->default(0);
+            $table->float('fine',8,2);
+            $table->float('price',8,2);
+            $table->integer('lost')->default(0);
+            $table->float('total_price',8,2)->default(0);
             $table->timestamps();
+            $table->primary('id');
         });
     }
 

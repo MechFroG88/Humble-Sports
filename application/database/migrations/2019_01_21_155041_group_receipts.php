@@ -14,11 +14,16 @@ class GroupReceipts extends Migration
     public function up()
     {
         Schema::create('group_receipts', function (Blueprint $table) {
-            $table->increments('id');
+            $table->integer('id');
             $table->integer('user_id');
-            $table->integer('fine');
-            $table->tinyInteger('type');
+            $table->float('price',8,2);
+            $table->integer('lost');
+            $table->float('total_price',8,2)->default(0);
+            $table->float('fine',8,2);
+            $table->integer('days');
+            $table->float('total_fine',8,2)->default(0);
             $table->timestamps();
+            $table->primary('id');
         });    //
     }
 

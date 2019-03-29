@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Validator;	
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Validator;	
 use App\User;
+use Auth;
 
 class UserController extends Controller
 {
@@ -44,18 +45,20 @@ class UserController extends Controller
     {
         $validator = Validator::make($data->all(), $this->rules);
         if ($validator->fails()) return $this->fail();
-        $user = new user;
-        $user->username = $data->username;
-        $user->cn_name  = $data->cn_name;
-        $user->type     = $data->type;
-        $user->password = Hash::make($data->password);
-        $user->save();
+        $data->request->add(['password' => Hash::make($data->password)]); 
+        user::create($data->all());
         return $this->ok();
     }
 
     public function get()
     {
-        $user = user::all();
+        $user = user::all()->makeHidden('username');
+        return response($user->toJson(),200);
+    }
+
+    public function get_current()
+    {
+        $user = Auth::user()->makeHidden(['id','username','type']);
         return response($user->toJson(),200);
     }
 
@@ -65,6 +68,15 @@ class UserController extends Controller
         if ($validator->fails()) return $this->fail();
         user::where('id', Auth::user()->id)
             ->update(["password" => Hash::make($data->password)]);
+        return $this->ok();
+    }
+
+    public function change_username(Request $data)
+    {   
+        $validator = Validator::make($data->all(),array("username" => "required"));
+        if ($validator->fails()) return $this->fail();
+        user::where('id', Auth::user()->id)
+            ->update(["username" => $data->username]);
         return $this->ok();
     }
 
