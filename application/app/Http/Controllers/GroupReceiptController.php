@@ -26,22 +26,6 @@ class GroupReceiptController extends Controller
         $item_id               = grouprent::where('id',$id)->pluck('item_id');
         $price                 = item::where('id',$item_id)->select('price')->first();
         $lost                  = grouprent::where('id',$id)->pluck('lost')->first();
-        if (groupreceipt::where('id',$id)->exists()){
-            groupreceipt::where('id',$id)
-                           ->update([
-                               "fine" => $fine->fine,
-                               "days" => $days,
-                               "total_fine" => $fine->fine*$days,
-                               "price" => $price->price,
-                               "lost" => $lost,
-                               "total_price" => $price->price * $lost,
-                               "user_id" => Auth::user()->id,
-                           ]);
-            grouprent::where('id', $id)
-                     ->update(["item_in" => date('Y-m-d H:i:s')]);
-            
-            return $this->ok();
-        }
         $receipt               = new groupreceipt;
         $receipt->id           = $id;
         $receipt->fine         = $fine->fine;  
