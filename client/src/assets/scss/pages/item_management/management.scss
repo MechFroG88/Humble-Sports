@@ -24,17 +24,19 @@
       flex-direction: column;
       .form-group {
         .col-9 {
-          display: flex;
-          align-items: center;
           color: $text-gray;
-          .form-input {
-            width: 75%;
+          div {
+            display: flex;
+            align-items: center;
+            .form-input {
+              width: 75%;
+            }
           }
         }
       }
       .btn {
         align-self: flex-end;
-        margin-top: 1rem;
+        margin-top: .8rem;
         margin-bottom: 0 !important;
         @extend .addBtn
       }
@@ -48,8 +50,13 @@
       .form-horizontal {
         .type, .serial, .price {
           .col-9 {
-            display: flex; 
-            align-items: center;
+            div {
+              display: flex; 
+              align-items: center;
+            }
+            .form-input-hint {
+              margin-bottom: .2rem;
+            }
           }
         }
       }

@@ -63,8 +63,10 @@
     <modal ref="submitLose" title="损失数量">
       <div slot="body">
         <div class="form-group">
-          <input name="amount" id="amount" type="number" class="form-input" 
-          placeholder="请输入物品损失数量" v-model="lostAmount">
+          <input name="损失数量" id="amount" type="text" class="form-input" :class="{'error-input': errors.first('损失数量')}"
+          placeholder="请输入物品损失数量" v-model="lostAmount" v-validate="'required|numeric'"
+          @keyup.enter="submitLose">
+          <p class="form-input-hint text-error">{{ errors.first('损失数量') }}</p>
         </div>
       </div>
       <div slot="footer">

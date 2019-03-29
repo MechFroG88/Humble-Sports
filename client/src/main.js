@@ -25,8 +25,8 @@ Vue.use(VueFlashMessage, {
 
 // Datetime picker
 import { Datetime } from 'vue-datetime';
-import 'vue-datetime/dist/vue-datetime.css'
-import { Settings } from 'luxon'
+import 'vue-datetime/dist/vue-datetime.css';
+import { Settings } from 'luxon';
 Vue.component('datetime', Datetime);
 Settings.defaultLocale = 'en';
 
