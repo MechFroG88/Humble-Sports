@@ -41,6 +41,9 @@
         text-align: left;
         font-size: $font-size-lg;
         max-width: 4.8rem;
+        @media screen and (max-width: 1024px) {
+          font-size: $font-size;
+        }
         &:first-child {
           padding-left: 1.2rem;
         }
@@ -52,6 +55,9 @@
       td {
         &:first-child {
           padding: 0 1.2rem;
+        }
+        @media screen and (max-width: 1024px) {
+          font-size: $font-size-sm;
         }
         font-size: $font-size-lg;
         font-weight: 300;

@@ -32,7 +32,9 @@
         color: $primary-color;
         text-decoration: underline;
         cursor: pointer;
-
+        @media screen and (max-width: 1024px) {
+          font-size: $font-size-sm;
+        }
         &:hover {
           color: darken($primary-color, 25%);
         }

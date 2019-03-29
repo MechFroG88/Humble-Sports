@@ -96,6 +96,9 @@
       }
       .icon-settings, .icon-log-out {
         font-size: $font-size-lg;
+        @media screen and (max-width: 1024px) {
+          font-size: $font-size;
+        }
       }
 
       .icon:hover {
@@ -110,5 +113,8 @@
     left: 16.666667%;
     min-height: 100vh;
     background-color: #f3f3f3;
+    @media screen and (max-width: 1024px) {
+      padding: 1.8rem 3rem;
+    }
   }
 }
