@@ -58,7 +58,7 @@ class UserController extends Controller
 
     public function get_current()
     {
-        $user = Auth::user()->makeHidden(['id','username','type']);
+        $user = Auth::user()->makeHidden(['id','type']);
         return response($user->toJson(),200);
     }
 
