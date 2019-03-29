@@ -95,6 +95,9 @@ paths:
                 cn_name:
                   type: "string"
                   example: "陈科锦"
+                username:
+                  type: "string"
+                  example: "absdc"
         401:
           description: "Unauthorized"
         400:
