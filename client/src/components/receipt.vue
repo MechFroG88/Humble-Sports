@@ -4,7 +4,6 @@
   ]">
     <a class="modal-overlay" aria-label="Close"
     @click="active = false"/>
-      {{data.grouprent.item_out}}
     <div class="modal-container" v-if="Object.keys(data).length">
       <div class="modal-header">
         <div class="modal-title-group">
@@ -22,8 +21,8 @@
           <div class="container" v-if="data.days">
             <div class="left-container">
               <div class="title">借出时间</div>
-              <div class="date">{{ toDate(data.personalrent.item_out) }}</div>
-              <div class="time">{{ toTime(data.personalrent.item_out) }}</div>
+              <div class="date">{{ toDate(data.rent.item_out) }}</div>
+              <div class="time">{{ toTime(data.rent.item_out) }}</div>
             </div>
             <div class="box1">
               <div class="dottedLine"></div>
@@ -34,8 +33,8 @@
             </div>
             <div class="right-container">
               <div class="title">归还时间</div>
-              <div class="date">{{ toDate(data.personalrent.item_in) }}</div>
-              <div class="time">{{ toTime(data.personalrent.item_in) }}</div>
+              <div class="date">{{ toDate(data.rent.item_in) }}</div>
+              <div class="time">{{ toTime(data.rent.item_in) }}</div>
             </div>
           </div>
           <div class="lateContainer" v-if="data.days">
@@ -49,16 +48,16 @@
             <div class="payerContainer columns">
               <div class="payer column col-2">支付者：</div>
               <div class="payerName">
-                {{ data.personalrent ? data.personalrent.student_id : data.grouprent.student_id }} {{ data.user.cn_name }}
+                {{ data.rent.student_id }} {{ data.user.cn_name }}
               </div>
             </div>
             <div class="itemContainer columns">
               <div class="item column col-2">项目：</div>
               <div class="itemGroup">
                 <div class="itemType">
-                  {{ data.days != 0 ? `${data.personal ? data.personalrent.item.type : data.grouprent.item.type} 逾期 ${data.days} 天` : '' }}
+                  {{ data.days != 0 ? `${data.rent.item.type} 逾期 ${data.days} 天` : '' }}
                   <br v-if="data.days && data.fine">
-                  {{ data.lost != 0 ? `${data.personal ? data.personalrent.item.type : data.grouprent.item.type} 遗失 ${data.lost} 个` : '' }}
+                  {{ data.lost != 0 ? `${data.rent.item.type} 遗失 ${data.lost} 个` : '' }}
                   {{ data.days == 0 && data.lost == 0 ? '逾期' : '' }}
                 </div>
               </div>
@@ -92,18 +91,6 @@ export default {
     },
     data: {
       type: Object,
-      // validator: function(obj) {
-      //   return obj.id
-      //       && obj.personalrent.student_id
-      //       && obj.personalrent.item_out
-      //       && obj.personalrent.item_in
-      //       && obj.days
-      //       && obj.fine
-      //       && obj.total_fine
-      //       && obj.total_price
-      //       && obj.personalrent.item.type
-      //       && obj.user.cn_name;
-      // }
     }
   },
   methods: {
@@ -123,21 +110,6 @@ export default {
       }
       return `${time}${parseInt(times[0])}：${times[1]}`;
     },
-    // calTime(dateIn, dateOut) {
-    //   const timeIn = dateIn.split(' ')[1].split(':');
-    //   const timeOut = dateOut.split(' ')[1].split(':');
-    //   let lateHour = timeIn[0] - timeOut[0];
-    //   let lateMinutes = timeIn[1] - timeOut[1];
-
-    //   if (lateMinutes < 0) {
-    //     lateMinutes += 60;
-    //     lateHour--;
-    //   }
-    //   if (lateHour < 0) {
-    //     lateHour += 24;
-    //   }
-    //   return `${lateHour} 小时 ${lateMinutes} 分钟`;
-    // },
   },
   data: () => ({
     columns: comp_column,

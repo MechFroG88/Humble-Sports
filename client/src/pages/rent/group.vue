@@ -21,7 +21,7 @@
       </template>
 
       <template slot="item_type" slot-scope="{ data }">
-        {{ data.item_type }} -- {{ data.item_tag }}
+        {{ data.item_type }}--{{ data.item_tag }}（{{ data.amount }}个）
       </template>
 
       <template slot="item_out" slot-scope="{ data }">
@@ -121,6 +121,8 @@ export default {
           for (let i = 0; i < data.length; i++) {
             this.tableData[i].item_type = data[i].item.type;
           }
+          console.log(this.tableData);
+          
           this.$refs.table.is_loading = false;
         }).catch((err) => {
           console.log(err);
@@ -135,7 +137,8 @@ export default {
     showReceipt(id) {
       getGroupReceipt(id).then(({ data }) => {
         this.receiptData = data;
-        this.receiptData.personalrent = data.grouprent;
+        this.receiptData.rent = data.grouprent;
+        console.log(this.receiptData);
         this.$refs.receipt.active = true;
       })
     },

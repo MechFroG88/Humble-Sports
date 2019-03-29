@@ -13,15 +13,3 @@ export let errorBagConfig = {
   locale: 'en',
   validity: false
 };
-
-export let errorMessageGlobal = {
-  cn: {
-    
-  }
-};
-
-export let errorMessage = {
-  custom: {
-
-  }
-};

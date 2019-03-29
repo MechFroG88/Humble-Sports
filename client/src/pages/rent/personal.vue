@@ -60,10 +60,11 @@
 
     <modal ref="submitLose" title="损失数量">
       <div slot="body">
-        <div class="form-group">
+        <!-- <div class="form-group">
           <input name="amount" id="amount" type="number" class="form-input" 
           placeholder="请输入物品损失数量" v-model="lostAmount">
-        </div>
+        </div> -->
+        确定遗失物品？
       </div>
       <div slot="footer">
         <div class="btn btn-primary submitLoseBtn" @click="submitLose">确认</div>
@@ -93,7 +94,6 @@ export default {
     personal_columns: personal_column,
     tableData:[],
     receiptData: {},
-    lostAmount: null,
     lostId: null,
   }),
   mounted() {
@@ -140,20 +140,19 @@ export default {
     },
     showReceipt(id) {
       getPersonalReceipt(id).then(({ data }) => {
-        console.log(data);
         this.receiptData = data;
+        this.receiptData.rent = data.personalrent;
         this.$refs.receipt.active = true;
       })
     },
     submitLose() {
-      returnPersonal(this.lostId, this.lostAmount).then((msg) => {
+      returnPersonal(this.lostId, 1).then((msg) => {
         this.$refs.submitLose.active = false;
         this.notification('成功更新物品状态：遗失', 'success');
         this.getAll();
       })  
     },
     loseItem(id) {
-      this.lostAmount = null;
       this.$refs.submitLose.active = true;
       this.lostId = id;
     },
