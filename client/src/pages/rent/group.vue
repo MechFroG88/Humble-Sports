@@ -109,7 +109,7 @@
       </template>
 
       <template slot="delete" slot-scope="{ data }"> 
-        <i class="icon icon-trash" @click="openModal(data.id)"></i>
+        <i class="icon icon-trash-2" @click="openModal(data.id)"></i>
       </template>
 
     </gpTable>
