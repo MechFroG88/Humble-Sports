@@ -32,6 +32,6 @@ export function getItemRecord(itemId) {
 export function deleteItem(itemId) {
   return request({
     url: `/item/${itemId}`,
-    method: 'DELETE'
+    method: 'DELETE',
   });
 }

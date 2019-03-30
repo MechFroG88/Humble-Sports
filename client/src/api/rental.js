@@ -75,14 +75,14 @@ export function expire(type) {
 
 export function deletePersonalRent(rentId) {
   return request({
-    url: `'/rent/personal/${rentId}',`,
+    url: `/rent/personal/${rentId}`,
     method: 'DELETE',
   })
 }
 
 export function deleteGroupRent(rentId) {
   return request({
-    url: `'/rent/group/${rentId}',`,
+    url: `/rent/group/${rentId}`,
     method: 'DELETE',
   })
 }
