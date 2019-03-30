@@ -38,16 +38,31 @@
           width: 4.3rem;
         }
       }
+      
+    }
+    .col_action {
       .action {
-        font-size: .75rem;
-        color: $primary-color;
+        font-size: .7rem;
+        color: $dark-color;
         text-decoration: underline;
         cursor: pointer;
         @media screen and (max-width: 1024px) {
           font-size: $font-size-sm;
         }
         &:hover {
-          color: darken($primary-color, 25%);
+          color: $primary-color;
+        }
+      }
+      .line{
+        color: $dark-color;
+        
+      }
+    }
+    .col_delete {
+      .icon{
+        color: $dark-color;
+        &:hover {
+          color: $primary-color;
         }
       }
     }

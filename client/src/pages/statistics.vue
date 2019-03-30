@@ -60,7 +60,7 @@
           </div>
           <div class="tile-content">
             <p class="tile-title mb-2">{{data.lost_paid_count}}</p>
-            <p class="tile-subtitle">本月罚款数量</p>
+            <p class="tile-subtitle">本月赔偿数量</p>
           </div>
           <div class="tile-action">
             <p class="tile-title mb-2">RM{{data.lost_total_paid}}</p>
