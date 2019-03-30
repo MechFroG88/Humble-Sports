@@ -109,8 +109,8 @@ class PersonalRentController extends PersonalReceiptController
 
     public function delete($id)
     {
-        if (personalrent::where('id', $id)->get()->first()->teacher != Auth::user()->id 
-            && Auth::user()->type != 0) return $this->fail();
+        if (!(personalrent::where('id', $id)->get()->first()->teacher != Auth::user()->id 
+            || Auth::user()->type != 0)) return $this->fail();
         personalrent::where('id', $id)->delete();
         return $this->ok();
     }
