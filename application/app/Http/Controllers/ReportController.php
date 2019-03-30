@@ -23,12 +23,21 @@ class ReportController extends Controller
 
         //count expired
         $expired_personal = personalrent::where('item_out', '>=', Carbon::now()->startOfMonth())
-                                        ->where('status','2')
+                                        ->whereIn('status', ['2','3','5','6','8'])
                                         ->count();
         $expired_group    =    grouprent::where('item_out', '>=', Carbon::now()->startOfMonth())
-                                        ->where('status','2')
+                                        ->whereIn('status', ['2','3','5','6','8'])
                                         ->count();                                        
         $report->expired = $expired_personal + $expired_group;
+
+        //count lost
+        $lost_personal = personalrent::where('item_out', '>=', Carbon::now()->startOfMonth())
+                                     ->whereIn('status', ['4', '5','7','8'])
+                                     ->count();
+        $lost_group    =    grouprent::where('item_out', '>=', Carbon::now()->startOfMonth())
+                                     ->whereIn('status', ['4', '5','7','8'])
+                                     ->count();                                        
+        $report->lost = $lost_personal + $lost_group;
 
         //count number and total of fine paid
         $fine_paid_count_personal = personalreceipt::where('total_fine','>','0')
