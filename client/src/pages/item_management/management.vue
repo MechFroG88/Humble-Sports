@@ -22,6 +22,9 @@
             }
           })" ></i>
       </template>
+      <template slot="action" slot-scope="{ data }" >
+        <div class="btn btn-primary addBtn" @click="openModal(data.id)">删除</div>
+      </template>
     </mg-table>
 
     <div class="expired">
@@ -45,7 +48,7 @@
       </form>
     </div>
 
-    <cpModal ref="add" title="新增器材" closable>
+    <cpModal class="imodal" ref="add" title="新增器材" closable>
       <div slot="body">
         <form class="form-horizontal" ref="form">
           <div class="item h5 mb-2">器材资料</div>
@@ -98,21 +101,26 @@
       class="btn btn-lg btn-primary" :class="{'loading': is_loading}"
       @click="add">新增</div>
     </cpModal>
+
+    <cmodal class="confirmModal" ref="cancel" :trigger="removeItem"></cmodal>
+
   </div>
 </template>
 
 <script>
 import { postFine } from '@/api/fine';
-import { getItem, postItem } from '@/api/item';
+import { getItem, postItem, deleteItem } from '@/api/item';
 
 import mgTable from '@/components/tables';
 import cpModal from '@/components/modal';
+import cmodal from '@/components/confirm-modal';
 import { management_column } from '@/api/tableColumns';
 
 export default {
   components: {
     mgTable,
     cpModal,
+    cmodal,
   },
   mounted() {
     getItem().then(({ data }) => {
@@ -133,7 +141,8 @@ export default {
       start_id: '',
       end_id: '',
       price: ''
-    }
+    },
+    deleteId: '',
   }),
   methods: {
     changeFine() {
@@ -179,6 +188,20 @@ export default {
         this.$refs.add.active = false;
       })
     },
+    openModal(id) {
+      this.deleteId = id;
+      this.$refs.cancel.active = true;
+    },
+    removeItem(){
+      deleteItem(this.deleteId).then((msg) => {
+        this.$refs.cancel.active = false;
+        this.notification('成功删除器材', 'success');
+        this.getAll();
+      }).catch((err) => {
+        this.notification('操作失败！请重试！', 'error');
+        console.log(err);
+      })
+    }
   },
 };
 </script>

@@ -28,3 +28,10 @@ export function getItemRecord(itemId) {
     method: 'GET'
   });
 }
+
+export function deleteItem(itemId) {
+  return request({
+    url: `/item/${itemId}`,
+    method: 'DELETE'
+  });
+}

@@ -22,6 +22,7 @@ export const management_column = [
   { name: '编号', field: 'serialNumber' },
   { name: '价格', field: 'price' },
   { name: '记录', field: 'record' },
+  { name: '操作', field: 'action' },
 ];
 
 export const details_column = [

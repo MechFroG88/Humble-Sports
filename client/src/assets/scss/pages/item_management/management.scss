@@ -13,6 +13,7 @@
   .addBtn {
     display: flex;
     justify-content: center;
+    margin-bottom: 0rem;
   }
 
   .expired {
@@ -47,7 +48,8 @@
     }
   }
 
-  #_modal .modal-container {
+
+  .imodal .modal-container {
     width: 100%;
     .modal-body {
       width: 50%;
@@ -76,5 +78,8 @@
         @extend .addBtn 
       }
     }
+  }
+  .confirmModal .modal-container {
+    width:30%;
   }
 }
