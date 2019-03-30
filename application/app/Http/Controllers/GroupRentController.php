@@ -77,12 +77,20 @@ class GroupRentController extends GroupReceiptController
         $lost     = $data->lost;
         $amount   = grouprent::where('id',$id)->pluck('amount')->first();
         $returned = $amount - $lost;
-        if($lost>0){ 
-            grouprent::where('id', $id)
-                     ->update(["status"   => "3",
-                               "item_in"  => date('Y-m-d H:i:s'),
-                               "lost"     => $lost,
-                               "returned" => $returned]);
+        if($lost>0){
+            if ($status == 2){
+                grouprent::where('id', $id)
+                ->update(["status"   => "8",
+                          "item_in"  => date('Y-m-d H:i:s'),
+                          "lost"     => $lost,
+                          "returned" => $returned]);
+            } else {
+                grouprent::where('id', $id)
+                ->update(["status"   => "7",
+                          "item_in"  => date('Y-m-d H:i:s'),
+                          "lost"     => $lost,
+                          "returned" => $returned]);
+            }
             $this->create_receipt($id);
         }
         elseif($lost==0){
@@ -92,16 +100,60 @@ class GroupRentController extends GroupReceiptController
                           "item_in"  => date('Y-m-d H:i:s'),
                           "lost"     => $lost,
                           "returned" => $returned]);
-            }elseif($status==2){
+            } else {
                 grouprent::where('id', $id)
-                ->update(["status"   => "3",
+                ->update(["status"   => "6",
                           "item_in"  => date('Y-m-d H:i:s'),
                           "lost"     => $lost,
                           "returned" => $returned]);
                 $this->create_receipt($id);
             }          
-
         }
+        return $this->ok();
+    }
+
+    public function pay($id)
+    {
+        if ($status == 6){
+            grouprent::where('id', $id)
+                        ->update(["status"   => "3"]);
+        }
+        else if ($status == 7){
+            grouprent::where('id', $id)
+                        ->update(["status"   => "4"]);
+        }
+        else if ($status == 8){
+            grouprent::where('id', $id)
+                        ->update(["status"   => "5"]);
+        }
+        return $this->ok();
+    }
+
+    public function revert($id)
+    {
+        if ($status == 6){
+            grouprent::where('id', $id)
+                        ->update(["status"   => "2",
+                                  "item_in"  => NULL]);
+        }
+        else if ($status == 7){
+            grouprent::where('id', $id)
+                        ->update(["status"   => "1",
+                                  "item_in"  => NULL]);
+        }
+        else if ($status == 8){
+            grouprent::where('id', $id)
+                        ->update(["status"   => "2",
+                                  "item_in"  => NULL]);
+        }
+        if ($status >= 6 && $status <= 8) groupreceipt::where('id',$id)->delete();
+        return $this->ok();
+    }
+
+    public function delete($id)
+    {
+        if (grouprent::where('id', $id)->teacher != Auth::user()->id && Auth::user()->type != 0) return $this->fail();
+        grouprent::where('id', $id)->delete();
         return $this->ok();
     }
 

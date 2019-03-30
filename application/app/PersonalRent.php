@@ -21,6 +21,6 @@ class PersonalRent extends Model
         return $this->belongsTo('App\Student');
     }
     public function item(){
-        return $this->belongsTo('App\Item')->select(array('id', 'type'));
+        return $this->belongsTo('App\Item')->withTrashed()->select(array('id', 'type'));
     }
 }

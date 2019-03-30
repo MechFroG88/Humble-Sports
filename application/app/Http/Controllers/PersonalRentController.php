@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\PersonalReceipt;
 use App\PersonalRent;
 use Carbon\Carbon;
 use App\Report;
@@ -66,10 +67,9 @@ class PersonalRentController extends PersonalReceiptController
     {
         $lost     = $data->lost;
         $status   = personalrent::where('id',$id)->pluck('status')->first();
-        if ($status != 1 && $lost > 0 && fine::max('id') <= 0) return $this->fail();
         if($lost>0){
             personalrent::where('id', $id)
-                        ->update(["status"   => "3",
+                        ->update(["status"   => "7",
                                   "item_in"  => date('Y-m-d H:i:s'),
                                   "lost"     => $lost]);
             $this->create_receipt($id);   
@@ -81,12 +81,57 @@ class PersonalRentController extends PersonalReceiptController
                                       "lost"     => $lost]);
             }elseif($status==2){ 
                 personalrent::where('id', $id)
-                            ->update(["status"   => "3",
+                            ->update(["status"   => "6",
                                       "item_in"  => date('Y-m-d H:i:s'),
                                       "lost"     => $lost]);
                 $this->create_receipt($id);
             }
         }
+        return $this->ok();
+    }
+
+    public function pay($id)
+    {
+        if ($status == 6){
+            personalrent::where('id', $id)
+                        ->update(["status"   => "3"]);
+        }
+        else if ($status == 7){
+            personalrent::where('id', $id)
+                        ->update(["status"   => "4"]);
+        }
+        else if ($status == 8){
+            personalrent::where('id', $id)
+                        ->update(["status"   => "5"]);
+        }
+        return $this->ok();
+    }
+
+    public function delete($id)
+    {
+        if (personalrent::where('id', $id)->teacher != Auth::user()->id && Auth::user()->type != 0) return $this->fail();
+        personalrent::where('id', $id)->delete();
+        return $this->ok();
+    }
+
+    public function revert($id)
+    {
+        if ($status == 6){
+            personalrent::where('id', $id)
+                        ->update(["status"   => "2",
+                                  "item_in"  => NULL]);
+        }
+        else if ($status == 7){
+            personalrent::where('id', $id)
+                        ->update(["status"   => "1",
+                                  "item_in"  => NULL]);
+        }
+        else if ($status == 8){
+            personalrent::where('id', $id)
+                        ->update(["status"   => "2",
+                                  "item_in"  => NULL]);
+        }
+        if ($status >= 6 && $status <= 8) personalreceipt::where('id',$id)->delete();
         return $this->ok();
     }
 

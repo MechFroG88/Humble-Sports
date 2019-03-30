@@ -19,6 +19,7 @@ class Items extends Migration
             $table->integer('start_id');
             $table->integer('end_id');
             $table->float('price',8,2);
+            $table->softDeletes();
             $table->timestamps();
         }); //
     }

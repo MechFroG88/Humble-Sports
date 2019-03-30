@@ -55,4 +55,23 @@ class ItemController extends Controller
         }
         return response($merged->toJson(),200);
     }
+
+    public function delete($id)
+    {
+        item::where('id', $id)->delete();
+        return $this->ok();
+    }
+
+    public function edit(Request $data, $id)
+    {
+        $validator = Validator::make($data->all(), $this->rules);
+        if ($validator->fails()) return $this->fail();
+        Item::where('id',$id)->update([
+            "type"     => $data->type,
+            "start_id" => $data->start_id,
+            "end_id"   => $data->end_id,
+            "price"    => $data->price,
+        ]);
+        return $this->ok();
+    }
 }
