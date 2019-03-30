@@ -7,6 +7,13 @@ export function getPersonalRent() {
   });
 }
 
+export function getPersonalRentSort() {
+  return request({
+    url: '/rent/personal/sort',
+    method: 'GET',
+  })
+}
+
 export function postPersonalRent({student_id, item_id, item_tag, due_date}) {
   return request({
     url: '/rent/personal',
@@ -24,6 +31,13 @@ export function getGroupRent() {
   });
 }
 
+export function getGroupRentSort() {
+  return request({
+    url: '/rent/group/sort',
+    method: 'GET',
+  })
+}
+
 export function postGroupRent(data) {
   return request({
     url: '/rent/group',
@@ -32,10 +46,29 @@ export function postGroupRent(data) {
   });
 }
 
-// export function postLost(id, data) {
-//   return request({
-//     url: `/rent/${id}/lost`,
-//     method: 'POST',
-//     data,
-//   });
-// }
+export function returnPersonal(rentId, amount) {
+  return request({
+    url: `/rent/personal/${rentId}/return`,
+    method: 'PUT',
+    data: {
+      lost: amount,
+    }
+  })
+}
+
+export function returnGroup(rentId, amount) {
+  return request({
+    url: `/rent/group/${rentId}/return`,
+    method: 'PUT',
+    data: {
+      lost: amount,
+    }
+  })
+}
+
+export function expire(type) {
+  return request({
+    url: `/rent/${type}/expired`,
+    method: 'PUT'
+  })
+}

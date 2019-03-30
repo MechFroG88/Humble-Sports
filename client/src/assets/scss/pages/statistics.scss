@@ -1,9 +1,13 @@
 #_statistics {
-  padding: 2rem 5rem;
+  padding: 2rem 1rem;
+  @media screen and (max-width: $size-2x) {
+    padding-left: 0;
+    padding-right: 0;
+  }
   .tile {
     background-color: #fff;
-    box-shadow: 0 .2rem 1rem rgba(0, 0, 0, .08);
-    margin: 0 .8rem 1.5rem;
+    box-shadow: 0 .2rem 1rem rgba(0, 0, 0, .1);
+    margin: 0 .5rem 1.5rem;
     padding: 1.2rem;
     border-radius: .2rem;
     .tile-icon {
@@ -12,16 +16,25 @@
       .icon {
         color: #fff;
         font-size: 1.8rem;
+        @media screen and (max-width: $size-2x) {
+          font-size: 1.2rem;
+        }
       }
     }
     .tile-content, .tile-action {
       text-align: left;
+      display: flex;
+      flex-direction: column;
       .tile-title {
         font-size: 1.4rem;
         font-weight: 500;
+        @media screen and (max-width: $size-2x) {
+          font-size: 1.2rem;
+        }
       }
       .tile-subtitle {
         font-weight: 350;
+        font-size: .7rem;
       }
     }
   }
@@ -34,8 +47,14 @@
   .loss .tile-icon {
     background-color: $loss;
   }
-  .fine .tile-icon, .payment .tile-icon {
-    background-color: $success-color;
+  .total {
+    display: none;
+    @media screen and (max-width: $size-2x) {
+      display: flex;
+    }
+    .tile-icon {
+      background-color: $loss;
+    }
   }
 
   .chart {

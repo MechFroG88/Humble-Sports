@@ -1,5 +1,5 @@
 export const personal_column = [
-  { name: '学生资料', field: 'student', search: true},
+  { name: '学生资料', field: 'student_id', search: true },
   { name: '借用器材', field: 'item_type' },
   { name: '借出时间', field: 'item_out' },
   { name: '归还时间', field: 'item_in' },
@@ -9,7 +9,7 @@ export const personal_column = [
 
 export const group_column = [
   { name: '团体名称', field: 'group_name', search: true },
-  { name: '负责人', field: 'student' },
+  { name: '负责人', field: 'student_id' },
   { name: '借用器材', field: 'item_type' },
   { name: '借出时间', field: 'item_out' },
   { name: '归还时间', field: 'item_in' },

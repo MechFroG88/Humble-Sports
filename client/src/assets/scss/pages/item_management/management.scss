@@ -10,6 +10,10 @@
       }
     }
   }
+  .addBtn {
+    display: flex;
+    justify-content: center;
+  }
 
   .expired {
     text-align: left;
@@ -19,22 +23,35 @@
     border-style: hidden;
     border-radius: .35rem;
     box-shadow: 0 1.5px 6px 3px rgba(#ccc, .35);
+    @media screen and (max-width: $size-xl) {
+      // padding: 1rem .9rem;
+    }
     .form-horizontal {
       display: flex;
       flex-direction: column;
       .form-group {
+        .form-label {
+          @media screen and (max-width: $size-xl) {
+            font-size: $font-size-sm;
+          }
+        }
         .col-9 {
-          display: flex;
-          align-items: center;
           color: $text-gray;
-          .form-input {
-            width: 75%;
+          div {
+            display: flex;
+            align-items: center;
+            @media screen and (max-width: $size-xl) {
+              font-size: $font-size-sm;
+            }
+            .form-input {
+              width: 75%;
+            }
           }
         }
       }
       .btn {
         align-self: flex-end;
-        margin-top: 1rem;
+        margin-top: .8rem;
         margin-bottom: 0 !important;
         @extend .addBtn
       }
@@ -48,8 +65,13 @@
       .form-horizontal {
         .type, .serial, .price {
           .col-9 {
-            display: flex; 
-            align-items: center;
+            div {
+              display: flex; 
+              align-items: center;
+            }
+            .form-input-hint {
+              margin-bottom: .2rem;
+            }
           }
         }
       }

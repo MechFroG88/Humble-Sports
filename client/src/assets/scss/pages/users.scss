@@ -12,6 +12,9 @@
         select {
           width: 70%;
           border-color: $border-color;
+          @media screen and (max-width: $size-xl) {
+            font-size: .75rem;
+          }
         }
       }
       .col_action .btn {
@@ -20,6 +23,10 @@
         width: 3.5rem;
       }
     }
+  }
+  .addBtn {
+    display: flex;
+    justify-content: center;
   }
 
   #_modal {

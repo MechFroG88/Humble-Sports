@@ -1,6 +1,13 @@
 #_personal, #_group {
   .btn {
-    @extend .addBtn
+    @extend .addBtn;
+    &.submitLoseBtn {
+      margin-bottom: 0;
+    }
+  }
+  .addBtn {
+    display: flex;
+    justify-content: center;
   }
 }
 
@@ -17,6 +24,20 @@
       }
       .time {
         font-size: $font-size-lg;
+      }
+    }
+    .col_status {
+      .action {
+        font-size: .75rem;
+        color: $primary-color;
+        text-decoration: underline;
+        cursor: pointer;
+        @media screen and (max-width: 1024px) {
+          font-size: $font-size-sm;
+        }
+        &:hover {
+          color: darken($primary-color, 25%);
+        }
       }
     }
   }

@@ -18,8 +18,13 @@
       </div>
       <div class="footer">
         <div class="user c-hand" :class="{'loading loading-lg': loading}">
-          <i class="icon icon-user mr-2"></i>
-          {{username}}
+          <div class="popover popover-top">
+            <i class="icon icon-user mr-2"></i>
+            <span class="popover-container">
+              {{username}}
+            </span>
+          </div>
+          <span class="username">{{username}}</span>
         </div>
         <div>
           <i class="icon icon-settings mr-2 c-hand"
@@ -48,7 +53,7 @@ export default {
     username: '',
     loading: true,
   }),
-  beforeMount() {
+  mounted() {
     this.active = this.data[0].list[0].target.name;
     getCurrentUser().then(({ data }) => {
       this.loading = false;
@@ -69,9 +74,8 @@ export default {
   },
   methods: {
     logout() {
-      userLogout().then(() => {
-        this.$router.push('/login');
-      }).catch((err) => {
+      this.$router.push('/login');
+      userLogout().catch((err) => {
         console.log('Error with logging out');
         console.log(err);
       });

@@ -3,6 +3,9 @@
   margin: 0 auto;
   width: 40%;
   text-align: left;
+  @media screen and (max-width: $size-xl) {
+    width: 60%;
+  }
   .modal-header {
     margin-bottom: 1.8rem;
     .link {
