@@ -439,7 +439,24 @@ paths:
         401:
           description: "Unauthorized"
         400:
-          description: "Validation Error" 
+          description: "Validation Error"
+    delete:
+      tags:
+      - "Items"
+      summary: "Delete single item data"
+      parameters:
+      - name: "itemId"
+        in: "path"
+        description: "Id of item data to delete"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful operation"                      
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
 
   /item/record/{itemId}:
     get:
@@ -762,7 +779,40 @@ paths:
           401:
             description: "Unauthorized"
           400:
-            description: "Validation Error" 
+            description: "Validation Error"
+
+  /rent/personal/pay/{rentId}:  
+      put:
+        tags:
+        - "PersonalRents"
+        summary: "Pay personal rent"
+
+        responses:
+          200:
+            description: "Successful operation"
+          401:
+            description: "Unauthorized"
+          400:
+            description: "Validation Error"
+  
+  /rent/personal/{rentId}:
+    delete:
+      tags:
+      - "PersonalRents"
+      summary: "Delete single rent"
+      parameters:
+      - name: "itemId"
+        in: "path"
+        description: "Id of rent to delete"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful operation"                      
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
             
   /rent/group:
     post:
@@ -1029,6 +1079,39 @@ paths:
             description: "Unauthorized"
           400:
             description: "Validation Error" 
+  
+  /rent/group/pay/{rentId}:  
+      put:
+        tags:
+        - "GroupRents"
+        summary: "Pay group rent"
+
+        responses:
+          200:
+            description: "Successful operation"
+          401:
+            description: "Unauthorized"
+          400:
+            description: "Validation Error"
+
+  /rent/group/{rentId}:
+    delete:
+      tags:
+      - "GroupRents"
+      summary: "Delete single rent"
+      parameters:
+      - name: "itemId"
+        in: "path"
+        description: "Id of rent to delete"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful operation"                      
+        401:
+          description: "Unauthorized"
+        400:
+          description: "Validation Error"
 
   /receipt/personal/{Id}:
     get:
@@ -1249,10 +1332,19 @@ paths:
               expired:
                 type: "integer"
                 example: "30"
-              paid_count:
+              lost:
+                type: "integer"
+                example: "30"
+              fine_paid_count:
                 type: "integer"
                 example: "50"
-              total_paid:
+              fine_total_paid:
+                type: "integer"
+                example: "12000"
+              lost_paid_count:
+                type: "integer"
+                example: "50"
+              lost_total_paid:
                 type: "integer"
                 example: "12000"
         401:
