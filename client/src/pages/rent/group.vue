@@ -58,6 +58,9 @@
           <div class="action" @click="showReceipt(data.id)">索取赔偿</div>
         </div>
       </template>
+      <template slot="action" slot-scope="{ data }" >
+        <div class="btn btn-primary deleteBtn" @click="openModal(data.id)">删除</div>
+      </template>
     </gpTable>
 
     <modal ref="submitLose" title="损失数量">
@@ -73,24 +76,28 @@
         <div class="btn btn-primary submitLoseBtn" @click="submitLose">确认</div>
       </div>
     </modal>
+
+    <cmodal class="confirmModal" ref="cancel" :trigger="removeRent"></cmodal>
     
     <receipt ref="receipt" :data="receiptData"></receipt>
   </div>
 </template>
 
 <script>
-import { getGroupRent, returnGroup, expire } from '@/api/rental';
+import { getGroupRent, returnGroup, expire, deleteGroupRent} from '@/api/rental';
 import { getGroupReceipt } from '@/api/receipt' ;
 import { group_column } from '@/api/tableColumns';
 
 import gpTable from '@/components/tables';
 import receipt from '@/components/receipt';
+import cmodal from '@/components/confirm-modal';
 import modal   from '@/components/modal';
 
 export default {
   components: {
     gpTable,
     receipt,
+    cmodal,
     modal,
   },
   data: () => ({
@@ -99,6 +106,7 @@ export default {
     receiptData: {},
     lostAmount: null,
     lostId: null,
+    deleteId: '',
   }),
   mounted() {
     this.getAll();
@@ -159,6 +167,20 @@ export default {
         this.notification('成功更新物品状态：遗失', 'success');
         this.getAll();
       })  
+    },
+    openModal(id) {
+      this.deleteId = id;
+      this.$refs.cancel.active = true;
+    },
+    removeRent(){
+      deleteGroupRent(this.deleteId).then((msg) => {
+        this.$refs.cancel.active = false;
+        this.notification('成功删除租借记录', 'success');
+        this.getAll();
+      }).catch((err) => {
+        this.notification('操作失败！请重试！', 'error');
+        console.log(err);
+      })
     }
   }
 };

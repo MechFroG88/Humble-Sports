@@ -56,6 +56,9 @@
           <div class="action" @click="showReceipt(data.id)">索取赔偿</div>
         </div>
       </template>
+      <template slot="action" slot-scope="{ data }" >
+        <div class="btn btn-primary deleteBtn" @click="openModal(data.id)">删除</div>
+      </template>
     </cp-table>
 
     <modal ref="submitLose" title="损失数量">
@@ -71,23 +74,27 @@
       </div>
     </modal>
 
+    <cmodal class="confirmModal" ref="cancel" :trigger="removeRent"></cmodal>
+
     <receipt ref="receipt" :data="receiptData"></receipt>
   </div>
 </template>
 
 <script>
-import { getPersonalRent, returnPersonal, expire } from '@/api/rental';
+import { getPersonalRent, returnPersonal, expire, deletePersonalRent} from '@/api/rental';
 import { getPersonalReceipt } from '@/api/receipt';
 import { personal_column } from '@/api/tableColumns';
 
 import cpTable from '@/components/tables';
 import receipt from '@/components/receipt';
+import cmodal from '@/components/confirm-modal';
 import modal   from '@/components/modal';
 
 export default {
   components: {
     cpTable,
     receipt,
+    cmodal,
     modal,
   },
   data: () => ({
@@ -95,6 +102,7 @@ export default {
     tableData:[],
     receiptData: {},
     lostId: null,
+    deleteId: '',
   }),
   mounted() {
     this.getAll();
@@ -156,6 +164,20 @@ export default {
       this.$refs.submitLose.active = true;
       this.lostId = id;
     },
+    openModal(id) {
+      this.deleteId = id;
+      this.$refs.cancel.active = true;
+    },
+    removeRent(){
+      deletePersonalRent(this.deleteId).then((msg) => {
+        this.$refs.cancel.active = false;
+        this.notification('成功删除租借记录', 'success');
+        this.getAll();
+      }).catch((err) => {
+        this.notification('操作失败！请重试！', 'error');
+        console.log(err);
+      })
+    }
   },
 };
 </script>

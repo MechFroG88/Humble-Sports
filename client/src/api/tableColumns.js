@@ -5,6 +5,7 @@ export const personal_column = [
   { name: '归还时间', field: 'item_in' },
   { name: '负责老师', field: 'teacher' },
   { name: '状态', field: 'status' },
+  { name: '操作', field: 'action' },
 ];
 
 export const group_column = [
@@ -15,6 +16,7 @@ export const group_column = [
   { name: '归还时间', field: 'item_in' },
   { name: '负责老师', field: 'teacher' },
   { name: '状态', field: 'status' },
+  { name: '操作', field: 'action' },
 ];
 
 export const management_column = [

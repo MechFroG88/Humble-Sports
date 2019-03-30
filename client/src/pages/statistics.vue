@@ -1,4 +1,5 @@
 <template>
+  
   <div id="_statistics">
     <div class="columns">
       <div class="column col-4">
