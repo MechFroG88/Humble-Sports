@@ -781,7 +781,13 @@ paths:
           400:
             description: "Validation Error"
 
-  /rent/personal/pay/{rentId}:  
+  /rent/personal/pay/{rentId}:
+      parameters:
+          - name: "rentId"
+            in: "path"
+            description: "Id of personal rent to pay"
+            required: true
+            type: "integer"
       put:
         tags:
         - "PersonalRents"
@@ -796,6 +802,12 @@ paths:
             description: "Validation Error"
   
   /rent/personal/{rentId}:
+    parameters:
+          - name: "rentId"
+            in: "path"
+            description: "Id of personal rent to delete"
+            required: true
+            type: "integer"
     delete:
       tags:
       - "PersonalRents"
@@ -1080,7 +1092,13 @@ paths:
           400:
             description: "Validation Error" 
   
-  /rent/group/pay/{rentId}:  
+  /rent/group/pay/{rentId}:
+      parameters:
+          - name: "rentId"
+            in: "path"
+            description: "Id of group rent to pay"
+            required: true
+            type: "integer"
       put:
         tags:
         - "GroupRents"
@@ -1095,6 +1113,12 @@ paths:
             description: "Validation Error"
 
   /rent/group/{rentId}:
+    parameters:
+          - name: "rentId"
+            in: "path"
+            description: "Id of personal rent to delete"
+            required: true
+            type: "integer"
     delete:
       tags:
       - "GroupRents"
