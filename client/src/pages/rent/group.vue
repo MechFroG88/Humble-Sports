@@ -10,7 +10,7 @@
 
     <gpTable class="mt-2" width="100" ref="table"
     :columns="columns" :tableData="tableData" title navbar="搜寻学号或名字" >
-      <template slot="title">租借记录:(团体)</template>
+      <template slot="title">租借记录（团体）</template>
 
       <template slot="student" slot-scope="{ data }">
         <div v-if="data.student || data.student_id">
@@ -61,7 +61,7 @@
           <span class="label label-success">已赔偿</span>
           <div class="action" @click="showReceipt(data.id)">显示收据</div>
         </div>
-        <div v-if="data.status == 5">
+        <div v-if="data.status == 5" class="label1">
           <span class="label label-success" style="margin-bottom:.2rem">已罚款</span>
           <span class="label label-success">已赔偿</span>
           <div class="action" @click="showReceipt(data.id)">显示收据</div>
@@ -78,7 +78,7 @@
           <div class="action" @click="payRent(data.id)">索取赔偿</div>
           <div class="action" @click="showReceipt(data.id)">显示收据</div>
         </div>
-        <div v-if="data.status == 8">
+        <div v-if="data.status == 8" class="label2">
           <span class="label label-warning" style="margin-bottom:.2rem">未罚款</span>
           <span class="label label-warning">未赔偿</span>
           <div class="action" @click="cancelRent(data.id)">取消</div>
