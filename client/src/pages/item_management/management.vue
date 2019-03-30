@@ -115,7 +115,7 @@
               <div>
                 <input class="form-input input-sm" :class="{'error-input': errors.first('器材种类')}"
                 type="text" id="type" name="器材种类"
-                v-model="item.type" v-validate="'required'" @keyup.enter="add">
+                v-model="item.type" v-validate="'required'" @keyup.enter="editSingleItem(singleItemData.id,singleItemData.type,singleItemData.start_id,singleItemData.end_id,singleItemData.price)">
               </div>
               <p class="form-input-hint text-error">{{errors.first('器材种类')}}</p>
             </div>
@@ -128,11 +128,11 @@
               <div>
                 <input class="form-input input-sm mr-2" :class="{'error-input': errors.first('编号')}" 
                 type="text" id="serial" name="编号"
-                v-model="item.start_id" v-validate="'required|numeric'" @keyup.enter="add">
+                v-model="item.start_id" v-validate="'required|numeric'" @keyup.enter="editSingleItem(singleItemData.id,singleItemData.type,singleItemData.start_id,singleItemData.end_id,singleItemData.price)">
                 至
                 <input class="form-input input-sm ml-2" :class="{'error-input': errors.first('编号')}" 
                 type="text" id="serial" name="编号"
-                v-model="item.end_id" v-validate="'required|numeric'" @keyup.enter="add">
+                v-model="item.end_id" v-validate="'required|numeric'" @keyup.enter="editSingleItem(singleItemData.id,singleItemData.type,singleItemData.start_id,singleItemData.end_id,singleItemData.price)">
               </div>
               <p class="form-input-hint text-error">{{errors.first('编号')}}</p>
             </div>
