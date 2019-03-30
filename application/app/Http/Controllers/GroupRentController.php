@@ -152,7 +152,8 @@ class GroupRentController extends GroupReceiptController
 
     public function delete($id)
     {
-        if (grouprent::where('id', $id)->teacher != Auth::user()->id && Auth::user()->type != 0) return $this->fail();
+        if (!(grouprent::where('id', $id)->get()->first()->teacher != Auth::user()->id 
+            || Auth::user()->type != 0)) return $this->fail();
         grouprent::where('id', $id)->delete();
         return $this->ok();
     }
