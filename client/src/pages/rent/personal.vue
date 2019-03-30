@@ -43,33 +43,21 @@
         <span v-if="data.status == 0" class="label label-success">已归还</span>
         <div v-if="data.status == 1">
           <span class="label label-primary">未归还</span> 
-          <!-- <div class="action return" @click="returnItem(data.id)">归还物品</div>
-          <div class="action loss" @click="loseItem(data.id)">遗失物品</div> -->
         </div>
         <div v-if="data.status == 2">
           <span class="label label-expired">已逾期</span>
-          <!-- <div class="action fine" @click="returnItem(data.id)">归还物品</div>
-          <div class="action loss" @click="loseItem(data.id)">遗失物品</div> -->
         </div>
         <div v-if="data.status == 3">
           <span class="label label-success">已罚款</span> 
-          <!-- <div class="action" @click="showReceipt(data.id)">显示收据</div> -->
         </div>
         <div v-if="data.status == 4">
           <span class="label label-success">已赔偿</span>
-          <!-- <div class="action" @click="showReceipt(data.id)">显示收据</div> -->
         </div>
         <div v-if="data.status == 6">
           <span class="label label-warning">未罚款</span>
-          <!-- <div class="action" @click="cancelRent(data.id)">取消</div>
-          <div class="action" @click="payRent(data.id)">索取罚款</div>
-          <div class="action" @click="showReceipt(data.id)">显示收据</div> -->
         </div>
         <div v-if="data.status == 7">
           <span class="label label-warning">未赔偿</span>
-          <!-- <div class="action" @click="cancelRent(data.id)">取消</div>
-          <div class="action" @click="payRent(data.id)">索取赔偿</div>
-          <div class="action" @click="showReceipt(data.id)">显示收据</div> -->
         </div>
       </template>
 
@@ -108,8 +96,8 @@
         </div>
       </template>
 <!-- <div class="btn btn-primary deleteBtn" @click="openModal(data.id)">删除</div> -->
-      <template slot="delete"> 
-      <i class="icon icon-trash" @click="openModal(data.id)"></i>
+      <template slot="delete" slot-scope="{ data }"> 
+        <i class="icon icon-trash" @click="openModal(data.id)"></i>
       </template>
     </cp-table>
 
