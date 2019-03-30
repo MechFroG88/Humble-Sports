@@ -774,6 +774,7 @@ paths:
           description: "Unauthorized"
         400:
           description: "Validation Error"
+          
   /rent/personal/{rentId}/return:  
       put:
         tags:
@@ -836,7 +837,27 @@ paths:
             description: "Unauthorized"
           400:
             description: "Validation Error"
-  
+
+  /rent/personal/revert/{rentId}:
+      parameters:
+          - name: "rentId"
+            in: "path"
+            description: "Id of personal rent to revert"
+            required: true
+            type: "integer"
+      put:
+        tags:
+        - "PersonalRents"
+        summary: "Revert personal rent"
+
+        responses:
+          200:
+            description: "Successful operation"
+          401:
+            description: "Unauthorized"
+          400:
+            description: "Validation Error"
+
   /rent/personal/{rentId}:
     parameters:
           - name: "rentId"
@@ -1139,6 +1160,26 @@ paths:
         tags:
         - "GroupRents"
         summary: "Pay group rent"
+
+        responses:
+          200:
+            description: "Successful operation"
+          401:
+            description: "Unauthorized"
+          400:
+            description: "Validation Error"
+
+  /rent/group/revert/{rentId}:
+      parameters:
+          - name: "rentId"
+            in: "path"
+            description: "Id of group rent to revert"
+            required: true
+            type: "integer"
+      put:
+        tags:
+        - "GroupRents"
+        summary: "Revert group rent"
 
         responses:
           200:

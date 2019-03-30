@@ -43,7 +43,8 @@ Route::middleware('admin')->post('item','ItemController@create');
 Route::middleware('auth') ->get('item','ItemController@get');
 Route::middleware('auth') ->get('item/{id}','ItemController@get_single');
 Route::middleware('auth') ->get('item/record/{id}','ItemController@get_single_rent');
-
+Route::middleware('auth') ->put('item/record/{id}','ItemController@edit');
+Route::middleware('auth') ->delete('item/record/{id}','ItemController@delete');
 /**
  * Fine Route
  */
@@ -58,6 +59,10 @@ Route::middleware('auth')->get('rent/personal','PersonalRentController@get');
 Route::middleware('auth')->get('rent/personal/sort','PersonalRentController@get_sorted');
 Route::middleware('auth')->put('rent/personal/expired','PersonalRentController@update_expired');
 Route::middleware('auth')->put('rent/personal/{id}/return','PersonalRentController@update_return');
+Route::middleware('auth')->put('rent/personal/pay/{id}','PersonalRentController@pay');
+Route::middleware('auth')->put('rent/personal/revert/{id}','PersonalRentController@revert');
+Route::middleware('auth')->delete('rent/personal/{id}','PersonalRentController@delete');
+
 
 /**
  * GroupRent Route
@@ -67,7 +72,9 @@ Route::middleware('auth')->get('rent/group','GroupRentController@get');
 Route::middleware('auth')->get('rent/group/sort','GroupRentController@get_sorted');
 Route::middleware('auth')->put('rent/group/expired','GroupRentController@update_expired');
 Route::middleware('auth')->put('rent/group/{id}/return','GroupRentController@update_return');
-
+Route::middleware('auth')->put('rent/group/pay/{id}','GroupRentController@pay');
+Route::middleware('auth')->put('rent/group/revert/{id}','GroupRentController@revert');
+Route::middleware('auth')->delete('rent/group/{id}','GroupRentController@delete');
 /**
  * PersonalReceipt Route
  */
