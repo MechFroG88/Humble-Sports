@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\GroupReceipt;
 use App\GroupRent;
 use App\Report;
 use App\Student;
@@ -114,6 +115,7 @@ class GroupRentController extends GroupReceiptController
 
     public function pay($id)
     {
+        $status = grouprent::where('id', $id)->get()->first()->status;
         if ($status == 6){
             grouprent::where('id', $id)
                         ->update(["status"   => "3"]);
@@ -131,6 +133,7 @@ class GroupRentController extends GroupReceiptController
 
     public function revert($id)
     {
+        $status = grouprent::where('id', $id)->get()->first()->status;
         if ($status == 6){
             grouprent::where('id', $id)
                         ->update(["status"   => "2",

@@ -92,6 +92,7 @@ class PersonalRentController extends PersonalReceiptController
 
     public function pay($id)
     {
+        $status = personalrent::where('id', $id)->get()->first()->status;
         if ($status == 6){
             personalrent::where('id', $id)
                         ->update(["status"   => "3"]);
@@ -117,6 +118,7 @@ class PersonalRentController extends PersonalReceiptController
 
     public function revert($id)
     {
+        $status = personalrent::where('id', $id)->get()->first()->status;
         if ($status == 6){
             personalrent::where('id', $id)
                         ->update(["status"   => "2",
