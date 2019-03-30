@@ -47,6 +47,9 @@
   .loss .tile-icon {
     background-color: $loss;
   }
+  .count .tile-icon {
+    background-color: $success-color;
+  }
   .total {
     display: none;
     @media screen and (max-width: $size-2x) {

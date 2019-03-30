@@ -24,17 +24,46 @@
           </div>
         </div>
       </div>
+
       <div class="column col-4 col-xl-6">
         <div class="tile tile-centered loss" :class="{'loading loading-lg': loading}">
           <div class="tile-icon mr-2">
             <i class="icon icon-users centered"></i>
           </div>
           <div class="tile-content">
-            <p class="tile-title mb-2">{{data.paid_count}}</p>
+            <p class="tile-title mb-2">{{data.lost}}</p>
+            <p class="tile-subtitle">本月丢失数量</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="column col-6 col-xl-6">
+        <div class="tile tile-centered count " :class="{'loading loading-lg': loading}">
+          <div class="tile-icon mr-2">
+            <i class="icon icon-users centered"></i>
+          </div>
+          <div class="tile-content">
+            <p class="tile-title mb-2">{{data.fine_paid_count}}</p>
             <p class="tile-subtitle">本月罚款数量</p>
           </div>
           <div class="tile-action">
-            <p class="tile-title mb-2">RM{{data.total_paid}}</p>
+            <p class="tile-title mb-2">RM{{data.fine_total_paid}}</p>
+            <p class="tile-subtitle">总额</p>
+          </div>
+        </div>
+      </div>
+
+       <div class="column col-6 col-xl-6">
+        <div class="tile tile-centered count" :class="{'loading loading-lg': loading}">
+          <div class="tile-icon mr-2">
+            <i class="icon icon-users centered"></i>
+          </div>
+          <div class="tile-content">
+            <p class="tile-title mb-2">{{data.lost_paid_count}}</p>
+            <p class="tile-subtitle">本月罚款数量</p>
+          </div>
+          <div class="tile-action">
+            <p class="tile-title mb-2">RM{{data.lost_total_paid}}</p>
             <p class="tile-subtitle">总额</p>
           </div>
         </div>
