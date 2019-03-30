@@ -94,7 +94,7 @@ export function payPersonalRent(rentId) {
   })
 }
 
-export function payGrouplRent(rentId) {
+export function payGroupRent(rentId) {
   return request({
     url: `/rent/group/pay/${rentId}`,
     method: 'PUT'

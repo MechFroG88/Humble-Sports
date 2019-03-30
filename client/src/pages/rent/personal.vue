@@ -59,10 +59,6 @@
           <span class="label label-success">已赔偿</span>
           <div class="action" @click="showReceipt(data.id)">显示收据</div>
         </div>
-        <div v-if="data.status == 5">
-          <span class="label label-success">已罚款&已赔偿</span>
-          <div class="action" @click="showReceipt(data.id)">显示收据</div>
-        </div>
         <div v-if="data.status == 6">
           <span class="label label-warning">未罚款</span>
           <div class="action" @click="cancelRent(data.id)">取消</div>
