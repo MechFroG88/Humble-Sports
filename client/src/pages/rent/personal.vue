@@ -52,9 +52,36 @@
           <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
         </div>
         <div v-if="data.status == 3">
-          <span class="label label-error">已归还</span> 
-          <div class="action" @click="showReceipt(data.id)">索取赔偿</div>
+          <span class="label label-success">已罚款</span> 
+          <div class="action" @click="showReceipt(data.id)">显示收据</div>
         </div>
+        <div v-if="data.status == 4">
+          <span class="label label-success">已赔偿</span>
+          <div class="action" @click="showReceipt(data.id)">显示收据</div>
+        </div>
+        <div v-if="data.status == 5">
+          <span class="label label-success">已罚款&已赔偿</span>
+          <div class="action" @click="showReceipt(data.id)">显示收据</div>
+        </div>
+        <div v-if="data.status == 6">
+          <span class="label label-warning">未罚款</span>
+          <div class="action" @click="cancelRent(data.id)">取消</div>
+          <div class="action" @click="payRent(data.id)">索取罚款</div>
+          <div class="action" @click="showReceipt(data.id)">显示收据</div>
+        </div>
+        <div v-if="data.status == 7">
+          <span class="label label-warning">未赔偿</span>
+          <div class="action" @click="cancelRent(data.id)">取消</div>
+          <div class="action" @click="payRent(data.id)">索取赔偿</div>
+          <div class="action" @click="showReceipt(data.id)">显示收据</div>
+        </div>
+        <!-- <div v-if="data.status == 8">
+          <span class="label label-warning">未罚款&未赔偿</span>
+          <div class="action" @click="cancelRent(data.id)">取消</div>
+          <div class="action" @click="payRent(data.id)">索取罚款</div>
+          <div class="action" @click="showReceipt(data.id)">显示收据</div>
+        </div> -->
+        
       </template>
       <template slot="action" slot-scope="{ data }" >
         <div class="btn btn-primary deleteBtn" @click="openModal(data.id)">删除</div>
@@ -81,7 +108,7 @@
 </template>
 
 <script>
-import { getPersonalRent, returnPersonal, expire, deletePersonalRent} from '@/api/rental';
+import { getPersonalRent, returnPersonal, expire, deletePersonalRent, payPersonalRent, cancelPersonalRent} from '@/api/rental';
 import { getPersonalReceipt } from '@/api/receipt';
 import { personal_column } from '@/api/tableColumns';
 
@@ -168,10 +195,28 @@ export default {
       this.deleteId = id;
       this.$refs.cancel.active = true;
     },
-    removeRent(){
+    removeRent() {
       deletePersonalRent(this.deleteId).then((msg) => {
         this.$refs.cancel.active = false;
         this.notification('成功删除租借记录', 'success');
+        this.getAll();
+      }).catch((err) => {
+        this.notification('操作失败！请重试！', 'error');
+        console.log(err);
+      })
+    },
+    payRent(id) {
+      payPersonalRent(id).then(() => {
+        this.notification('付费成功', 'success');
+        this.getAll();
+      }).catch((err) => {
+        this.notification('操作失败！请重试！', 'error');
+        console.log(err);
+      })
+    },
+    cancelRent(id) {
+      cancelPersonalRent(id).then(() => {
+        this.notification('成功取消状态', 'success');
         this.getAll();
       }).catch((err) => {
         this.notification('操作失败！请重试！', 'error');

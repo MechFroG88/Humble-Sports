@@ -86,3 +86,31 @@ export function deleteGroupRent(rentId) {
     method: 'DELETE',
   })
 }
+
+export function payPersonalRent(rentId) {
+  return request({
+    url: `/rent/personal/pay/${rentId}`,
+    method: 'PUT'
+  })
+}
+
+export function payGrouplRent(rentId) {
+  return request({
+    url: `/rent/group/pay/${rentId}`,
+    method: 'PUT'
+  })
+}
+
+export function cancelPersonalRent(rentId) {
+  return request({
+    url: `/rent/personal/revert/${rentId}`,
+    method: 'PUT'
+  })
+}
+
+export function cancelGroupRent(rentId) {
+  return request({
+    url: `/rent/group/revert/${rentId}`,
+    method: 'PUT'
+  })
+}
