@@ -36,9 +36,10 @@ export function deleteItem(itemId) {
   });
 }
 
-export function editItem(itemId) {
+export function editItem(itemId, data) {
   return request({
     url: `/item/${itemId}`,
     method: 'PUT',
+    data
   });
 }
