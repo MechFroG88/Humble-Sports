@@ -20,6 +20,7 @@ class ReportController extends Controller
         $unreturned_group    = grouprent::where('status','1')->count();
         $unreturned          = $unreturned_personal + $unreturned_group;
         $report->unreturned  = $unreturned;
+
         //count expired
         $expired_personal = personalrent::where('item_out', '>=', Carbon::now()->startOfMonth())
                                         ->where('status','2')
@@ -28,23 +29,23 @@ class ReportController extends Controller
                                         ->where('status','2')
                                         ->count();                                        
         $report->expired = $expired_personal + $expired_group;
-        //count how many fine paid
-        $paid_fine_count_personal = personalreceipt::where('total_fine','>','0')
+
+        //count number and total of fine paid
+        $fine_paid_count_personal = personalreceipt::where('total_fine','>','0')
                                                    ->count();
-        $paid_fine_count_group    = groupreceipt::where('total_fine','>','0')
+        $fine_paid_count_group    = groupreceipt::where('total_fine','>','0')
                                                    ->count();
-        $paid_fine_count  = $paid_fine_count_personal + $paid_fine_count_group;
-        //count how many lost paid
-        $paid_lost_count_personal = personalreceipt::where('total_price','>','0')
+        $report->fine_paid_count  = $fine_paid_count_personal + $fine_paid_count_group;
+        $report->fine_total_paid    = groupreceipt::sum('total_fine') + personalreceipt::sum('total_fine');
+
+        //count number and total of lost paid
+        $lost_paid_count_personal = personalreceipt::where('total_price','>','0')
                                                    ->count();
-        $paid_lost_count_group    = groupreceipt::where('total_price','>','0')
+        $lost_paid_count_group    = groupreceipt::where('total_price','>','0')
                                                    ->count();
-        $paid_lost_count  = $paid_lost_count_personal + $paid_lost_count_group;
-        //count total fine paid
-        $report->paid_count = $paid_fine_count + $paid_lost_count;
-        $paid_personal = personalreceipt::sum('total_fine') + personalreceipt::sum('total_price');
-        $paid_group    = groupreceipt::sum('total_fine') + groupreceipt::sum('total_price');
-        $report->total_paid  = $paid_personal + $paid_group;
+        $report->lost_paid_count  = $lost_paid_count_personal + $lost_paid_count_group;
+        $report->lost_total_paid = groupreceipt::sum('total_price') + personalreceipt::sum('total_price');
+
         return response($report->toJson(),200);
     }
 

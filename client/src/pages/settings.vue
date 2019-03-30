@@ -60,7 +60,6 @@ export default {
   },
   mounted() {
     getCurrentUser().then(({ data }) => {
-      console.log(data);
       this.name = data.cn_name;
       this.username = data.username;
     })
@@ -98,7 +97,6 @@ export default {
           console.log(err);
         })
       } else {
-        console.log('hi');
         this.notification('密码必须一致', 'warning');
       }
     }

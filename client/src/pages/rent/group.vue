@@ -130,9 +130,7 @@ export default {
           this.tableData = data;
           for (let i = 0; i < data.length; i++) {
             this.tableData[i].item_type = data[i].item.type;
-          }
-          console.log(this.tableData);
-          
+          }          
           this.$refs.table.is_loading = false;
         }).catch((err) => {
           console.log(err);
