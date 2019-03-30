@@ -66,7 +66,7 @@ class ItemController extends Controller
     {
         $validator = Validator::make($data->all(), $this->rules);
         if ($validator->fails()) return $this->fail();
-        Item::where('id',$id)->update([
+        item::where('id',$id)->update([
             "type"     => $data->type,
             "start_id" => $data->start_id,
             "end_id"   => $data->end_id,
