@@ -1,4 +1,11 @@
 #_details {
+  .addBtn {
+    display: flex;
+    justify-content: center;
+  .icon{
+    padding-top:.2rem;
+    }
+  }
   #_table {
     .row {
       .col_item_in, .col_item_out {

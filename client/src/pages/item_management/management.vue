@@ -115,7 +115,7 @@
               <div>
                 <input class="form-input input-sm" :class="{'error-input': errors.first('器材种类')}"
                 type="text" id="type" name="器材种类"
-                v-model="item.type" v-validate="'required'" @keyup.enter="editSingleItem(singleItemData.id,singleItemData.type,singleItemData.start_id,singleItemData.end_id,singleItemData.price)">
+                v-model="item.type" v-validate="'required'" @keyup.enter="add">
               </div>
               <p class="form-input-hint text-error">{{errors.first('器材种类')}}</p>
             </div>
@@ -215,7 +215,7 @@ export default {
       this.add_loading = true;
       let fine = parseInt(this.fine_price).toFixed(2);
       postFine({ fine }).then((msg) => {
-        this.notification(成功更改罚款金额, 'success');
+        this.notification('成功更改罚款金额', 'success');
         this.$nextTick(() => {
           this.$nextTick(() => {
             this.errors.clear();
