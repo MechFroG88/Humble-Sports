@@ -58,10 +58,17 @@ class ReportController extends Controller
         return response($report->toJson(),200);
     }
 
-    public function get_month()
+    public function get_year($year)
     {
-        $report = report::all();
+        if(isset($year)){
+        $report = report::where('year',$year)->get();
+        return response($report->toJson(),200); 
+        }
+        else{
+        $year   = report::max('year');
+        $report = report::where('year',$year)->get();
         return response($report->toJson(),200);
+        }
     }
 
 }

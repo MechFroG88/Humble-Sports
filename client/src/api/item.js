@@ -35,3 +35,11 @@ export function deleteItem(itemId) {
     method: 'DELETE',
   });
 }
+
+export function editItem(itemId, data) {
+  return request({
+    url: `/item/${itemId}`,
+    method: 'PUT',
+    data
+  });
+}

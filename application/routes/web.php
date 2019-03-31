@@ -88,5 +88,6 @@ Route::middleware('auth')->get('receipt/group/{id}','GroupReceiptController@get_
 /**
  * Report Route
  */
-Route::middleware('auth')->get('report','ReportController@get_stats');
-Route::middleware('auth')->get('report/month','ReportController@get_month');
+Route::middleware('auth')->get('report/stats','ReportController@get_stats');
+Route::middleware('auth')->get('report/','ReportController@get_year')->defaults('year',date("Y"));
+Route::middleware('auth')->get('report/{year}','ReportController@get_year');

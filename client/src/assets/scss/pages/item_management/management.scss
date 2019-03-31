@@ -1,5 +1,8 @@
 #_management {
   #_table {
+    td{
+      max-width: 8rem;
+    }
     margin-bottom: 3rem;
     .col_record {
       .icon {
@@ -9,16 +12,26 @@
         }
       }
     }
+    .col_action{
+      margin-top:.15rem;
+      display:flex;
+      .deleteBtn {
+        margin-right: .5rem;
+        width: 3.5rem !important;
+      }
+      .editBtn {
+        width: 3.5rem;
+      }
+    }
   }
   .addBtn {
     display: flex;
     justify-content: center;
     margin-bottom: 0rem;
   }
-
   .expired {
     text-align: left;
-    width: 40%;
+    width: 45%;
     padding: 1rem 1.2rem;
     background-color: #fff;
     border-style: hidden;
