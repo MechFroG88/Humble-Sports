@@ -1415,7 +1415,7 @@ paths:
                       type: 
                         type: "string"
                         example: "basketball"
-  /report:      
+  /report/stats:      
     get:
       tags:
       - "Report"
@@ -1453,12 +1453,18 @@ paths:
         400:
           description: "Validation Error"
 
-  /report/month:
+  /report/{year}:
     get:
       tags:
       - "Report"
-      summary: "Returns monthly report data"
-      
+      summary: "Returns current year report data"
+      parameters:
+        - name: "year"
+          in: "path"
+          description: "ID of year to return"
+          required: false
+          type: "integer"
+
       responses:
         200:
           description: "Successful operation"

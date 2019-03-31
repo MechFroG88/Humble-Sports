@@ -43,8 +43,8 @@ Route::middleware('admin')->post('item','ItemController@create');
 Route::middleware('auth') ->get('item','ItemController@get');
 Route::middleware('auth') ->get('item/{id}','ItemController@get_single');
 Route::middleware('auth') ->get('item/record/{id}','ItemController@get_single_rent');
-Route::middleware('auth') ->put('item/{id}','ItemController@edit');
-Route::middleware('auth') ->delete('item/{id}','ItemController@delete');
+Route::middleware('admin') ->put('item/{id}','ItemController@edit');
+Route::middleware('admin') ->delete('item/{id}','ItemController@delete');
 /**
  * Fine Route
  */
@@ -88,5 +88,6 @@ Route::middleware('auth')->get('receipt/group/{id}','GroupReceiptController@get_
 /**
  * Report Route
  */
-Route::middleware('auth')->get('report','ReportController@get_stats');
-Route::middleware('auth')->get('report/month','ReportController@get_month');
+Route::middleware('auth')->get('report/stats','ReportController@get_stats');
+Route::middleware('auth')->get('report/','ReportController@get_year')->defaults('year',date("Y"));
+Route::middleware('auth')->get('report/{year}','ReportController@get_year');
