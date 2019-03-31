@@ -43,8 +43,8 @@ Route::middleware('admin')->post('item','ItemController@create');
 Route::middleware('auth') ->get('item','ItemController@get');
 Route::middleware('auth') ->get('item/{id}','ItemController@get_single');
 Route::middleware('auth') ->get('item/record/{id}','ItemController@get_single_rent');
-Route::middleware('auth') ->put('item/{id}','ItemController@edit');
-Route::middleware('auth') ->delete('item/{id}','ItemController@delete');
+Route::middleware('admin') ->put('item/{id}','ItemController@edit');
+Route::middleware('admin') ->delete('item/{id}','ItemController@delete');
 /**
  * Fine Route
  */
