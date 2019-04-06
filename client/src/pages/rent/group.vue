@@ -48,13 +48,22 @@
           <span v-if="data.status == 2" class="label label-expired">已逾期</span>
           <span v-if="data.status == 3 || data.status == 5" class="label label-success">已罚款</span> 
           <span v-if="data.status == 4 || data.status == 5" class="label label-success">已赔偿</span>
+          <!-- <div v-if="data.status == 5" class="label1">
+            <span class="label label-success" style="margin-bottom:.2rem">已罚款</span>
+            <span class="label label-success">已赔偿</span>
+          </div> -->
           <span v-if="data.status == 6 || data.status == 8" class="label label-warning">未罚款</span>
           <span v-if="data.status == 7 || data.status == 8" class="label label-warning">未赔偿</span>
+          <!-- <div v-if="data.status == 8" class="label2">
+            <span class="label label-warning" style="margin-bottom:.2rem">未罚款</span>
+            <span class="label label-warning">未赔偿</span>
+          </div> -->
         </div>
       </template>
 
       <template slot="action" slot-scope="{ data }">
         <div v-if="data.status == 0" class="line">▬ ▬</div>
+  
         <div v-if="data.status == 1">
           <div class="action return" @click="returnItem(data.id)">归还物品</div>
           <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
@@ -66,9 +75,11 @@
         <div v-if="data.status == 3 || data.status == 4 || data.status == 5">
           <div class="action" @click="showReceipt(data.id)">显示收据</div> 
         </div>
-        <div v-if="data.status == 6 || data.status == 7 || data.status == 8">
+        <div v-else>
           <div class="action" @click="cancelRent(data.id)">取消</div>
-          <div class="action" @click="payRent(data.id)">索取罚款</div>
+          <div v-if="data.status == 6" class="action" @click="payRent(data.id)">索取罚款</div>
+          <div v-if="data.status == 7" class="action" @click="payRent(data.id)">索取赔偿</div>
+          <div v-if="data.status == 8" class="action" @click="payRent(data.id)">索取罚款&amp;赔偿</div>
           <div class="action" @click="showReceipt(data.id)">显示收据</div>
         </div>
       </template>

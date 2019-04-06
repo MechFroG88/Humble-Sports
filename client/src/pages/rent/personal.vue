@@ -62,13 +62,13 @@
         <div v-if="data.status == 3 || data.status == 4">
           <div class="action" @click="showReceipt(data.id)">显示收据</div> 
         </div>
-        <div v-if="data.status == 6 || data.status == 7">
+        <div v-else>
           <div class="action" @click="cancelRent(data.id)">取消</div>
-          <div class="action" @click="payRent(data.id)">索取罚款</div>
+          <div v-if="data.status == 6" class="action" @click="payRent(data.id)">索取罚款</div>
+          <div v-if="data.status == 7" class="action" @click="payRent(data.id)">索取赔偿</div>
           <div class="action" @click="showReceipt(data.id)">显示收据</div>
         </div>
       </template>
-      
       <template slot="delete" slot-scope="{ data }"> 
         <i class="icon icon-trash-2" @click="openModal(data.id)"></i>
       </template>
