@@ -27,20 +27,14 @@
       </template>
 
       <template slot="status" slot-scope="{ data }">
-        <span v-if="data.status == 0" class="label label-success">已归还</span>
-        <span v-if="data.status == 1" class="label label-primary">未归还</span>
-        <span v-if="data.status == 2" class="label label-expired">已逾期</span>
-        <span v-if="data.status == 3" class="label label-success">已罚款</span>
-        <span v-if="data.status == 4" class="label label-success">已赔偿</span>
-        <div v-if="data.status == 5" class="label1">
-          <div class="label label-success" style="margin-bottom:.2rem">已罚款</div>
-          <div class="label label-success">已赔偿</div>
-        </div>
-        <span v-if="data.status == 6" class="label label-warning">  未罚款</span>
-        <span v-if="data.status == 7" class="label label-warning">  未赔偿</span>
-        <div v-if="data.status == 8 " class="label2">
-          <div class="label label-warning" style="margin-bottom:.2rem">未罚款</div>
-          <div class="label label-warning">未赔偿</div>
+        <div>
+          <span v-if="data.status == 0" class="label label-success">已归还</span>
+          <span v-if="data.status == 1" class="label label-primary">未归还</span> 
+          <span v-if="data.status == 2" class="label label-expired">已逾期</span>
+          <span v-if="data.status == 3 || data.status == 5" class="label label-success">已罚款</span> 
+          <span v-if="data.status == 4 || data.status == 5" class="label label-success">已赔偿</span>
+          <span v-if="data.status == 6 || data.status == 8" class="label label-warning">未罚款</span>
+          <span v-if="data.status == 7 || data.status == 8" class="label label-warning">未赔偿</span>
         </div>
       </template>
     </dtTable>
@@ -49,9 +43,9 @@
 
 <script>
 import { getItemRecord, getSingleItem } from '@/api/item';
+import { details_column } from '@/api/tableColumns';
 
 import dtTable from '@/components/tables';
-import { details_column } from '@/api/tableColumns';
 
 export default {
   components: {

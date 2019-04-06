@@ -12,12 +12,6 @@
     :columns="personal_columns" :tableData="tableData" title navbar="搜寻学号或名字">
       <template slot="title">租借记录（个人）</template>
 
-      <!-- <template slot="student" slot-scope="{ tableData }">
-        <div class="student_data">
-          <div class="cn_name">{{tableData.student_id}}</div>
-        </div>
-      </template> -->
-
       <template slot="item_type" slot-scope="{ data }">
         {{ data.item_type }} -- {{ data.item_tag }}
       </template>
@@ -51,15 +45,15 @@
 
       <template slot="action" slot-scope="{ data }">
         <div v-if="data.status == 0" class="line">▬ ▬</div>
-        <div v-if="data.status == 1">
+        <div v-else-if="data.status == 1">
           <div class="action return" @click="returnItem(data.id)">归还物品</div>
           <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
         </div>
-        <div v-if="data.status == 2">
+        <div v-else-if="data.status == 2">
           <div class="action fine" @click="returnItem(data.id)">归还物品</div>
           <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
         </div>
-        <div v-if="data.status == 3 || data.status == 4">
+        <div v-else-if="data.status == 3 || data.status == 4">
           <div class="action" @click="showReceipt(data.id)">显示收据</div> 
         </div>
         <div v-else>

@@ -19,7 +19,8 @@ import 'vue-flash-message/dist/vue-flash-message.min.css';
 Vue.use(VueFlashMessage, { 
   method: 'notification',
   messageOptions: {
-    timeout: 4000
+    timeout: 4000,
+    important: true,
   }
 });
 

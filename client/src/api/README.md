@@ -43,28 +43,28 @@
   * [x] /rent/personal
     * [x] GET
     * [x] POST
-  * [ ] /rent/personal/{rentId}/return **`PUT`**
-  * [ ] /rent/personal/{rentId}/lost **`PUT`**
-  * [ ] /rent/personal/expired **`PUT`**
+  * [x] /rent/personal/{rentId}/return **`PUT`**
+  * [x] /rent/personal/{rentId}/lost **`PUT`**
+  * [x] /rent/personal/expired **`PUT`**
 - ### group
   * [x] /rent/group
     * [x] GET
     * [x] POST
-  * [ ] /rent/group/{rentId}/return **`PUT`**
-  * [ ] /rent/group/{rentId}/lost **`PUT`**
-  * [ ] /rent/group/expired **`PUT`**
+  * [x] /rent/group/{rentId}/return **`PUT`**
+  * [x] /rent/group/{rentId}/lost **`PUT`**
+  * [x] /rent/group/expired **`PUT`**
 
 ---
 
 ## Receipts
 - personal
-  * [ ] /receipt/personal/fine/{rentId} **`POST`**
-  * [ ] /receipt/personal/lost/{rentId} **`POST`**
-  * [ ] /receipt/persona/{receiptId} **`GET`**
+  * [x] /receipt/personal/fine/{rentId} **`POST`**
+  * [x] /receipt/personal/lost/{rentId} **`POST`**
+  * [x] /receipt/persona/{receiptId} **`GET`**
 - group
-  * [ ] /receipt/group/fine/{rentId} **`POST`**
-  * [ ] /receipt/group/lost/{rentId} **`POST`**
-  * [ ] /receipt/group/{receiptId} **`GET`**
+  * [x] /receipt/group/fine/{rentId} **`POST`**
+  * [x] /receipt/group/lost/{rentId} **`POST`**
+  * [x] /receipt/group/{receiptId} **`GET`**
 
 ---
 
