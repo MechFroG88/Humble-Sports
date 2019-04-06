@@ -9,10 +9,6 @@
     display: flex;
     justify-content: center;
   }
-  .deleteBtn{
-    margin-bottom: 0 !important ;
-    width:3.5rem !important ; 
-  }
 }
 
 #_personal, #_group {
@@ -30,15 +26,25 @@
         font-size: $font-size-lg;
       }
     }
-    .col_status {
-      .label1, .label2{
+    .row .col_status {
+      div {
         display: flex;
         flex-direction: column;
-        .label{
-          width: 4.3rem;
+        .label {
+          margin-bottom: .5rem;
+          width: 4.5rem;
+          text-align: center;
+          &:last-of-type, &:only-of-type {
+            margin-bottom: 0;
+          }
         }
-      }
-      
+      } 
+      // .label1, .label2{
+      //   display: flex;
+      //   flex-direction: column;
+      //   .label{
+      //     width: 4.3rem;
+      //   }
     }
     .col_action {
       .action {
@@ -55,7 +61,6 @@
       }
       .line{
         color: $dark-color;
-        
       }
     }
     .col_delete {

@@ -41,33 +41,16 @@
 
       <template slot="status" slot-scope="{ data }">
         <span v-if="data.status == 0" class="label label-success">已归还</span>
-        <div v-if="data.status == 1">
-          <span class="label label-primary">未归还</span> 
-        </div>
-        <div v-if="data.status == 2">
-          <span class="label label-expired">已逾期</span>
-        </div>
-        <div v-if="data.status == 3">
-          <span class="label label-success">已罚款</span> 
-        </div>
-        <div v-if="data.status == 4">
-          <span class="label label-success">已赔偿</span>
-        </div>
-        <div v-if="data.status == 6">
-          <span class="label label-warning">未罚款</span>
-        </div>
-        <div v-if="data.status == 7">
-          <span class="label label-warning">未赔偿</span>
-        </div>
+        <span v-if="data.status == 1" class="label label-primary">未归还</span> 
+        <span v-if="data.status == 2" class="label label-expired">已逾期</span>
+        <span v-if="data.status == 3" class="label label-success">已罚款</span> 
+        <span v-if="data.status == 4" class="label label-success">已赔偿</span>
+        <span v-if="data.status == 6" class="label label-warning">未罚款</span>
+        <span v-if="data.status == 7" class="label label-warning">未赔偿</span>
       </template>
-
-      <!-- <template slot="action" slot-scope="{ data }" >
-        <div class="btn btn-primary deleteBtn" @click="openModal(data.id)">删除</div>
-      </template> -->
 
       <template slot="action" slot-scope="{ data }">
         <div v-if="data.status == 0" class="line">▬ ▬</div>
-  
         <div v-if="data.status == 1">
           <div class="action return" @click="returnItem(data.id)">归还物品</div>
           <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
@@ -76,26 +59,16 @@
           <div class="action fine" @click="returnItem(data.id)">归还物品</div>
           <div class="action loss" @click="loseItem(data.id)">遗失物品</div>
         </div>
-        <div v-if="data.status == 3">
+        <div v-if="data.status == 3 || data.status == 4">
           <div class="action" @click="showReceipt(data.id)">显示收据</div> 
         </div>
-        <div v-if="data.status == 4">
-          <div class="action" @click="showReceipt(data.id)">显示收据</div>
-        </div>
-        <div v-if="data.status == 6">
+        <div v-if="data.status == 6 || data.status == 7">
           <div class="action" @click="cancelRent(data.id)">取消</div>
           <div class="action" @click="payRent(data.id)">索取罚款</div>
           <div class="action" @click="showReceipt(data.id)">显示收据</div>
-          
-        </div>
-        <div v-if="data.status == 7">
-          <div class="action" @click="cancelRent(data.id)">取消</div>
-          <div class="action" @click="payRent(data.id)">索取赔偿</div>
-          <div class="action" @click="showReceipt(data.id)">显示收据</div>
-          
         </div>
       </template>
-<!-- <div class="btn btn-primary deleteBtn" @click="openModal(data.id)">删除</div> -->
+      
       <template slot="delete" slot-scope="{ data }"> 
         <i class="icon icon-trash-2" @click="openModal(data.id)"></i>
       </template>
@@ -103,10 +76,6 @@
 
     <modal ref="submitLose" title="损失数量">
       <div slot="body">
-        <!-- <div class="form-group">
-          <input name="amount" id="amount" type="number" class="form-input" 
-          placeholder="请输入物品损失数量" v-model="lostAmount">
-        </div> -->
         确定遗失物品？
       </div>
       <div slot="footer">
