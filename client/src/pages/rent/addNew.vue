@@ -85,19 +85,27 @@
                 <p class="form-input-hint text-error">{{ errors.first('数量') }}</p>
               </div>
             </div>
-            <div class="time h5 mb-2">时间</div>
             <div class="form-group">
-              <div class="col-2 col-sm-12">
-                <label class="form-label" for="due_date">逾期时间：</label>
-              </div>
-              <div class="col-10 col-sm-12">
-                <datetime class="datetime" :class="{'error-input': errors.first('逾期时间')}"
-                name="due_date" id="due_date" type="datetime" v-model="date" v-validate="'required'"
-                :phrases="{ok: '确定', cancel: '取消'}"
-                value-zone="UTC+8"
-                auto
-                use12-hour />
-                <p class="form-input-hint text-error">{{ errors.first('逾期时间') }}</p>
+              <label class="form-checkbox">
+                <input type="checkbox" v-model="manual">
+                <i class="form-icon"></i> 自行设定逾期时间
+              </label>
+            </div>
+            <div v-if="$route.params.state === 'group' || manual">
+              <div class="time h5 mb-2">时间</div>
+              <div class="form-group">
+                <div class="col-2 col-sm-12">
+                  <label class="form-label" for="due_date">逾期时间：</label>
+                </div>
+                <div class="col-10 col-sm-12">
+                  <datetime class="datetime" :class="{'error-input': errors.first('逾期时间')}"
+                  name="due_date" id="due_date" type="datetime" v-model="date" v-validate="'required'"
+                  :phrases="{ok: '确定', cancel: '取消'}"
+                  value-zone="UTC+8"
+                  auto
+                  use12-hour />
+                  <p class="form-input-hint text-error">{{ errors.first('逾期时间') }}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -123,6 +131,7 @@ export default {
   data: () => ({
     date: '',
     is_loading: false,
+    manual: false,
     items: [],
     selected_item: {},
     id_range: 0,

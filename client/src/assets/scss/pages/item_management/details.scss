@@ -21,16 +21,20 @@
           font-size: $font-size-lg;
         }
       }
-      .col_status{
-        .label1, .label2{
-           display: flex;
-           flex-direction: column;
-           .label{
-             width: 4.3rem;
-           }
+      .col_status {
+        div {
+          display: flex;
+          flex-direction: column;
+          .label {
+            margin-bottom: .5rem;
+            width: 4.5rem;
+            text-align: center;
+            &:last-of-type, &:only-of-type {
+              margin-bottom: 0;
+            }
+          }
         }
       }
-      
     }
   }
 }

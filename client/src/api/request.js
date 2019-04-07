@@ -4,6 +4,10 @@ import axios from 'axios';
 import qs from 'qs';
 
 // const local = 'http://mechfrog88.ddns.net/';
+<<<<<<< HEAD
+=======
+const local = 'http://121.121.86.232/';
+>>>>>>> 20618ac517240a1d1285ba6790ce7202685374d5
 // const local = 'http://178.128.126.127:8080/';
 const local = 'http://121.121.86.232';
 
