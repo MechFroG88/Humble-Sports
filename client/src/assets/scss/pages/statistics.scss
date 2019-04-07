@@ -59,10 +59,42 @@
       background-color: $loss;
     }
   }
+  .enterYear {
+
+    .title{
+      font-weight: 400;    
+    }
+    .form-horizontal{
+      display:flex;
+      flex-direction: column;
+    }
+    .form-group {
+      .btn {
+        width:4.5rem !important;
+        height :1.9rem;
+        margin-left:1.5rem;
+        font-size: $font-size-sm;
+        @extend .addBtn 
+      }
+    }
+    margin-bottom: 1.5rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    text-align:left;
+    width: 47.5%;
+    height:6.5rem;
+    margin-left:.5rem;
+    background-color: #fff;
+    border-style: hidden;
+    border-radius: .2rem;
+    box-shadow: 0 1.5px 6px 3px rgba(#ccc, .35);
+  }
 
   .chart {
     padding-top: 1.2rem;
     margin: 0 .8rem;
+    margin-left:.5rem;
+    margin-right:.5rem;
     box-shadow: 0 .2rem 1rem rgba(0, 0, 0, .08);
     background-color: #fff;
     .chart-title {
